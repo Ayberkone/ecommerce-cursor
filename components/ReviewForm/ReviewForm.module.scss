@@ -1,0 +1,83 @@
+@import '@/styles/variables';
+@import '@/styles/breakpoints';
+
+.form {
+  background: #f8fafc;
+  border-radius: 1rem;
+  padding: 1rem 1.5rem 1.2rem 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 1px 8px rgba(34,45,59,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+}
+.input {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+.stars {
+  display: flex;
+  gap: 0.1rem;
+}
+.star,
+.starActive {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  color: #e0e0e0;
+  transition: color 0.17s;
+  &:focus {
+    outline: 2px solid $primary;
+  }
+}
+.starActive {
+  color: #FFD166;
+}
+.textarea {
+  padding: 0.7rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 60px;
+  max-height: 200px;
+}
+.button {
+  background: $primary;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.1rem;
+  padding: 0.7rem 1.5rem;
+  align-self: flex-end;
+  margin-top: 0.4rem;
+  transition: background 0.16s;
+  cursor: pointer;
+  &:hover {
+    background: $secondary;
+  }
+  @include mobile {
+    align-self: stretch;
+  }
+}
+.error {
+  color: #d21;
+  font-size: 0.97rem;
+  margin-bottom: -0.4rem;
+}

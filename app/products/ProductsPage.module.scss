@@ -1,0 +1,62 @@
+@import '@/styles/variables.scss';
+@import '@/styles/breakpoints.scss';
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: $dark;
+}
+
+.productFilters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: stretch;
+  }
+}
+.filterInput {
+  padding: 0.6rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+}
+.filterSelect {
+  padding: 0.6rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+}
+
+.filterInput, .filterSelect {
+  width: 220px;
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+
+  @include tablet {
+    gap: 1.2rem;
+  }
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+

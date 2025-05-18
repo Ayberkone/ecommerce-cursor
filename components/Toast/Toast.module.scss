@@ -1,0 +1,26 @@
+@import '@/styles/variables';
+@import '@/styles/breakpoints';
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $primary;
+  color: #fff;
+  padding: 1rem 2.5rem;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  z-index: 200;
+  box-shadow: 0 8px 32px rgba(35,83,155,0.18);
+  font-size: 1.1rem;
+  opacity: 0.97;
+
+  @include mobile {
+    width: 95vw;
+    left: 2.5vw;
+    transform: none;
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+  }
+}

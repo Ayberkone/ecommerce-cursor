@@ -1,0 +1,141 @@
+@import "@/styles/variables.scss";
+@import '@/styles/breakpoints.scss';
+
+.drawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(34, 45, 59, 0.18);
+  z-index: 100;
+  transition: opacity 0.2s;
+  opacity: 1;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 380px;
+  max-width: 95vw;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -2px 0 20px rgba(35,83,155,0.12);
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  transform: translateX(0);
+  transition: transform 0.25s;
+
+  @include mobile {
+    padding: 1.2rem 0.5rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $primary;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.items {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 1rem;
+}
+
+.itemImg {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  background: #f7f8fa;
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemName {
+  font-weight: 600;
+  color: $dark;
+  font-size: 1rem;
+}
+
+.itemQtyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.qtyBtn {
+  background: $secondary;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background 0.15s;
+  &:hover {
+    background: $primary;
+  }
+}
+
+.itemPrice {
+  color: $primary;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.cartTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: $dark;
+  margin-bottom: 1.2rem;
+}
+
+.checkoutBtn {
+  width: 100%;
+  background: $primary;
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: $secondary;
+  }
+}

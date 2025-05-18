@@ -1,0 +1,48 @@
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.menu {
+  min-width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  @include mobile {
+    flex-direction: row;
+    min-width: unset;
+    width: 100%;
+    overflow-x: auto;
+    gap: 0.6rem;
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  color: $dark;
+  border: 1px solid #e3e6ef;
+  border-radius: 2rem;
+  padding: 0.9rem 1.3rem;
+  font-size: 1.16rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.18s;
+  gap: 0.7rem;
+  outline: none;
+  &:hover,
+  &:focus {
+    background: #e6f1fa;
+    color: $primary;
+  }
+}
+
+.active {
+  background: $primary;
+  color: #fff;
+}
+
+.icon {
+  margin-left: 0.7rem;
+  display: flex;
+}

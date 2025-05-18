@@ -1,0 +1,42 @@
+@import "@/styles/variables";
+
+.section {
+  margin-top: 2.2rem;
+}
+.tabsRow {
+  display: flex;
+  gap: 1.3rem;
+  margin-bottom: 2.2rem;
+}
+.tabBtn {
+  font-size: 1.19rem;
+  font-weight: 700;
+  color: $dark;
+  background: #f8fafc;
+  border: none;
+  border-radius: 1.2rem 1.2rem 0 0;
+  padding: 0.8rem 2.3rem;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+  &.active {
+    background: $primary;
+    color: #fff;
+  }
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.2rem 1.4rem;
+}
+.mediaCardBtn {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  border-radius: 1.1rem;
+  box-sizing: border-box;
+  &:focus-visible {
+    outline: 2px solid #e11d48;
+    box-shadow: 0 0 0 3px #e11d4833;
+  }
+}

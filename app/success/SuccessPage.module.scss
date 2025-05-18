@@ -1,0 +1,47 @@
+@import '@/styles/variables';
+@import '@/styles/breakpoints';
+
+.main {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.iconWrap {
+  margin-bottom: 2rem;
+}
+
+.icon {
+  color: $secondary;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: $primary;
+}
+
+.text {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: $dark;
+}
+
+.button {
+  background: $primary;
+  color: #fff;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 1.2rem;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background 0.18s;
+  &:hover {
+    background: $secondary;
+  }
+}

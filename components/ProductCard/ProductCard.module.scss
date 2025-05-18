@@ -1,0 +1,74 @@
+@import '@/styles/variables.scss';
+@import '@/styles/breakpoints.scss';
+
+.card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(34, 45, 59, 0.07);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  @include mobile {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+}
+.image {
+  width: 120px;
+  height: 120px;
+  background: #f7f8fa;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  @include mobile {
+    width: 90px;
+    height: 90px;
+  }
+}
+.title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  color: $dark;
+}
+.price {
+  color: $primary;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.button {
+  background: $secondary;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: $primary;
+  }
+}
+.price {
+  color: $primary;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.specialLabel {
+  background: $secondary;
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  margin-left: 0.4rem;
+  font-weight: 600;
+}

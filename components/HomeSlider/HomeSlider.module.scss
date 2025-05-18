@@ -1,0 +1,78 @@
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.sliderWrap {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto 2.8rem auto;
+  border-radius: 2.2rem;
+  overflow: hidden;
+  @include mobile {
+    border-radius: 1.1rem;
+  }
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+.slide {
+  min-height: 320px;
+  max-height: 420px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  @include mobile {
+    min-height: 160px;
+    max-height: 220px;
+  }
+}
+.overlay {
+  background: rgba(24, 32, 47, 0.43);
+  border-radius: 1.4rem;
+  padding: 2.1rem 2.6rem;
+  color: #fff;
+  margin-left: 7vw;
+  max-width: 520px;
+  z-index: 2;
+  position: relative;
+  @include mobile {
+    padding: 1rem 0.7rem;
+    margin-left: 2vw;
+    max-width: 90vw;
+  }
+}
+.title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 0.7rem;
+  text-shadow: 0 2px 8px rgba(24, 32, 47, 0.14);
+  @include mobile {
+    font-size: 1.1rem;
+  }
+}
+.desc {
+  font-size: 1.09rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  @include mobile {
+    font-size: 0.92rem;
+  }
+}
+.cta {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.6rem 1.7rem;
+  background: $primary;
+  color: #fff;
+  border-radius: 1.4rem;
+  font-weight: 700;
+  font-size: 1.07rem;
+  box-shadow: 0 2px 8px rgba(24, 32, 47, 0.1);
+  transition: background 0.17s;
+  text-decoration: none;
+  &:hover {
+    background: $secondary;
+  }
+}

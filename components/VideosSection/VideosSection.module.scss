@@ -1,0 +1,105 @@
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.section {
+  margin: 0 0 2.7rem 0;
+}
+.alan {
+  background: #fff;
+  border-radius: 1.7rem;
+  padding: 2rem 1.4rem;
+  margin-top: 2rem;
+  @include mobile {
+    padding: 1.1rem 0.7rem;
+  }
+}
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+}
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $primary;
+}
+.allBtn {
+  background: $primary;
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border-radius: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.13s;
+  &:hover {
+    background: $secondary;
+  }
+}
+.videosRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.3rem 1.3rem;
+  @include mobile {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+}
+.videoItem {
+  flex: 1 1 45%;
+  background: #f8fafc;
+  border-radius: 1.3rem;
+  padding: 1.3rem 1rem 0.7rem 1rem;
+  box-shadow: 0 1px 8px rgba(34, 45, 59, 0.06);
+  text-decoration: none;
+  color: $dark;
+  min-width: 260px;
+  max-width: 380px;
+  position: relative;
+  transition: box-shadow 0.14s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  &:hover {
+    box-shadow: 0 6px 22px rgba(34, 45, 59, 0.09);
+    .playIcon {
+      transform: scale(1.12);
+    }
+  }
+}
+.thumbWrap {
+  position: relative;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.thumb {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+  background: #ddd;
+}
+.playIcon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 0.13s;
+}
+.videoTitle {
+  font-weight: 600;
+  font-size: 1.12rem;
+  margin-bottom: 0.13rem;
+  color: $primary;
+}
+.watchBtn {
+  margin-top: 0.15rem;
+}
+.watchText {
+  color: #6b7280;
+  font-size: 0.99rem;
+  font-weight: 500;
+}

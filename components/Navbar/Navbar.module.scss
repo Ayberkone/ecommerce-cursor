@@ -1,0 +1,60 @@
+@import "@/styles/variables.scss";
+@import '@/styles/breakpoints.scss';
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(34, 45, 59, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+
+  @include mobile {
+    flex-direction: column;
+    padding: 0.7rem 1rem;
+  }
+}
+.brand {
+  font-weight: bold;
+  color: $primary;
+  font-size: 2rem;
+  text-decoration: none;
+}
+.menu {
+  display: flex;
+  gap: 2rem;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.navLink {
+  color: $dark;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  &:hover {
+    color: $secondary;
+  }
+}
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+.cartIcon {
+  position: relative;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background: $accent;
+  color: #222d3b;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 0.15rem 0.5rem;
+}

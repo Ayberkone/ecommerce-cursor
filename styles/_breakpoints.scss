@@ -1,0 +1,23 @@
+// Breakpoint variables
+$break-mobile: 600px;
+$break-tablet: 900px;
+$break-desktop: 1200px;
+
+// Media query mixins for easy use
+@mixin mobile {
+  @media (max-width: #{$break-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$break-tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: #{$break-desktop}) {
+    @content;
+  }
+}
