@@ -132,7 +132,7 @@ export default function Footer() {
             </div>
           </div>
           <div className={styles.notice}>
-            GENGIGEL®, Ricerfarma s.r.l.'ye ait tescilli bir ticari markadır. Farmalik Sağlık Ürünleri San. ve Tic. Ltd. Şti, Gengigel'in Türkiye'deki tek yetkili dağıtımcısıdır.
+            GENGIGEL®, Ricerfarma s.r.l.&apos;ye ait tescilli bir ticari markadır. Farmalik Sağlık Ürünleri San. ve Tic. Ltd. Şti, Gengigel&apos;in Türkiye&apos;deki tek yetkili dağıtımcısıdır.
             <br /><br />
             Bu sitedeki bilgiler hekim ya da eczacıya danışmanın yerine geçemez. Bu sitedeki bilgilerin ve ve sitenin kullanımına bağlı olarak oluşacak herhangi bir durumda Farmalink® hukuki sorumluluğu üstlenmez. Sitedeki bilgiler sadece hedef kullanıcılara yönelik olup, bu bilgiler başkaları tarafından 3. şahıslara / gruplara dağıtılamaz, kopyalanamaz, iletilemez.
           </div>
