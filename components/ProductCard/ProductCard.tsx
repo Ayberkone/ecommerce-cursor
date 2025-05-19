@@ -26,6 +26,7 @@ const ProductCard = ({ product }: Props) => {
     addToCart({
       ...product,
       price: displayPrice,
+      image: product.images[0]
     })
     toast.success('Added to cart!')
   }

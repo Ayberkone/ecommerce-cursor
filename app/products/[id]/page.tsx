@@ -6,7 +6,8 @@ import { toast } from 'sonner'
 import styles from './ProductDetail.module.scss'
 import React, { useEffect, useState } from 'react'
 import ReviewList from "@/components/ReviewList/ReviewList"
-import { products } from "@/app/api/products/route"
+import { products } from "@/lib/products"
+// import { products } from "@/app/api/products/route"
 import PhotoGallery from "@/components/PhotoGallery/PhotoGallery"
 import Image from "next/image"
 
@@ -102,10 +103,10 @@ export default function ProductDetailPage({ params }: { params: Promise<ProductD
                 />
               </div>
               <span className="flex-col">
-                <b>Form</b> <span>{product.form || 'Sprey'}</span>
+                <b>Form</b> <span>{product?.type || 'Sprey'}</span>
               </span>
             </span>
-            <span>{product.productShortInfo || 'Ameliyat süresi ve sonrası dönemde yaralara uygulamak için idealdir. Etkili, hızlı ve uygulaması kolay kullanım sağlamak için özel olarak tasarlanmıştır.'}</span>
+            <span>{product?.productShortInfo || 'Ameliyat süresi ve sonrası dönemde yaralara uygulamak için idealdir. Etkili, hızlı ve uygulaması kolay kullanım sağlamak için özel olarak tasarlanmıştır.'}</span>
           </div>
           <div className={styles.counterRow}>
             <div className={styles.counter}>

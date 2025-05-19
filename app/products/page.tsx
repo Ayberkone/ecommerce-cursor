@@ -3,20 +3,21 @@
 import { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import styles from './ProductsPage.module.scss'
-import { products } from "../api/products/route"
+// import { products } from "../api/products/route"
+import { products } from "@/lib/products"
 
 const categories = Array.from(new Set(products.map(p => p.category)))
 
 const ProductsPage = () => {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('')
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
 
-  useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(setProducts)
-  }, [])
+  // useEffect(() => {
+  //   fetch('/api/products')
+  //     .then(res => res.json())
+  //     .then(setProducts)
+  // }, [])
 
   const filtered = products.filter(product =>
     (!category || product.category === category) &&
