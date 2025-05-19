@@ -25,9 +25,9 @@ const schema = Yup.object().shape({
   lastName: Yup.string().required('Soyad gerekli'),
   title: Yup.string().oneOf(TITLE_OPTIONS, 'Geçersiz ünvan').required('Ünvan gerekli'),
   titleOther: Yup.string().when('title', {
-    is: 'Diğer',
-    then: Yup.string(),
-    otherwise: Yup.string().notRequired(),
+    is: (val: string) => val === 'Diğer',
+    then: (schema) => schema.required('Lütfen unvan giriniz'),
+    otherwise: (schema) => schema.notRequired(),
   }),
   email: Yup.string().email('Geçersiz e-posta').required('E-posta gerekli'),
   password: Yup.string()
@@ -38,7 +38,7 @@ const schema = Yup.object().shape({
     .matches(/[@$!%*?&]/, 'Şifre özel karakter içermeli')
     .required('Şifre gerekli'),
   password2: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Şifreler eşleşmiyor')
+    .oneOf([Yup.ref('password')], 'Şifreler eşleşmiyor')
     .required('Şifreyi tekrar girin'),
   phone: Yup.string()
     .matches(/^5\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/, 'Geçerli bir telefon girin (5xx xxx xx xx)')
@@ -53,7 +53,7 @@ type ProRegisterForm = {
   firstName: string
   lastName: string
   title: string
-  titleOther?: string
+  titleOther?: string | undefined
   email: string
   password: string
   password2: string
@@ -76,7 +76,7 @@ export default function ProRegisterForm() {
     watch,
     reset,
   } = useForm<ProRegisterForm>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     mode: 'onChange',
   })
 

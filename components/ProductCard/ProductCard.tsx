@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from "next/link"
-import { GalleryProduct } from "@/app/api/products/route"
+import { GalleryProduct } from "@/lib/products"
 
 
 type Props = {

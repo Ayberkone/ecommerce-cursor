@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/components/AuthContext/AuthContext"
 
 const CheckoutPage = () => {
-  const { items, clearCart } = useCart()
+  const { cart: { items }, clearCart } = useCart()
   const total = items.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 0), 0)
   const router = useRouter()
   const { user } = useAuth()

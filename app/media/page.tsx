@@ -113,7 +113,7 @@ export default function MediaPage() {
               onClick={() => setModal({ open: true, type: 'video', url: v.youtubeUrl })}
               type="button"
             >
-              <MediaCard type="video" title={v.title} url={v.youtubeUrl} thumbnail={v.thumbnail} />
+              <MediaCard type="video" title={v.title} thumbnail={v.thumbnail} />
             </button>
           ))
           : PRESS.map(p => (
@@ -123,7 +123,7 @@ export default function MediaPage() {
               onClick={() => setModal({ open: true, type: 'press', url: p.url, title: p.title })}
               type="button"
             >
-              <MediaCard type="press" title={p.title} url={p.url} thumbnail={p.thumbnail} />
+              <MediaCard type="press" title={p.title} thumbnail={p.thumbnail} />
             </button>
           ))
         }

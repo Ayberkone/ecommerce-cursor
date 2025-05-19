@@ -21,7 +21,7 @@ export default function AddressesPage() {
 
   useEffect(() => {
     if (!user) return
-    const saved = JSON.parse(localStorage.getItem(`addresses_${user.username}`) || '[]')
+    const saved = JSON.parse(localStorage.getItem(`addresses_${user?.username}`) || '[]')
     setAddresses(saved)
   }, [user])
 
@@ -29,7 +29,7 @@ export default function AddressesPage() {
 
   function saveAddresses(addrs: Address[]) {
     setAddresses(addrs)
-    localStorage.setItem(`addresses_${user.username}`, JSON.stringify(addrs))
+    localStorage.setItem(`addresses_${user?.username}`, JSON.stringify(addrs))
   }
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {

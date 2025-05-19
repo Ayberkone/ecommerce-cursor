@@ -7,7 +7,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import styles from './BrandGallery.module.scss'
 import Image from "next/image"
-import { GalleryProduct } from "@/app/api/products/route"
+import { GalleryProduct } from "@/lib/products"
 import Link from "next/link"
 
 const brandLogo = '/img/FarmalinkLogo.png'
@@ -59,7 +59,7 @@ export default function BrandGallery() {
 
   const filtered = selectedType === 'all'
     ? products
-    : products.filter(p => p.type === selectedType)
+    : products.filter((p: GalleryProduct) => p.type === selectedType)
 
   useEffect(() => {
     fetch('/api/products')

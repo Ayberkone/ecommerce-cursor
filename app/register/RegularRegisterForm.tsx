@@ -24,7 +24,7 @@ const schema = Yup.object().shape({
     .matches(/[@$!%*?&]/, 'Şifre özel karakter içermeli')
     .required('Şifre gerekli'),
   password2: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Şifreler eşleşmiyor')
+    .oneOf([Yup.ref('password')], 'Şifreler eşleşmiyor')
     .required('Şifreyi tekrar girin'),
   phone: Yup.string()
     .matches(/^5\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/, 'Geçerli bir telefon girin (5xx xxx xx xx)')
@@ -56,7 +56,7 @@ export default function RegularRegisterForm() {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<RegisterFormValues>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
     mode: 'onChange', // show errors on every change
     reValidateMode: 'onChange',
   })
