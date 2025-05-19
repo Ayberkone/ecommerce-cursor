@@ -3,11 +3,12 @@
 import NextNProgress from 'nextjs-progressbar'
 import { CartProvider } from '@/components/CartContext'
 import { AuthProvider } from "@/components/AuthContext/AuthContext"
-import PageTransition from "@/components/PageTransition/PageTransition"
+import { Toaster } from 'sonner'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <Toaster position="top-right" richColors />
       <NextNProgress
         color="#e11d48"
         startPosition={0.3}
@@ -17,9 +18,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       />
       <AuthProvider>
         <CartProvider>
-          <PageTransition>
-            {children}
-          </PageTransition>
+          {children}
         </CartProvider>
       </AuthProvider>
     </>

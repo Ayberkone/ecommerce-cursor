@@ -91,3 +91,6 @@ body {
   border-radius: 0.7rem;
   font-size: 1rem;
 }
+input[type="password"]::-ms-reveal {
+  display: none;
+}

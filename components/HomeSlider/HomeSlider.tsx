@@ -19,7 +19,7 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: '1',
-    image: '/slider/img/slider_1.webp',
+    image: '/img/slider/slider_1.webp',
     title: 'Yaza Özel İndirimler',
     description: 'En popüler takviye ve vitaminlerde büyük kampanya!',
     ctaText: 'Alışverişe Başla',
@@ -27,7 +27,7 @@ const slides: Slide[] = [
   },
   {
     id: '2',
-    image: '/slider/img/slider_2.webp',
+    image: '/img/slider/slider_2.webp',
     title: 'Eczacılara Özel Fırsatlar',
     description: 'Kurumsal müşterilere avantajlı fiyatlar.',
     ctaText: 'Bize Katılın',
@@ -35,7 +35,7 @@ const slides: Slide[] = [
   },
   {
     id: '3',
-    image: '/slider/img/slider_3.webp',
+    image: '/img/slider/slider_3.webp',
     title: 'Hızlı Teslimat',
     description: 'Aynı gün kargo, ertesi gün kapınızda!',
     ctaText: 'Kampanyaları Gör',

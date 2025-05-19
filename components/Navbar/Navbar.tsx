@@ -9,8 +9,8 @@ import CartDrawer from '@/components/CartDrawer/CartDrawer'
 import { useAuth } from "@/components/AuthContext/AuthContext"
 
 const Navbar = () => {
-  const { items } = useCart()
-  const count = items.reduce((sum, item) => sum + (item.quantity || 0), 0)
+  const { cart } = useCart()
+  const count = cart.items.reduce((sum, item) => sum + (item.quantity || 0), 0)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { user, logout } = useAuth()
 
