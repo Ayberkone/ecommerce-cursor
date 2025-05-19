@@ -1,5 +1,5 @@
-@import '@/styles/variables.scss';
-@import '@/styles/breakpoints.scss';
+@import "@/styles/variables.scss";
+@import "@/styles/breakpoints.scss";
 
 .card {
   background: #fff;
@@ -34,12 +34,7 @@
   margin-bottom: 0.25rem;
   color: $dark;
 }
-.price {
-  color: $primary;
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
+
 .button {
   background: $secondary;
   color: #fff;

@@ -1,63 +1,122 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, User } from 'lucide-react'
+import { ShoppingCart, Menu, X } from 'lucide-react'
 import styles from './Navbar.module.scss'
 import { useCart } from '@/components/CartContext'
 import { useState } from 'react'
 import CartDrawer from '@/components/CartDrawer/CartDrawer'
 import { useAuth } from "@/components/AuthContext/AuthContext"
+import Image from "next/image"
 
-const Navbar = () => {
+export default function Navbar() {
   const { cart } = useCart()
   const count = cart.items.reduce((sum, item) => sum + (item.quantity || 0), 0)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { user, logout } = useAuth()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
     <>
       <nav className={styles.navbar}>
-        <Link href="/" className={styles.brand}>Farmalink</Link>
+        <Link href="/" className={styles.brand}>
+          <span className={styles.logoWrapper}>
+            <Image
+              src={'/img/web-logo.svg'}
+              alt="Farmalink Gengigel"
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          </span>
+        </Link>
         <div className={styles.menu}>
-          <Link href="/products" className={styles.navLink}>Products</Link>
-          <Link href="/about" className={styles.navLink}>About</Link>
-          <Link href="/offers" className={styles.navLink}>Offers</Link>
+          <Link href="/products" className={styles.navLink}>Ürünler</Link>
+          <Link href="/about" className={styles.navLink}>Hakkımızda</Link>
+          <Link href="/offers" className={styles.navLink}>Kampanyalar</Link>
         </div>
         <div className={styles.actions}>
           <button
             type="button"
             className={styles.cartIcon}
             onClick={() => setDrawerOpen(true)}
-            aria-label="Open cart"
+            aria-label="Sepeti Aç"
           >
             <ShoppingCart color="#23539B" size={24} />
             {count > 0 && (
               <span className={styles.cartBadge}>{count}</span>
             )}
           </button>
-          {user && (
+          {user ? (
             <>
-              <span className={styles.username}>
-                Hi, {user.username} <span className={styles.userType}>({user.type})</span>
+              <span className={`${styles.username} ${styles.desktopOnly}`}>
+                Merhaba, {user.username} <span className={styles.userType}>({user.type})</span>
               </span>
               {user.type === 'pharmacy' && (
-                <Link href="/special-offers" className={styles.link}>Special Offers</Link>
+                <Link href="/special-offers" className={`${styles.link} ${styles.desktopOnly}`}>Eczane Fırsatları</Link>
               )}
               {user.type === 'doctor' && (
-                <Link href="/doctor-portal" className={styles.link}>Doctor Portal</Link>
+                <Link href="/doctor-portal" className={`${styles.link} ${styles.desktopOnly}`}>Doktor Portalı</Link>
               )}
-              <Link href="/orders" className={styles.link}>My Orders</Link>
-              <button className={styles.logout} onClick={logout}>Logout</button>
+              <Link href="/orders" className={`${styles.link} ${styles.desktopOnly}`}>Siparişlerim</Link>
+              <button className={`${styles.logout} ${styles.desktopOnly}`} onClick={logout}>Çıkış</button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className={`${styles.login} ${styles.desktopOnly}`}>Giriş Yap</Link>
+              <Link href="/register" className={`${styles.register} ${styles.desktopOnly}`}>Kayıt Ol</Link>
             </>
           )}
-          {!user && (
-            <Link href="/login" className={styles.login}>Login</Link>
-          )}
+          {/* Hamburger always visible on mobile */}
+          <button className={styles.hamburger} aria-label="Menüyü Aç" onClick={() => setMobileOpen(true)}>
+            <Menu />
+          </button>
         </div>
       </nav>
+
+      {/* MOBILE DRAWER */}
+      {mobileOpen && <div className={styles.mobileOverlay} onClick={() => setMobileOpen(false)} tabIndex={-1} aria-label="Kapat"></div>}
+      <aside className={`${styles.mobileDrawer} ${mobileOpen ? styles.open : ''}`} tabIndex={-1}>
+        <button
+          className={styles.hamburger}
+          aria-label="Menüyü Kapat"
+          onClick={() => setMobileOpen(false)}
+          style={{ position: 'absolute', top: 12, right: 14 }}
+        >
+          <X color="#23539B" size={24} />
+        </button>
+        <div className={styles.logoWrapper} style={{ marginBottom: '2rem' }}>
+          <Image src={'/img/web-logo.svg'} alt="Farmalink Gengigel" fill style={{ objectFit: 'contain' }} />
+        </div>
+        <nav className={styles.mobileMenuLinks}>
+          <Link href="/products" className={styles.navLink} onClick={() => setMobileOpen(false)}>Ürünler</Link>
+          <Link href="/about" className={styles.navLink} onClick={() => setMobileOpen(false)}>Hakkımızda</Link>
+          <Link href="/offers" className={styles.navLink} onClick={() => setMobileOpen(false)}>Kampanyalar</Link>
+          {user && user.type === 'pharmacy' && (
+            <Link href="/special-offers" className={styles.link} onClick={() => setMobileOpen(false)}>Eczane Fırsatları</Link>
+          )}
+          {user && user.type === 'doctor' && (
+            <Link href="/doctor-portal" className={styles.link} onClick={() => setMobileOpen(false)}>Doktor Portalı</Link>
+          )}
+          <hr style={{ margin: '1.4rem 0', border: 'none', borderTop: '1px solid #ececec' }} />
+          {user ? (
+            <>
+              <span className={styles.username}>
+                Merhaba, {user.username} <span className={styles.userType}>({user.type})</span>
+              </span>
+              <Link href="/orders" className={styles.link} onClick={() => setMobileOpen(false)}>Siparişlerim</Link>
+              <button className={styles.logout} onClick={() => { logout(); setMobileOpen(false); }}>Çıkış</button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className={styles.login} onClick={() => setMobileOpen(false)}>Giriş Yap</Link>
+              <Link href="/register" className={styles.login} onClick={() => setMobileOpen(false)}>Kayıt Ol</Link>
+            </>
+          )}
+        </nav>
+      </aside>
+      {/* CART DRAWER */}
       <CartDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
   )
 }
-
-export default Navbar

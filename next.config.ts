@@ -1,11 +1,16 @@
-import path from 'path'
+// next.config.js
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  sassOptions: {
-    includePaths: [path.join(process.cwd(), 'app')],
-  },
-  // ...other config options if needed
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**"
+      }
+    ]
+  }
 }
 
-export default nextConfig
+module.exports = nextConfig

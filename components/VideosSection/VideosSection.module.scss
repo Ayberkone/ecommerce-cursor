@@ -37,11 +37,14 @@
   }
 }
 .videosRow {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.3rem 1.3rem;
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
   @include mobile {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1.2rem;
   }
 }
@@ -62,9 +65,6 @@
   gap: 0.8rem;
   &:hover {
     box-shadow: 0 6px 22px rgba(34, 45, 59, 0.09);
-    .playIcon {
-      transform: scale(1.12);
-    }
   }
 }
 .thumbWrap {

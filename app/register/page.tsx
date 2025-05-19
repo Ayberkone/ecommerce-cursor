@@ -29,18 +29,24 @@ export default function RegisterPage() {
   return (
     <div className={styles.registerWrapper}>
       {/* Switch Buttons */}
-      <div className={styles.tabSwitcher}>
+      <div className={styles.tabSwitch} role="tablist" aria-label="Kayıt türü seçimi">
         <button
-          className={activeTab === 'regular' ? styles.tabActive : ''}
-          onClick={() => handleTabSwitch('regular')}
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'regular'}
+          tabIndex={activeTab === 'regular' ? 0 : -1}
+          className={activeTab === 'regular' ? styles.activeTab : ''}
+          onClick={() => handleTabSwitch('regular')}
         >
           Kayıt Ol
         </button>
         <button
-          className={activeTab === 'pro' ? styles.tabActive : ''}
-          onClick={() => handleTabSwitch('pro')}
           type="button"
+          role="tab"
+          aria-selected={activeTab === 'pro'}
+          tabIndex={activeTab === 'pro' ? 0 : -1}
+          className={activeTab === 'pro' ? styles.activeTab : ''}
+          onClick={() => handleTabSwitch('pro')}
         >
           Sağlık Prof Başvuru
         </button>

@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartContext'
 import Link from 'next/link'
 import styles from './CheckoutPage.module.scss'
 import { useState } from 'react'
-import Toast from '@/components/Toast/Toast'
+import { toast } from 'sonner'
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/components/AuthContext/AuthContext"
 
@@ -13,10 +13,9 @@ const CheckoutPage = () => {
   const total = items.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 0), 0)
   const router = useRouter()
   const { user } = useAuth()
-  const [toast, setToast] = useState('')
 
   const handlePlaceOrder = () => {
-    setToast('Order placed!')
+    toast.success('Order placed!')
     clearCart()
     const order = {
       items,
@@ -59,7 +58,6 @@ const CheckoutPage = () => {
           </button>
         </>
       )}
-      {toast && <Toast message={toast} onClose={() => setToast('')} />}
     </main>
   )
 }

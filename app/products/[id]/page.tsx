@@ -1,123 +1,156 @@
 'use client'
 
 import { notFound } from 'next/navigation'
-import { useCart } from '@/components/CartContext'
-import Toast from '@/components/Toast/Toast'
+import { CartItem, useCart } from '@/components/CartContext'
+import { toast } from 'sonner'
 import styles from './ProductDetail.module.scss'
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 import ReviewList from "@/components/ReviewList/ReviewList"
-import ReviewForm from "@/components/ReviewForm/ReviewForm"
+import { products } from "@/app/api/products/route"
+import PhotoGallery from "@/components/PhotoGallery/PhotoGallery"
+import Image from "next/image"
+
+type ProductDetailPageProps = {
+  id: string
+}
+
+const productTabs = [
+  { key: 'description', label: 'Açıklama' },
+  { key: 'usage', label: 'Kullanım Şekli' },
+]
 
 const sampleReviews = [
-  {
-    id: 1,
-    user: 'Ayberk B.',
-    rating: 5,
-    comment: 'Great quality, fast shipping!',
-    date: '2024-05-01',
-  },
-  {
-    id: 2,
-    user: 'Zeynep Y.',
-    rating: 4,
-    comment: 'Really helped with my immune system.',
-    date: '2024-05-02',
-  },
-  {
-    id: 3,
-    user: 'Mehmet C.',
-    rating: 3,
-    comment: 'It’s okay, but packaging could be better.',
-    date: '2024-05-04',
-  },
+  { id: 1, user: 'Ayberk B.', rating: 5, comment: 'Hızlı kargo, mükemmel ürün!', date: '2024-05-01' },
+  { id: 2, user: 'Zeynep Y.', rating: 4, comment: 'Diş etlerimde rahatlama hissettim.', date: '2024-05-02' },
+  { id: 3, user: 'Mehmet C.', rating: 3, comment: 'Kullanımı kolay, etkili.', date: '2024-05-04' },
 ]
 
-
-const allProducts = [
-  {
-    id: 1,
-    name: 'Vitamin C 1000mg',
-    price: 129.99,
-    imageUrl: '/product-sample-1.jpg',
-    category: 'Supplements',
-  },
-  {
-    id: 2,
-    name: 'Omega 3 Fish Oil',
-    price: 199.0,
-    imageUrl: '/product-sample-2.jpg',
-    category: 'Supplements',
-  },
-  {
-    id: 3,
-    name: 'Zinc Tablets',
-    price: 79.5,
-    imageUrl: '/product-sample-3.jpg',
-    category: 'Minerals',
-  },
-  {
-    id: 4,
-    name: 'Propolis Spray',
-    price: 59.99,
-    imageUrl: '/product-sample-4.jpg',
-    category: 'Sprays',
-  },
-]
-
-const ProductDetailPage = ({ params }: { params: { id: string } }) => {
-  const product = allProducts.find(p => String(p.id) === params.id)
+export default function ProductDetailPage({ params }: { params: Promise<ProductDetailPageProps> }) {
+  const actualParams = React.use(params)
+  const product = products.find(p => p.url.includes(String(actualParams.id)))
   const { addToCart } = useCart()
-  const [toast, setToast] = useState('')
   const [reviews, setReviews] = useState(sampleReviews)
+  const [quantity, setQuantity] = useState(1)
+  const [tab, setTab] = useState<'description' | 'usage'>('description')
 
   useEffect(() => {
-    fetch(`/api/reviews?productId=${params.id}`)
+    fetch(`/api/reviews?productId=${actualParams.id}`)
       .then(res => res.json())
       .then(setReviews)
-  }, [params.id])
+  }, [actualParams.id])
 
   if (!product) return notFound()
 
-  const handleReviewSubmit = review => {
-    setReviews([
-      { ...review, id: Date.now(), date: new Date().toISOString().slice(0, 10) },
-      ...reviews
-    ])
+  const handleAdd = () => {
+    const _product: CartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity,
+      image: product.images[0]
+    }
+    addToCart(_product, quantity) // Make sure your addToCart accepts quantity
+    toast.success('Sepete eklendi!')
   }
 
-  const handleAdd = () => {
-    addToCart(product)
-    setToast('Added to cart!')
-  }
+  // Example descriptions (replace with your actual data or fields)
+  const description = (
+    <>
+      <p>
+        4 kat fazla yüksek moleküler ağırlıklı hyaluronik asit içeriği ile dokuda maksimum tutunma ve durulama sağlar.
+        Ağız, diş ve diş etini kaplamak için özel olarak formüle edilmiştir. Ayrıca ağız dokusunda daha uzun süre tutunmasını sağlayan özgün bir Biyo-yapışkan matris içerir.
+      </p>
+      <ul>
+        <li>Yüksek saflıkta hyaluronik asit içerir.</li>
+        <li>Diş eti problemlerinde güvenle kullanılır.</li>
+        <li>Alkol ve SLS içermez.</li>
+      </ul>
+    </>
+  )
+
+  const usage = (
+    <>
+      <p>
+        Günde 3-5 defa, tercihen yemeklerden sonra doğrudan sorunlu bölgeye püskürtülerek uygulanır. Uygulamadan sonra en az 30 dakika yemek yenilmemeli, bir şey içilmemelidir.
+      </p>
+      <ul>
+        <li>Kullanımdan önce çalkalayınız.</li>
+        <li>Çocukların ulaşamayacağı yerde saklayınız.</li>
+      </ul>
+    </>
+  )
 
   return (
     <main className={styles.main}>
-      <div className={styles.productDetail}>
-        <div className={styles.image}>
-          <Image
-            src={product.imageUrl || '/placeholder.png'}
-            alt={product.name || '-'}
-            width={300}
-            height={300}
-            style={{ objectFit: 'cover', borderRadius: '1rem' }}
-            priority
-          />
-        </div>
-        <div className={styles.info}>
-          <h1 className={styles.title}>{product.name || '-'}</h1>
-          <div className={styles.price}>₺{product.price?.toFixed(2) || '-'}</div>
-          <div className={styles.category}>{product.category || '-'}</div>
-          <button className={styles.add} onClick={handleAdd}>
-            Add to Cart
-          </button>
-          <ReviewForm onSubmit={handleReviewSubmit} />
-          <ReviewList reviews={sampleReviews} />
-          {toast && <Toast message={toast} onClose={() => setToast('')} />}
+      <div className={styles.productDetailContainer}>
+        <PhotoGallery images={product.images} />
+        {/* SUMMARY */}
+        <div className={styles.productSummary}>
+          <h1 className={styles.productName}>{product.name || '-'}</h1>
+          <div className={styles.price}>
+            <span className={styles.priceValue}>₺{product.price?.toFixed(2) || '-'}</span>
+          </div>
+          <div className={styles.productShortInfo}>
+            <span className={styles.formInfo}>
+              <div className={styles.icon}>
+                <Image
+                  src="/img/category-icons/jel.png"
+                  alt="jel"
+                  width={32}
+                  height={32}
+                  className={styles.brandLogo}
+                />
+              </div>
+              <span className="flex-col">
+                <b>Form</b> <span>{product.form || 'Sprey'}</span>
+              </span>
+            </span>
+            <span>{product.productShortInfo || 'Ameliyat süresi ve sonrası dönemde yaralara uygulamak için idealdir. Etkili, hızlı ve uygulaması kolay kullanım sağlamak için özel olarak tasarlanmıştır.'}</span>
+          </div>
+          <div className={styles.counterRow}>
+            <div className={styles.counter}>
+              <button
+                type="button"
+                className={styles.counterBtn}
+                aria-label="Azalt"
+                onClick={() => setQuantity(q => Math.max(1, q - 1))}
+              >-</button>
+              <span className={styles.counterValue}>{quantity}</span>
+              <button
+                type="button"
+                className={styles.counterBtn}
+                aria-label="Arttır"
+                onClick={() => setQuantity(q => q + 1)}
+              >+</button>
+            </div>
+            <button className={styles.addCartBtn} onClick={handleAdd}>Sepete Ekle</button>
+          </div>
         </div>
       </div>
+
+      {/* TABS */}
+      <div className={styles.tabsSection}>
+        <div className={styles.tabs}>
+          {productTabs.map(t => (
+            <button
+              key={t.key}
+              className={styles.tab + ' ' + (tab === t.key ? styles.active : '')}
+              onClick={() => setTab(t.key as 'description' | 'usage')}
+              type="button"
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <div className={styles.tabPanel}>
+          {tab === 'description' ? description : usage}
+        </div>
+      </div>
+      {/* REVIEWS */}
+      <section className={styles.reviewsSection}>
+        <h2 className={styles.sectionTitle}>Kullanıcı Yorumları</h2>
+        <ReviewList reviews={reviews} />
+      </section>
     </main>
   )
 }
-
-export default ProductDetailPage

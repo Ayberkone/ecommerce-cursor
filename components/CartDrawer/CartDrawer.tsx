@@ -2,6 +2,7 @@
 
 import { useCart } from '@/components/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
+import { BrushCleaning } from "lucide-react"
 import styles from './CartDrawer.module.scss'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
@@ -65,14 +66,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 							<h2 className={styles.title}>Sepetim</h2>
 							{cart.items.length === 0 ? (
 								<div className={styles.empty}>
-									{/* Optional illustration: put /public/img/empty-cart.svg */}
-									<Image
-										src="/img/empty-cart.svg"
-										alt=""
-										width={150}
-										height={110}
-										style={{ margin: '0 auto 18px', display: 'block' }}
-									/>
+									<BrushCleaning size={100} />
 									Sepetiniz boş.
 								</div>
 							) : (

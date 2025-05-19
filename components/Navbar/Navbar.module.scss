@@ -1,60 +1,239 @@
-@import "@/styles/variables.scss";
-@import '@/styles/breakpoints.scss';
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
 
 .navbar {
-  position: sticky;
+  position: fixed;
+  z-index: 100;
   top: 0;
-  z-index: 30;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(34, 45, 59, 0.06);
+  left: 0;
+  width: 100vw;
+  height: $navbar-height;
+  background: $white;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
 
   @include mobile {
-    flex-direction: column;
-    padding: 0.7rem 1rem;
+    padding: 0 1rem;
   }
 }
+
 .brand {
-  font-weight: bold;
-  color: $primary;
-  font-size: 2rem;
-  text-decoration: none;
+  padding-left: 3rem;
+
+  @include mobile {
+    padding-left: 1rem;
+  }
 }
+
+.logoWrapper {
+  position: relative;
+  width: 135px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  @include mobile {
+    width: 110px;
+    height: 32px;
+  }
+}
+
 .menu {
   display: flex;
   gap: 2rem;
-  @media (max-width: 768px) {
+
+  @include tablet {
     display: none;
   }
 }
+
 .navLink {
-  color: $dark;
-  text-decoration: none;
+  color: $primary;
   font-weight: 500;
-  transition: color 0.2s;
-  &:hover {
-    color: $secondary;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.18s;
+  &:hover,
+  &:focus {
+    color: $primary-400;
   }
 }
+
 .actions {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.25rem;
+  padding-right: 3rem;
 }
+
 .cartIcon {
+  background: none;
+  border: none;
   position: relative;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    outline: 2px solid $primary-300;
+  }
 }
 
 .cartBadge {
-  position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  background: $accent;
-  color: #222d3b;
-  font-size: 0.8rem;
+  background: $primary;
+  color: #fff;
+  font-size: 12px;
   font-weight: bold;
-  border-radius: 50%;
-  padding: 0.15rem 0.5rem;
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(35, 83, 155, 0.13);
+}
+
+.username {
+  font-size: 0.95rem;
+  color: $gray-700;
+  margin-right: 0.5rem;
+  .userType {
+    color: $primary-400;
+    font-size: 0.95em;
+  }
+}
+
+.link,
+.login {
+  color: $primary-600;
+  background: none;
+  border: none;
+  padding: 0.35rem 0.8rem;
+  border-radius: 7px;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.18s, color 0.18s;
+  &:hover,
+  &:focus {
+    background: $primary-50;
+    color: $primary-500;
+  }
+}
+
+.logout {
+  background: none;
+  border: none;
+  color: $danger;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: color 0.16s;
+  &:hover,
+  &:focus {
+    color: $danger-600;
+  }
+}
+
+// --- Hamburger for mobile ---
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px;
+  margin-left: 6px;
+  z-index: 110;
+
+  svg {
+    width: 32px;
+    height: 32px;
+    color: $primary-700;
+  }
+
+  @include tablet {
+    display: flex;
+  }
+}
+
+.mobileMenuLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
+
+.mobileDrawer {
+  display: none;
+
+  @include tablet {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 82vw;
+    max-width: 340px;
+    background: $white;
+    box-shadow: 2px 0 24px 0 rgba(35, 83, 155, 0.1);
+    z-index: 1002; // must be above overlay
+    padding: 1.8rem 1.2rem 1.2rem 1.4rem;
+    transform: translateX(-104%);
+    transition: transform 0.38s cubic-bezier(0.85, 0.06, 0.28, 1.05), box-shadow 0.22s;
+    &.open {
+      transform: translateX(0);
+      box-shadow: 2px 0 32px 0 rgba(35, 83, 155, 0.17);
+    }
+  }
+}
+
+.mobileOverlay {
+  @include tablet {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 34, 50, 0.2);
+    z-index: 1001;
+    animation: fadein 0.2s;
+    cursor: pointer;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+// Hide on tablet and below
+.desktopOnly {
+  @include tablet {
+    display: none !important;
+  }
+}
+// Add register button style
+.register {
+  color: $white;
+  background: $primary;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  transition: background 0.18s;
+  box-shadow: 0 1px 8px rgba(35, 83, 155, 0.07);
+  &:hover,
+  &:focus {
+    background: $primary-600;
+    color: $white;
+    outline: none;
+  }
 }

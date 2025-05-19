@@ -90,208 +90,206 @@ export default function ProRegisterForm() {
   }
 
   return (
-    <div className={styles.registerWrapper}>
-      <div className={styles.formContainer}>
-        <div className={styles.formHeader}>
-          <div className={styles.icon}><ShieldPlus className={styles.iconPdf} size={22} /></div>
-          <div>
-            <b>Uzman / Eczacı Kaydı</b>
-            <div style={{ fontSize: 13, marginTop: 2, color: '#64748b' }}>Yetkili kaydı</div>
-          </div>
+    <div className={styles.formContainer}>
+      <div className={styles.formHeader}>
+        <div className={styles.icon}><ShieldPlus className={styles.iconPdf} size={22} /></div>
+        <div>
+          <b>Uzman / Eczacı Kaydı</b>
+          <div style={{ fontSize: 13, marginTop: 2, color: '#64748b' }}>Yetkili kaydı</div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <div className={styles.formGroup}>
-            <input
-              {...register('firstName')}
-              className={styles.input}
-              placeholder="Ad*"
-              autoComplete="given-name"
-              type="text"
-            />
-            {errors.firstName && <span className={styles.error}>{errors.firstName.message}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              {...register('lastName')}
-              className={styles.input}
-              placeholder="Soyad*"
-              autoComplete="family-name"
-              type="text"
-            />
-            {errors.lastName && <span className={styles.error}>{errors.lastName.message}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <select {...register('title')} className={styles.input}>
-              <option value="">Ünvan*</option>
-              {TITLE_OPTIONS.map(option => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
-            {errors.title && <span className={styles.error}>{errors.title.message}</span>}
-          </div>
-          {watchTitle === 'Diğer' && (
-            <div className={styles.formGroup}>
-              <input
-                {...register('titleOther')}
-                className={styles.input}
-                placeholder="Ünvan (Diğer)"
-                type="text"
-              />
-            </div>
-          )}
-          <div className={styles.formGroup}>
-            <input
-              {...register('email')}
-              className={styles.input}
-              placeholder="E-Posta*"
-              type="email"
-              autoComplete="email"
-            />
-            {errors.email && <span className={styles.error}>{errors.email.message}</span>}
-          </div>
-          <div className={styles.formGroup} style={{ position: 'relative' }}>
-            <input
-              {...register('password')}
-              className={styles.input}
-              placeholder="Şifre*"
-              type={showPassword ? 'text' : 'password'}
-              autoComplete="new-password"
-            />
-            <button
-              type="button"
-              tabIndex={-1}
-              onClick={() => setShowPassword(p => !p)}
-              className={styles.pwToggle}
-              aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
-            >
-              {showPassword ? '🙈' : '👁️'}
-            </button>
-            {errors.password && <span className={styles.error}>{errors.password.message}</span>}
-          </div>
-          <div className={styles.formGroup} style={{ position: 'relative' }}>
-            <input
-              {...register('password2')}
-              className={styles.input}
-              placeholder="Şifre Tekrar*"
-              type={showPassword2 ? 'text' : 'password'}
-              autoComplete="new-password"
-            />
-            <button
-              type="button"
-              tabIndex={-1}
-              onClick={() => setShowPassword2(p => !p)}
-              className={styles.pwToggle}
-              aria-label={showPassword2 ? 'Şifreyi gizle' : 'Şifreyi göster'}
-            >
-              {showPassword2 ? '🙈' : '👁️'}
-            </button>
-            {errors.password2 && <span className={styles.error}>{errors.password2.message}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              {...register('phone')}
-              className={styles.input}
-              placeholder="5xx xxx xx xx"
-              maxLength={13}
-              type="tel"
-              autoComplete="tel"
-            />
-            {errors.phone && <span className={styles.error}>{errors.phone.message}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              {...register('workplace')}
-              className={styles.input}
-              placeholder="İşyeri Adı*"
-              type="text"
-            />
-            {errors.workplace && <span className={styles.error}>{errors.workplace.message}</span>}
-          </div>
-          <div className={styles.formGroup}>
-            <input
-              {...register('workplaceAddress')}
-              className={styles.input}
-              placeholder="İşyeri Adresi*"
-              type="text"
-            />
-            {errors.workplaceAddress && <span className={styles.error}>{errors.workplaceAddress.message}</span>}
-          </div>
-          <div className={styles.formCheck}>
-            <input
-              type="checkbox"
-              {...register('allowEmails')}
-              className={styles.checkbox}
-              id="allowEmails"
-            />
-            <label htmlFor="allowEmails">
-              Pazarlama ve tanıtım amaçlı elektronik ileti gönderilmesine izin veriyorum.
-            </label>
-          </div>
-          <div className={styles.formCheck}>
-            <input
-              type="checkbox"
-              {...register('acceptContract', { required: true })}
-              className={styles.checkbox}
-              id="acceptContract"
-            />
-            <label htmlFor="acceptContract">
-              <span>
-                Hesap oluşturarak{' '}
-                <span
-                  className={styles.underline}
-                  tabIndex={0}
-                  onClick={e => {
-                    e.preventDefault()
-                    setShowContract((p) => !p)
-                  }}
-                  onMouseDown={e => e.stopPropagation()}
-                  onMouseUp={e => e.stopPropagation()}
-                  role="button"
-                  aria-label="Üyelik Sözleşmesini Görüntüle"
-                >
-                  üyelik sözleşmesini ve gizlilik politikasını
-                </span>{' '}
-                okuduğumu ve kabul ettiğimi onaylıyorum.
-              </span>
-            </label>
-          </div>
-          <AnimatePresence>
-            {showContract && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.33, type: 'spring' }}
-                className={styles.contractBox}
-              >
-                <MembershipContract />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {errors.acceptContract && <span className={styles.error}>{errors.acceptContract.message}</span>}
-
-          <button
-            type="submit"
-            className={styles.submitBtn}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
-          </button>
-          <AnimatePresence>
-            {success && (
-              <motion.div
-                className={styles.successMsg}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35, type: 'spring' }}
-              >
-                Kayıt başarılı! Giriş yapabilirsiniz.
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </form>
       </div>
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <div className={styles.formGroup}>
+          <input
+            {...register('firstName')}
+            className={styles.input}
+            placeholder="Ad*"
+            autoComplete="given-name"
+            type="text"
+          />
+          {errors.firstName && <span className={styles.error}>{errors.firstName.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <input
+            {...register('lastName')}
+            className={styles.input}
+            placeholder="Soyad*"
+            autoComplete="family-name"
+            type="text"
+          />
+          {errors.lastName && <span className={styles.error}>{errors.lastName.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <select {...register('title')} className={styles.input}>
+            <option value="">Ünvan*</option>
+            {TITLE_OPTIONS.map(option => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+          {errors.title && <span className={styles.error}>{errors.title.message}</span>}
+        </div>
+        {watchTitle === 'Diğer' && (
+          <div className={styles.formGroup}>
+            <input
+              {...register('titleOther')}
+              className={styles.input}
+              placeholder="Ünvan (Diğer)"
+              type="text"
+            />
+          </div>
+        )}
+        <div className={styles.formGroup}>
+          <input
+            {...register('email')}
+            className={styles.input}
+            placeholder="E-Posta*"
+            type="email"
+            autoComplete="email"
+          />
+          {errors.email && <span className={styles.error}>{errors.email.message}</span>}
+        </div>
+        <div className={styles.formGroup} style={{ position: 'relative' }}>
+          <input
+            {...register('password')}
+            className={styles.input}
+            placeholder="Şifre*"
+            type={showPassword ? 'text' : 'password'}
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            tabIndex={-1}
+            onClick={() => setShowPassword(p => !p)}
+            className={styles.pwToggle}
+            aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
+          >
+            {showPassword ? '🙈' : '👁️'}
+          </button>
+          {errors.password && <span className={styles.error}>{errors.password.message}</span>}
+        </div>
+        <div className={styles.formGroup} style={{ position: 'relative' }}>
+          <input
+            {...register('password2')}
+            className={styles.input}
+            placeholder="Şifre Tekrar*"
+            type={showPassword2 ? 'text' : 'password'}
+            autoComplete="new-password"
+          />
+          <button
+            type="button"
+            tabIndex={-1}
+            onClick={() => setShowPassword2(p => !p)}
+            className={styles.pwToggle}
+            aria-label={showPassword2 ? 'Şifreyi gizle' : 'Şifreyi göster'}
+          >
+            {showPassword2 ? '🙈' : '👁️'}
+          </button>
+          {errors.password2 && <span className={styles.error}>{errors.password2.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <input
+            {...register('phone')}
+            className={styles.input}
+            placeholder="5xx xxx xx xx"
+            maxLength={13}
+            type="tel"
+            autoComplete="tel"
+          />
+          {errors.phone && <span className={styles.error}>{errors.phone.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <input
+            {...register('workplace')}
+            className={styles.input}
+            placeholder="İşyeri Adı*"
+            type="text"
+          />
+          {errors.workplace && <span className={styles.error}>{errors.workplace.message}</span>}
+        </div>
+        <div className={styles.formGroup}>
+          <input
+            {...register('workplaceAddress')}
+            className={styles.input}
+            placeholder="İşyeri Adresi*"
+            type="text"
+          />
+          {errors.workplaceAddress && <span className={styles.error}>{errors.workplaceAddress.message}</span>}
+        </div>
+        <div className={styles.formCheck}>
+          <input
+            type="checkbox"
+            {...register('allowEmails')}
+            className={styles.checkbox}
+            id="allowEmails"
+          />
+          <label htmlFor="allowEmails">
+            Pazarlama ve tanıtım amaçlı elektronik ileti gönderilmesine izin veriyorum.
+          </label>
+        </div>
+        <div className={styles.formCheck}>
+          <input
+            type="checkbox"
+            {...register('acceptContract', { required: true })}
+            className={styles.checkbox}
+            id="acceptContract"
+          />
+          <label htmlFor="acceptContract">
+            <span>
+              Hesap oluşturarak{' '}
+              <span
+                className={styles.underline}
+                tabIndex={0}
+                onClick={e => {
+                  e.preventDefault()
+                  setShowContract((p) => !p)
+                }}
+                onMouseDown={e => e.stopPropagation()}
+                onMouseUp={e => e.stopPropagation()}
+                role="button"
+                aria-label="Üyelik Sözleşmesini Görüntüle"
+              >
+                üyelik sözleşmesini ve gizlilik politikasını
+              </span>{' '}
+              okuduğumu ve kabul ettiğimi onaylıyorum.
+            </span>
+          </label>
+        </div>
+        <AnimatePresence>
+          {showContract && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.33, type: 'spring' }}
+              className={styles.contractBox}
+            >
+              <MembershipContract />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {errors.acceptContract && <span className={styles.error}>{errors.acceptContract.message}</span>}
+
+        <button
+          type="submit"
+          className={styles.submitBtn}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
+        </button>
+        <AnimatePresence>
+          {success && (
+            <motion.div
+              className={styles.successMsg}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.35, type: 'spring' }}
+            >
+              Kayıt başarılı! Giriş yapabilirsiniz.
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </form>
     </div>
   )
 }

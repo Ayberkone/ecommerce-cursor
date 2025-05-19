@@ -1,10 +1,10 @@
-@import '@/styles/variables.scss';
-@import '@/styles/breakpoints.scss';
+@import "@/styles/variables.scss";
+@import "@/styles/breakpoints.scss";
 
 .main {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: $navbar-height 2rem;
 }
 
 .sectionTitle {
@@ -39,7 +39,8 @@
   font-size: 1rem;
 }
 
-.filterInput, .filterSelect {
+.filterInput,
+.filterSelect {
   width: 220px;
   @include mobile {
     width: 100%;
@@ -59,4 +60,3 @@
     gap: 1rem;
   }
 }
-

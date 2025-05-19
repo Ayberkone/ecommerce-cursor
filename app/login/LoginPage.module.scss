@@ -1,10 +1,10 @@
-@import '@/styles/variables';
-@import '@/styles/breakpoints';
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
 
 .main {
   max-width: 380px;
   margin: 0 auto;
-  padding: 3rem 1rem;
+  padding: $navbar-height 1rem;
 }
 .title {
   font-size: 2rem;

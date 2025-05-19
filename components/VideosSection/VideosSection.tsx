@@ -59,7 +59,7 @@ export default function VideosSection() {
               >
                 <div className={styles.thumbWrap}>
                   <Image
-                    src={v.thumbnail}
+                    src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
                     alt={v.title}
                     width={480}
                     height={270}
@@ -73,9 +73,6 @@ export default function VideosSection() {
                   </span>
                 </div>
                 <div className={styles.videoTitle}>{v.title}</div>
-                <div className={styles.watchBtn}>
-                  <span className={styles.watchText}><b>İzlemeye başla</b> · Youtube</span>
-                </div>
               </a>
             ))}
           </div>

@@ -1,17 +1,32 @@
 @import "swiper/css";
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
-
-$primary: #23539b;
-$secondary: #43bfa3;
-$accent: #ffd166;
-$dark: #222d3b;
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
 
 body {
   font-family: "Inter", sans-serif;
   background: #f7f8fa;
   color: $dark;
   margin: 0;
+}
+
+main {
+  padding: $navbar-height 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+* {
+  text-decoration: none;
 }
 
 .container {
@@ -93,4 +108,9 @@ body {
 }
 input[type="password"]::-ms-reveal {
   display: none;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
 }

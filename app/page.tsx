@@ -36,28 +36,17 @@ const sampleProducts = [
 
 const HomePage = () => {
   return (
-    <main>
-      <Section id="videolar">
-        <HomeSlider />
-      </Section>
-      <Section id="videolar">
-        <BrandGallery />
-      </Section>
-      <Section id="videolar">
-        <VideosSection />
-      </Section>
-      {/* <section>
-        <h2 className="section-title">Bestsellers</h2>
-        <div className="product-grid">
-          {sampleProducts.map(product => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
-          ))}
-        </div>
-      </section> */}
-    </main>
+    <>
+      <HomeSlider />
+      <main>
+        <Section id="brand-gallery">
+          <BrandGallery />
+        </Section>
+        <Section id="videolar">
+          <VideosSection />
+        </Section>
+      </main>
+    </>
   )
 }
 

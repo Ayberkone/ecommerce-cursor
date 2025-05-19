@@ -16,37 +16,37 @@ const productTypes = [
   {
     id: 'all',
     label: 'Tüm Ürünler',
-    icon: '/img/',
+    icon: '/img/category-icons/jel.png',
     color: ''
   },
   {
     id: 'jel',
     label: 'Jel',
-    icon: '/img/',
+    icon: '/img/category-icons/jel.png',
     color: ''
   },
   {
     id: 'gargara',
     label: 'Gargara',
-    icon: '/img/',
+    icon: '/img/category-icons/gargara.png',
     color: 'pembe'
   },
   {
     id: 'sprey',
     label: 'Sprey',
-    icon: '/img/',
+    icon: '/img/category-icons/spray.png',
     color: 'mavi'
   },
   {
     id: 'siringa',
     label: 'Şırınga',
-    icon: '/img/',
+    icon: '/img/category-icons/syringe.png',
     color: 'sari'
   },
   {
     id: 'macun',
     label: 'Diş ve Diş Eti Macunu',
-    icon: '/img/',
+    icon: '/img/category-icons/jel.png',
     color: ''
   }
 ]
@@ -154,7 +154,7 @@ export default function BrandGallery() {
                     </div>
                     <a href={prod.url} className={styles.productImg}>
                       <Image
-                        src={prod.image}
+                        src={prod.images[0]}
                         alt={prod.name}
                         width={180}
                         height={180}

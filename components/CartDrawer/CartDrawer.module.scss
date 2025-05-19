@@ -47,6 +47,10 @@
   color: #6b7280;
   font-size: 1.12rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .items {
   flex: 1 1 auto;

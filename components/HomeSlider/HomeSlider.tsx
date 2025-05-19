@@ -45,7 +45,7 @@ const slides: Slide[] = [
 
 export default function HomeSlider() {
   return (
-    <div className={styles.sliderWrap}>
+    <section id="home-slider" className={styles.sliderWrap}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         slidesPerView={1}
@@ -74,6 +74,6 @@ export default function HomeSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   )
 }
