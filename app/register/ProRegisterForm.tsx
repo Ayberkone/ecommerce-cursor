@@ -7,7 +7,10 @@ import * as Yup from 'yup'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShieldPlus } from 'lucide-react'
 import styles from './RegisterPage.module.scss'
+import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
+import { api } from "@/utils/api"
+
 
 const TITLE_OPTIONS = [
   'Prof. Dr. Dt.',
@@ -83,10 +86,16 @@ export default function ProRegisterForm() {
   const watchTitle = watch('title')
 
   const onSubmit = async (data: ProRegisterForm) => {
-    setSuccess(false)
-    await new Promise((r) => setTimeout(r, 900))
-    setSuccess(true)
-    reset()
+    try {
+      const res = await api("/api/auth/register-pro", {
+        method: "POST",
+        body: JSON.stringify(data),
+      })
+      toast.success(res.message)
+      // Optional: redirect or reset form
+    } catch (err: any) {
+      toast.error(err.message || "Bir hata oluştu")
+    }
   }
 
   return (

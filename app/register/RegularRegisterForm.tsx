@@ -10,7 +10,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import styles from './RegisterPage.module.scss'
 import { User } from 'lucide-react'
+import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
+import { api } from "@/utils/api"
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required('Ad gerekli'),
@@ -46,7 +48,6 @@ type RegisterFormValues = {
 
 export default function RegularRegisterForm() {
   const [showContract, setShowContract] = useState(false)
-  const [success, setSuccess] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showPassword2, setShowPassword2] = useState(false)
 
@@ -61,12 +62,25 @@ export default function RegularRegisterForm() {
     reValidateMode: 'onChange',
   })
 
+  // const onSubmit = async (data: RegisterFormValues) => {
+  //   setSuccess(false)
+  //   // Simulate API
+  //   await new Promise((r) => setTimeout(r, 900))
+  //   setSuccess(true)
+  //   reset()
+  // }
+
   const onSubmit = async (data: RegisterFormValues) => {
-    setSuccess(false)
-    // Simulate API
-    await new Promise((r) => setTimeout(r, 900))
-    setSuccess(true)
-    reset()
+    try {
+      const res = await api("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(data),
+      })
+      toast.success(res.message)
+      // etc.
+    } catch (err: any) {
+      toast.error(err.message || "Bir hata oluştu")
+    }
   }
 
   return (
@@ -229,19 +243,6 @@ export default function RegularRegisterForm() {
         <div className={styles.loginLink}>
           <Link href="/login" className={styles.link}>Zaten Hesabım Var</Link>
         </div>
-        <AnimatePresence>
-          {success && (
-            <motion.div
-              className={styles.successMsg}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.35, type: 'spring' }}
-            >
-              Kayıt başarılı! Giriş yapabilirsiniz.
-            </motion.div>
-          )}
-        </AnimatePresence>
       </form>
     </div>
   )
