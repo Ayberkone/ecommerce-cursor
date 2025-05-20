@@ -17,7 +17,7 @@
 .blogGrid {
   display: grid;
   gap: 2.4rem;
-  grid-template-columns: 1fr; // Mobile: 1 column
+  grid-template-columns: 1fr 1fr 1fr; // Mobile: 1 column
 
   @include mobile {
     grid-template-columns: 1fr 1fr; // Desktop/tablet: 2 columns

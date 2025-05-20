@@ -2,23 +2,16 @@
 import React, { useState, useMemo } from "react"
 import { faqData } from "@/content/faq"
 import styles from "./FAQ.module.scss"
-import { ChevronDown } from "lucide-react" // Or any icon you use
+import { ChevronDown } from "lucide-react"
 
 export default function FAQPage() {
   const [query, setQuery] = useState("")
   const [openId, setOpenId] = useState<number | null>(null)
 
-  const filtered = useMemo(
-    () =>
-      faqData.filter(
-        item =>
-          item.question.toLowerCase().includes(query.toLowerCase()) ||
-          (typeof item.answer === "string"
-            ? String(item.answer).toLowerCase().includes(query.toLowerCase())
-            : false)
-      ),
-    [query]
-  )
+  const filtered = useMemo(() =>
+    faqData.filter(
+      item => item.question.toLocaleLowerCase('tr-TR').includes(query.toLowerCase())
+    ), [query])
 
   return (
     <section className={styles.faqSection}>

@@ -23,7 +23,7 @@ const productTypes = [
     id: 'jel',
     label: 'Jel',
     icon: '/img/category-icons/jel.png',
-    color: ''
+    color: 'yesil'
   },
   {
     id: 'gargara',
@@ -47,7 +47,7 @@ const productTypes = [
     id: 'macun',
     label: 'Diş ve Diş Eti Macunu',
     icon: '/img/category-icons/jel.png',
-    color: ''
+    color: 'yesil'
   }
 ]
 
@@ -85,17 +85,19 @@ export default function BrandGallery() {
               className={styles.brandLogo}
             />
             <span className={styles.brandFamily}>AİLESİ</span>
+            <Link href="/products" className={styles.showAllBtn}>
+              Tümünü Göster
+            </Link>
           </div>
-          <div className={styles.brandProductsTitle}>ÜRÜNLER</div>
           <div className={styles.typeBtns}>
             {productTypes.map(t => (
               <button
                 key={t.id}
-                className={`${styles.typeBtn} ${selectedType === t.id ? styles.active : ''}`}
+                className={`${styles.typeBtn} ${t.color ? styles[t.color] : ''} ${selectedType === t.id ? styles.active : ''}`}
                 onClick={() => setSelectedType(t.id)}
                 type="button"
               >
-                <div className={`${styles.uruntur} ${t.color ? styles[t.color] : ''}`}>
+                <div className={styles.uruntur}>
                   <div className={styles.icon}>
                     <Image
                       src={t.icon}
@@ -107,85 +109,84 @@ export default function BrandGallery() {
                     />
                   </div>
                   <div className={styles.turadi}>
-                    <span>Form</span>
+                    {t.id !== 'all' && <span>Form</span>}
                     {t.label}
                   </div>
                 </div>
               </button>
             ))}
-            <Link href="/products" className={styles.showAllBtn}>
-              Tümünü Göster
-            </Link>
           </div>
-          <div className={styles.slideArea}>
-            <Swiper
-              modules={[Navigation]}
-              slidesPerView={1}
-              loop
-              spaceBetween={18}
-              navigation={{
-                nextEl: '.brandGallery-next',
-                prevEl: '.brandGallery-prev'
-              }}
-              breakpoints={{
-                600: { slidesPerView: 2 },
-                900: { slidesPerView: 3 },
-                1200: { slidesPerView: 3 }
-              }}
-              className={styles.swiper}
-            >
-              {filtered.map((prod: GalleryProduct) => (
-                <SwiperSlide key={prod.id}>
-                  <div className={styles.productCard}>
-                    <div className={`${styles.uruntur} ${prod.typeColor ? styles[prod.typeColor] : ''}`}>
-                      <div className={styles.icon}>
+          {filtered?.length > 0 && (
+            <div className={styles.slideArea}>
+              <Swiper
+                modules={[Navigation]}
+                loop
+                slidesPerView={1}
+                spaceBetween={18}
+                className={styles.swiper}
+                navigation={{
+                  nextEl: '.brandGalleryNext',
+                  prevEl: '.brandGalleryPrev'
+                }}
+                breakpoints={{
+                  600: { slidesPerView: 2 },
+                  900: { slidesPerView: 3 },
+                  1200: { slidesPerView: 3 }
+                }}
+              >
+                {filtered.map((prod: GalleryProduct) => (
+                  <SwiperSlide key={prod.id}>
+                    <div className={styles.productCard}>
+                      <div className={`${styles.uruntur} ${prod.typeColor ? styles[prod.typeColor] : ''}`}>
+                        <div className={styles.icon}>
+                          <Image
+                            src={prod.typeIcon}
+                            alt={prod.typeLabel}
+                            width={32}
+                            height={32}
+                            className={styles.iconImg}
+                          />
+                        </div>
+                        <div className={styles.turadi}>
+                          <span>Form</span>
+                          {prod.typeLabel}
+                        </div>
+                      </div>
+                      <a href={prod.url} className={styles.productImg}>
                         <Image
-                          src={prod.typeIcon}
-                          alt={prod.typeLabel}
-                          width={32}
-                          height={32}
-                          className={styles.iconImg}
+                          src={prod.images[0]}
+                          alt={prod.name}
+                          width={180}
+                          height={180}
+                          className={styles.productImg}
                         />
-                      </div>
-                      <div className={styles.turadi}>
-                        <span>Form</span>
-                        {prod.typeLabel}
-                      </div>
-                    </div>
-                    <a href={prod.url} className={styles.productImg}>
-                      <Image
-                        src={prod.images[0]}
-                        alt={prod.name}
-                        width={180}
-                        height={180}
-                        className={styles.productImg}
-                      />
-                    </a>
-                    <div className={styles.productInfo}>
-                      <div className={styles.left}>
-                        <a href={prod.url} className={styles.productName}>{prod.name}</a>
-                        <div className={styles.commentsRow}>
-                          <div className={styles.stars}>
-                            {[...Array(5)].map((_, i) => (
-                              <span key={i} className={styles.star}>★</span>
-                            ))}
+                      </a>
+                      <div className={styles.productInfo}>
+                        <div className={styles.left}>
+                          <a href={prod.url} className={styles.productName}>{prod.name}</a>
+                          <div className={styles.commentsRow}>
+                            <div className={styles.stars}>
+                              {[...Array(5)].map((_, i) => (
+                                <span key={i} className={styles.star}>★</span>
+                              ))}
+                            </div>
+                            <div className={styles.commentCount}>{prod.comments} Yorum</div>
                           </div>
-                          <div className={styles.commentCount}>{prod.comments} Yorum</div>
                         </div>
-                      </div>
-                      <div className={styles.right}>
-                        <div className={styles.price}>
-                          <span>{prod.price}₺</span>
+                        <div className={styles.right}>
+                          <div className={styles.price}>
+                            <span>{prod.price}₺</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <button className="brandGallery-prev swiper-button-prev" tabIndex={0} aria-label="Prev" />
-            <button className="brandGallery-next swiper-button-next" tabIndex={0} aria-label="Next" />
-          </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <button className={`${styles.brandGalleryPrev} swiper-button-prev`} tabIndex={0} aria-label="Prev" />
+              <button className={`${styles.brandGalleryNext} swiper-button-next`} tabIndex={0} aria-label="Next" />
+            </div>
+          )}
         </div>
       </div>
     </section>

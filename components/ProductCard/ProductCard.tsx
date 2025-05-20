@@ -52,7 +52,7 @@ const ProductCard = ({ product }: Props) => {
           )}
         </div>
         <button className={styles.button} onClick={handleAdd}>
-          Add to Cart
+          Sepete Ekle
         </button>
       </div>
     </Link>
