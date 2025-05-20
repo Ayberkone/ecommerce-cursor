@@ -32,8 +32,11 @@ export default function Navbar() {
         </Link>
         <div className={styles.menu}>
           <Link href="/products" className={styles.navLink}>Ürünler</Link>
-          <Link href="/about" className={styles.navLink}>Hakkımızda</Link>
+          <Link href="/about-us" className={styles.navLink}>Hakkımızda</Link>
           <Link href="/offers" className={styles.navLink}>Kampanyalar</Link>
+          <Link href="/faq" className={styles.navLink}>S.S.S.</Link>
+          <Link href="/blog" className={styles.navLink}>Blog</Link>
+          <Link href="/media" className={styles.navLink}>Medya</Link>
         </div>
         <div className={styles.actions}>
           <button
@@ -90,8 +93,11 @@ export default function Navbar() {
         </div>
         <nav className={styles.mobileMenuLinks}>
           <Link href="/products" className={styles.navLink} onClick={() => setMobileOpen(false)}>Ürünler</Link>
-          <Link href="/about" className={styles.navLink} onClick={() => setMobileOpen(false)}>Hakkımızda</Link>
+          <Link href="/about-us" className={styles.navLink} onClick={() => setMobileOpen(false)}>Hakkımızda</Link>
           <Link href="/offers" className={styles.navLink} onClick={() => setMobileOpen(false)}>Kampanyalar</Link>
+          <Link href="/faq" className={styles.navLink} onClick={() => setMobileOpen(false)}>S.S.S.</Link>
+          <Link href="/blog" className={styles.navLink} onClick={() => setMobileOpen(false)}>Blog</Link>
+          <Link href="/media" className={styles.navLink} onClick={() => setMobileOpen(false)}>Medya</Link>
           {user && user.type === 'pharmacy' && (
             <Link href="/special-offers" className={styles.link} onClick={() => setMobileOpen(false)}>Eczane Fırsatları</Link>
           )}

@@ -1,0 +1,127 @@
+@use "sass:color";
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.faqSection {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: $space-lg $space-sm;
+  font-family: $font-family-base;
+}
+
+.title {
+  font-size: 2.1rem;
+  color: $primary-700;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: $space-md;
+}
+
+.searchBarWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $space-md;
+}
+
+.searchBar {
+  width: 100%;
+  max-width: 400px;
+  padding: $space-xs $space-sm;
+  font-size: 1.1rem;
+  border: 1.5px solid $primary-200;
+  border-radius: 0.75rem;
+  outline: none;
+  background: $primary-50;
+  color: $primary-900;
+  transition: border-color 0.25s;
+  box-shadow: 0 2px 10px color.adjust($primary-100, $alpha: -0.9);
+
+  &:focus {
+    border-color: $primary;
+    background: $white;
+  }
+}
+
+.notFound {
+  text-align: center;
+  color: $gray-700;
+  padding: $space-md;
+  font-style: italic;
+}
+
+.accordion {
+  margin-top: $space-md;
+}
+
+.accordionItem {
+  background: $white;
+  border-radius: 1.2rem;
+  margin-bottom: 1.2rem;
+  border: 1.5px solid $primary-100;
+  box-shadow: 0 2px 10px color.adjust($primary-50, $alpha: -0.92);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+
+  &.active {
+    border-color: $primary-400;
+    box-shadow: 0 4px 16px color.adjust($primary-100, $alpha: -0.86);
+  }
+}
+
+.accordionHeader {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: $space-sm $space-md;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: $primary-700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.18s;
+
+  &:hover,
+  &:focus {
+    background: $primary-50;
+    outline: none;
+  }
+}
+
+.chevron {
+  transition: transform 0.3s ease-in-out;
+  color: $primary-500;
+}
+
+.accordionPanel {
+  max-height: 0;
+  overflow: hidden;
+  background: $primary-50;
+  border-top: 1px solid $primary-100;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.accordionItem.active .accordionPanel {
+  // Will be set via inline style for animation.
+}
+
+.accordionBody {
+  padding: $space-sm $space-md;
+  color: $gray-800;
+  font-size: 1rem;
+  line-height: 1.7;
+  border-radius: 0 0 1rem 1rem;
+}
+
+@media (max-width: 600px) {
+  .faqSection {
+    padding: $space-md $space-xs;
+  }
+  .accordionHeader,
+  .accordionBody {
+    padding-left: $space-xs;
+    padding-right: $space-xs;
+  }
+}

@@ -11,6 +11,9 @@ export type VideoItem = {
   thumbnail: string
 }
 
+type VideosSectionProps = {
+  isMediaView?: boolean
+}
 
 const videos: VideoItem[] = [
   {
@@ -39,15 +42,17 @@ const videos: VideoItem[] = [
   }
 ]
 
-export default function VideosSection() {
+export default function VideosSection({ isMediaView }: VideosSectionProps) {
   return (
     <section id="videolar" className={styles.section}>
       <div className="container">
         <div className={styles.alan}>
-          <div className={styles.headerRow}>
-            <div className={styles.title}>Videolar</div>
-            <Link href="/videolar" className={styles.allBtn}>Tümünü Göster</Link>
-          </div>
+          {!isMediaView && (
+            <div className={styles.headerRow}>
+              <div className={styles.title}>Videolar</div>
+              <Link href="/videolar" className={styles.allBtn}>Tümünü Göster</Link>
+            </div>
+          )}
           <div className={styles.videosRow}>
             {videos.map((v) => (
               <a

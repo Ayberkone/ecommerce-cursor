@@ -5,6 +5,7 @@ import Section from '@/components/Section/Section'
 import MediaCard from '@/components/MediaCard/MediaCard'
 import styles from './media.module.scss'
 import Modal from "@/components/Modal/Modal"
+import VideosSection from "@/components/VideosSection/VideosSection"
 
 const TABS = [
   { id: 'videos', label: 'Videolar' },
@@ -106,16 +107,7 @@ export default function MediaPage() {
       </div>
       <div className={styles.grid}>
         {tab === 'videos'
-          ? VIDEOS.map(v => (
-            <button
-              key={v.id}
-              className={styles.mediaCardBtn}
-              onClick={() => setModal({ open: true, type: 'video', url: v.youtubeUrl })}
-              type="button"
-            >
-              <MediaCard type="video" title={v.title} thumbnail={v.thumbnail} />
-            </button>
-          ))
+          ? < VideosSection isMediaView />
           : PRESS.map(p => (
             <button
               key={p.id}

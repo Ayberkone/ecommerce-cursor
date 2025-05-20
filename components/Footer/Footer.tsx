@@ -80,7 +80,7 @@ export default function Footer() {
           <div className={styles.colWide}>
             <div className={styles.colBlock}>
               <h4>Farmalink</h4>
-              <Link href="/about" className={styles.link}>Hakkımızda</Link>
+              <Link href="/about-us" className={styles.link}>Hakkımızda</Link>
               <Link href="/products?brand=gengigel" className={styles.link}>Gengigel</Link>
               <Link href="/products?brand=ricerfarma" className={styles.link}>Ricerfarma</Link>
               <Link href="/sss" className={styles.link}>S.S.S.</Link>

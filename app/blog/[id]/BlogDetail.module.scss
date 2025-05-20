@@ -1,0 +1,122 @@
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.blogDetailSection {
+  padding: $navbar-height 2.5rem;
+  background: $gray-50;
+}
+
+.blogContainer {
+  max-width: 960px;
+  margin: $navbar-height auto;
+  padding: 0 1.5rem;
+}
+.blogImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1; // or whatever you want (for example: 16/9, 4/3, etc.)
+  max-width: 800px; // Optional, to not fill the whole page
+  margin: 0 auto $space-lg auto; // center + spacing below
+  overflow: hidden;
+}
+
+.blogImage {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.8rem;
+  flex-wrap: wrap;
+}
+
+.date {
+  font-size: 1rem;
+  color: $primary-400;
+  b {
+    color: $primary-700;
+    font-weight: 700;
+  }
+}
+
+.socialShare {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 0.95rem;
+  color: $gray-800;
+
+  & > div {
+    font-weight: 500;
+    margin-right: 0.6rem;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    color: $primary;
+    transition: color 0.18s;
+    svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+    &:hover {
+      color: $secondary;
+    }
+  }
+}
+
+.blogContent {
+  background: $white;
+  border-radius: 1.1rem;
+  box-shadow: 0 4px 16px rgba(35, 83, 155, 0.07);
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+
+  h1 {
+    color: $primary-800;
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+  }
+  h2,
+  h3 {
+    color: $primary-700;
+    margin-top: 2.2rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  img.resim {
+    display: block;
+    margin: 2rem auto;
+    max-width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(67, 191, 163, 0.08);
+  }
+  ul {
+    padding-left: 1.4rem;
+    margin: 1.1rem 0;
+    li {
+      list-style: disc;
+      margin-bottom: 0.4rem;
+      color: $dark;
+      font-size: 1rem;
+    }
+  }
+  p {
+    color: $dark;
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+  }
+  a {
+    color: $primary-700;
+    text-decoration: underline;
+    &:hover {
+      color: $secondary;
+    }
+  }
+}
