@@ -1,15 +1,17 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
+import Image from "next/image"
+import { usePathname } from 'next/navigation'
 import { ShoppingCart, Menu, X } from 'lucide-react'
 import styles from './Navbar.module.scss'
 import { useCart } from '@/components/CartContext'
-import { useState } from 'react'
 import CartDrawer from '@/components/CartDrawer/CartDrawer'
 import { useAuth } from "@/components/AuthContext/AuthContext"
-import Image from "next/image"
 
 export default function Navbar() {
+  const pathname = usePathname()
   const { cart } = useCart()
   const count = cart.items.reduce((sum, item) => sum + (item.quantity || 0), 0)
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -31,12 +33,40 @@ export default function Navbar() {
           </span>
         </Link>
         <div className={styles.menu}>
-          <Link href="/products" className={styles.navLink}>Ürünler</Link>
-          <Link href="/about-us" className={styles.navLink}>Hakkımızda</Link>
-          <Link href="/offers" className={styles.navLink}>Kampanyalar</Link>
-          <Link href="/faq" className={styles.navLink}>S.S.S.</Link>
-          <Link href="/blog" className={styles.navLink}>Blog</Link>
-          <Link href="/media" className={styles.navLink}>Medya</Link>
+          <Link
+            href="/products"
+            className={`${styles.navLink} ${pathname.startsWith('/products') ? styles.active : ''}`}
+          >
+            Ürünler
+          </Link>
+          <Link
+            href="/about-us"
+            className={`${styles.navLink} ${pathname === '/about-us' ? styles.active : ''}`}
+          >
+            Hakkımızda
+          </Link>
+          <Link
+            href="/offers"
+            className={`${styles.navLink} ${pathname === '/offers' ? styles.active : ''}`}
+          >
+            Kampanyalar
+          </Link>
+          <Link
+            href="/faq"
+            className={`${styles.navLink} ${pathname === '/faq' ? styles.active : ''}`}
+          >
+            S.S.S.
+          </Link>
+          <Link
+            href="/blog"
+            className={`${styles.navLink} ${pathname.startsWith('/blog') ? styles.active : ''}`}
+          >
+            Blog
+          </Link>
+          <Link
+            href="/media"
+            className={`${styles.navLink} ${pathname === '/media' ? styles.active : ''}`}
+          >Medya</Link>
         </div>
         <div className={styles.actions}>
           <button
@@ -61,13 +91,16 @@ export default function Navbar() {
               {user.type === 'doctor' && (
                 <Link href="/doctor-portal" className={`${styles.link} ${styles.desktopOnly}`}>Doktor Portalı</Link>
               )}
-              <Link href="/orders" className={`${styles.link} ${styles.desktopOnly}`}>Siparişlerim</Link>
               <button className={`${styles.logout} ${styles.desktopOnly}`} onClick={logout}>Çıkış</button>
             </>
           ) : (
             <>
-              <Link href="/login" className={`${styles.login} ${styles.desktopOnly}`}>Giriş Yap</Link>
-              <Link href="/register" className={`${styles.register} ${styles.desktopOnly}`}>Kayıt Ol</Link>
+              <Link href="/login" className={`${styles.login} ${styles.desktopOnly} ${pathname === '/login' ? styles.active : ''}`}>
+                Giriş Yap
+              </Link>
+              <Link href="/register" className={`${styles.register} ${styles.desktopOnly} ${pathname === '/register' ? styles.active : ''}`}>
+                Kayıt Ol
+              </Link>
             </>
           )}
           {/* Hamburger always visible on mobile */}
@@ -92,17 +125,49 @@ export default function Navbar() {
           <Image src={'/img/web-logo.svg'} alt="Farmalink Gengigel" fill style={{ objectFit: 'contain' }} />
         </div>
         <nav className={styles.mobileMenuLinks}>
-          <Link href="/products" className={styles.navLink} onClick={() => setMobileOpen(false)}>Ürünler</Link>
-          <Link href="/about-us" className={styles.navLink} onClick={() => setMobileOpen(false)}>Hakkımızda</Link>
-          <Link href="/offers" className={styles.navLink} onClick={() => setMobileOpen(false)}>Kampanyalar</Link>
-          <Link href="/faq" className={styles.navLink} onClick={() => setMobileOpen(false)}>S.S.S.</Link>
-          <Link href="/blog" className={styles.navLink} onClick={() => setMobileOpen(false)}>Blog</Link>
-          <Link href="/media" className={styles.navLink} onClick={() => setMobileOpen(false)}>Medya</Link>
+          <Link
+            href="/products"
+            className={`${styles.navLink} ${pathname.startsWith('/products') ? styles.active : ''}`}
+            onClick={() => setMobileOpen(false)}
+          >Ürünler</Link>
+          <Link
+            href="/about-us"
+            className={`${styles.navLink} ${pathname === '/about-us' ? styles.active : ''}`}
+            onClick={() => setMobileOpen(false)}
+          >Hakkımızda</Link>
+          <Link
+            href="/offers"
+            className={`${styles.navLink} ${pathname === '/offers' ? styles.active : ''}`}
+            onClick={() => setMobileOpen(false)}
+          >Kampanyalar</Link>
+          <Link
+            href="/faq"
+            className={`${styles.navLink} ${pathname === '/faq' ? styles.active : ''}`}
+            onClick={() => setMobileOpen(false)}
+          >S.S.S.</Link>
+          <Link
+            href="/blog"
+            className={`${styles.navLink} ${pathname.startsWith('/blog') ? styles.active : ''}`}
+            onClick={() => setMobileOpen(false)}
+          >Blog</Link>
+          <Link
+            href="/media"
+            className={`${styles.navLink} ${pathname === '/media' ? styles.active : ''}`}
+            onClick={() => setMobileOpen(false)}
+          >Medya</Link>
           {user && user.type === 'pharmacy' && (
-            <Link href="/special-offers" className={styles.link} onClick={() => setMobileOpen(false)}>Eczane Fırsatları</Link>
+            <Link
+              href="/special-offers"
+              className={`${styles.link} ${pathname === '/special-offers' ? styles.active : ''}`}
+              onClick={() => setMobileOpen(false)}
+            >Eczane Fırsatları</Link>
           )}
           {user && user.type === 'doctor' && (
-            <Link href="/doctor-portal" className={styles.link} onClick={() => setMobileOpen(false)}>Doktor Portalı</Link>
+            <Link
+              href="/doctor-portal"
+              className={`${styles.link} ${pathname === '/doctor-portal' ? styles.active : ''}`}
+              onClick={() => setMobileOpen(false)}
+            >Doktor Portalı</Link>
           )}
           <hr style={{ margin: '1.4rem 0', border: 'none', borderTop: '1px solid #ececec' }} />
           {user ? (
@@ -110,13 +175,25 @@ export default function Navbar() {
               <span className={styles.username}>
                 Merhaba, {user.username} <span className={styles.userType}>({user.type})</span>
               </span>
-              <Link href="/orders" className={styles.link} onClick={() => setMobileOpen(false)}>Siparişlerim</Link>
+              <Link
+                href="/orders"
+                className={`${styles.link} ${pathname === '/orders' ? styles.active : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >Siparişlerim</Link>
               <button className={styles.logout} onClick={() => { logout(); setMobileOpen(false); }}>Çıkış</button>
             </>
           ) : (
             <>
-              <Link href="/login" className={styles.login} onClick={() => setMobileOpen(false)}>Giriş Yap</Link>
-              <Link href="/register" className={styles.login} onClick={() => setMobileOpen(false)}>Kayıt Ol</Link>
+              <Link
+                href="/login"
+                className={`${styles.login} ${pathname === '/login' ? styles.active : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >Giriş Yap</Link>
+              <Link
+                href="/register"
+                className={`${styles.login} ${pathname === '/register' ? styles.active : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >Kayıt Ol</Link>
             </>
           )}
         </nav>

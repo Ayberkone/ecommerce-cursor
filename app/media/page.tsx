@@ -5,7 +5,6 @@ import Section from '@/components/Section/Section'
 import MediaCard from '@/components/MediaCard/MediaCard'
 import styles from './media.module.scss'
 import Modal from "@/components/Modal/Modal"
-import VideosSection from "@/components/VideosSection/VideosSection"
 
 const TABS = [
   { id: 'videos', label: 'Videolar' },
@@ -34,24 +33,23 @@ const VIDEOS: MediaVideo[] = [
     thumbnail: '/img/',
   },
   {
-    id: 'GqUe1b0d5f24',
-    title: 'Hangi Gengigel Ürününü Kullanmalıyım?',
-    youtubeUrl: 'https://www.youtube.com/watch?v=GqUe1b0d5f4&t=4s',
+    id: 'dSavKI5kHpo',
+    title: 'Sık Sorulan Sorular',
+    youtubeUrl: 'https://www.youtube.com/watch?v=dSavKI5kHpo&t=7s',
     thumbnail: '/img/',
   },
   {
-    id: 'GqUe1b0d53f4',
-    title: 'Hangi Gengigel Ürününü Kullanmalıyım?',
-    youtubeUrl: 'https://www.youtube.com/watch?v=GqUe1b0d5f4&t=4s',
+    id: 'qsUhsz_lmU0',
+    title: 'Türk Periodontoloji Derneği 53. Bilimsel Kongresi',
+    youtubeUrl: 'https://www.youtube.com/watch?v=qsUhsz_lmU0&t=2s',
     thumbnail: '/img/',
   },
   {
-    id: 'GqUe1b022d5f4',
-    title: 'Hangi Gengigel Ürününü Kullanmalıyım?',
-    youtubeUrl: 'https://www.youtube.com/watch?v=GqUe1b0d5f4&t=4s',
+    id: 'w8r2jBwERLU',
+    title: 'Farmalink Tanıtım Videosu',
+    youtubeUrl: 'https://www.youtube.com/watch?v=w8r2jBwERLU',
     thumbnail: '/img/',
   }
-  // ...other videos
 ]
 
 const PRESS: MediaPress[] = [
@@ -107,7 +105,16 @@ export default function MediaPage() {
       </div>
       <div className={styles.grid}>
         {tab === 'videos'
-          ? < VideosSection isMediaView />
+          ? VIDEOS.map(v => (
+            <button
+              key={v.id}
+              className={styles.mediaCardBtn}
+              onClick={() => setModal({ open: true, type: 'video', url: v.youtubeUrl })}
+              type="button"
+            >
+              <MediaCard type="video" title={v.title} thumbnail={v.thumbnail} id={v.id} />
+            </button>
+          ))
           : PRESS.map(p => (
             <button
               key={p.id}
@@ -115,7 +122,7 @@ export default function MediaPage() {
               onClick={() => setModal({ open: true, type: 'press', url: p.url, title: p.title })}
               type="button"
             >
-              <MediaCard type="press" title={p.title} thumbnail={p.thumbnail} />
+              <MediaCard type="press" title={p.title} thumbnail={p.thumbnail} id={p.id} />
             </button>
           ))
         }

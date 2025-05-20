@@ -61,6 +61,14 @@
   }
 }
 
+.navLink.active,
+.link.active,
+.login.active {
+  color: $primary;
+  font-weight: 600;
+  border-bottom: 2px solid $primary;
+}
+
 .actions {
   display: flex;
   align-items: center;

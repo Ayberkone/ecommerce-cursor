@@ -5,17 +5,15 @@
 }
 .tabsRow {
   display: flex;
-  gap: 1.3rem;
-  margin-bottom: 2.2rem;
 }
 .tabBtn {
   font-size: 1.19rem;
   font-weight: 700;
-  color: $dark;
-  background: #f8fafc;
+  color: $primary;
+  background: $gray-200;
   border: none;
   border-radius: 1.2rem 1.2rem 0 0;
-  padding: 0.8rem 2.3rem;
+  padding: 0.6rem 2.3rem;
   cursor: pointer;
   transition: background 0.13s, color 0.13s;
   &.active {
@@ -27,11 +25,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2.2rem 1.4rem;
+  background: #fff;
+  border-radius: 0 1.7rem 1.7rem 1.7rem;
+  padding: 2rem 1.4rem;
 }
 .mediaCardBtn {
   all: unset;
   cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: start;
   width: 100%;
   border-radius: 1.1rem;
   box-sizing: border-box;

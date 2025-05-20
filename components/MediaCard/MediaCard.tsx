@@ -2,15 +2,15 @@ import Image from 'next/image'
 import styles from './MediaCard.module.scss'
 
 type MediaCardProps =
-  | { type: 'video'; title: string; thumbnail: string }
-  | { type: 'press'; title: string; thumbnail: string }
+  | { type: 'video'; title: string; thumbnail: string, id: string }
+  | { type: 'press'; title: string; thumbnail: string, id: string }
 
-export default function MediaCard({ type, title, thumbnail }: MediaCardProps) {
+export default function MediaCard({ type, title, thumbnail, id }: MediaCardProps) {
   return (
     <div className={styles.mediaCard}>
       <div className={styles.thumbWrap}>
         <Image
-          src={thumbnail}
+          src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
           alt={title}
           width={420}
           height={236}

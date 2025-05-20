@@ -11,11 +11,8 @@ export type VideoItem = {
   thumbnail: string
 }
 
-type VideosSectionProps = {
-  isMediaView?: boolean
-}
 
-const videos: VideoItem[] = [
+export const videos: VideoItem[] = [
   {
     id: 'GqUe1b0d5f4',
     title: 'Hangi Gengigel Ürününü Kullanmalıyım?',
@@ -42,17 +39,15 @@ const videos: VideoItem[] = [
   }
 ]
 
-export default function VideosSection({ isMediaView }: VideosSectionProps) {
+export default function VideosSection() {
   return (
     <section id="videolar" className={styles.section}>
       <div className="container">
         <div className={styles.alan}>
-          {!isMediaView && (
-            <div className={styles.headerRow}>
-              <div className={styles.title}>Videolar</div>
-              <Link href="/videolar" className={styles.allBtn}>Tümünü Göster</Link>
-            </div>
-          )}
+          <div className={styles.headerRow}>
+            <div className={styles.title}>Videolar</div>
+            <Link href="/videolar" className={styles.allBtn}>Tümünü Göster</Link>
+          </div>
           <div className={styles.videosRow}>
             {videos.map((v) => (
               <a
