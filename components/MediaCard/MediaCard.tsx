@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Play } from 'lucide-react'
 import styles from './MediaCard.module.scss'
 
 type MediaCardProps =
@@ -18,10 +19,12 @@ export default function MediaCard({ type, title, thumbnail, id }: MediaCardProps
         />
         {type === 'video' && (
           <span className={styles.playIcon}>
-            <svg width="38" height="38" viewBox="0 0 38 38">
-              <circle cx="19" cy="19" r="19" fill="#fff" opacity="0.9" />
-              <polygon points="16,12 28,19 16,26" fill="#e11d48" />
-            </svg>
+            <Play
+              size={32}
+              color="#e11d48"
+              fill="#e11d48"
+              style={{ zIndex: 1 }}
+            />
           </span>
         )}
       </div>

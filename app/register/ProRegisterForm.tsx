@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShieldPlus } from 'lucide-react'
+import { ShieldPlus, Eye, EyeOff } from 'lucide-react'
+
 import styles from './RegisterPage.module.scss'
 import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
@@ -98,6 +99,9 @@ export default function ProRegisterForm() {
     }
   }
 
+  const renderIconShowPsw = <Eye size={22} />
+  const renderIconHidePsw = <EyeOff size={22} />
+
   return (
     <div className={styles.formContainer}>
       <div className={styles.formHeader}>
@@ -172,7 +176,7 @@ export default function ProRegisterForm() {
             className={styles.pwToggle}
             aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
           >
-            {showPassword ? '🙈' : '👁️'}
+            {showPassword ? renderIconHidePsw : renderIconShowPsw}
           </button>
           {errors.password && <span className={styles.error}>{errors.password.message}</span>}
         </div>
@@ -191,7 +195,7 @@ export default function ProRegisterForm() {
             className={styles.pwToggle}
             aria-label={showPassword2 ? 'Şifreyi gizle' : 'Şifreyi göster'}
           >
-            {showPassword2 ? '🙈' : '👁️'}
+            {showPassword2 ? renderIconHidePsw : renderIconShowPsw}
           </button>
           {errors.password2 && <span className={styles.error}>{errors.password2.message}</span>}
         </div>
@@ -277,11 +281,10 @@ export default function ProRegisterForm() {
           )}
         </AnimatePresence>
         {errors.acceptContract && <span className={styles.error}>{errors.acceptContract.message}</span>}
-
         <button
           type="submit"
           className={styles.submitBtn}
-          disabled={isSubmitting}
+          disabled={!!errors.acceptContract || isSubmitting}
         >
           {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
         </button>

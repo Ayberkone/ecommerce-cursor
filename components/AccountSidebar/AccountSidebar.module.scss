@@ -6,12 +6,60 @@
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
-  @include mobile {
+  background: #fff;
+  border-radius: 1.4rem;
+  padding: 1.5rem 0.5rem;
+  box-shadow: 0 4px 18px 0 rgba(39, 70, 120, 0.09);
+  z-index: 10;
+
+  @include tablet {
     flex-direction: row;
     min-width: unset;
     width: 100%;
     overflow-x: auto;
     gap: 0.6rem;
+    padding: 0.7rem 0.3rem 1rem 0.3rem;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  // Mobile: fixed drawer (hidden by default)
+  @include mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 80vw;
+    max-width: 320px;
+    background: #fff;
+    z-index: 3000;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.6, 0.22, 0.38, 0.89);
+    box-shadow: 0 0 20px 0 rgba(24, 45, 75, 0.13);
+    flex-direction: column;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.hamburger {
+  display: none;
+  @include mobile {
+    display: block;
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 3500;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 8px rgba(36, 52, 85, 0.09);
+    cursor: pointer;
   }
 }
 
@@ -30,10 +78,18 @@
   transition: background 0.15s, color 0.18s;
   gap: 0.7rem;
   outline: none;
+
   &:hover,
   &:focus {
     background: #e6f1fa;
     color: $primary;
+  }
+  &.active {
+    background: $primary;
+    color: #fff;
+  }
+  @include tablet {
+    white-space: pre;
   }
 }
 
@@ -45,4 +101,15 @@
 .icon {
   margin-left: 0.7rem;
   display: flex;
+}
+
+.overlay {
+  display: none;
+  @include mobile {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+  }
 }

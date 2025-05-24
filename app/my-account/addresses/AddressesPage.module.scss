@@ -4,13 +4,21 @@
 .main {
   max-width: 520px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem;
+
+  @include tablet {
+    padding: 0;
+  }
 }
 .title {
   font-size: 2rem;
   font-weight: 700;
   color: $primary;
   margin-bottom: 1.5rem;
+
+  @include tablet {
+    font-size: 1.3rem;
+  }
 }
 .form {
   background: #f8fafc;

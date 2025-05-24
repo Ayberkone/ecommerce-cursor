@@ -1,13 +1,16 @@
 'use client'
 
+import { useState } from "react"
 import styles from './VideosSection.module.scss'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Play } from 'lucide-react'
+import MediaModal, { MediaModalState } from "../MediaModal/MediaModal"
 
 export type VideoItem = {
   id: string
   title: string
-  youtubeUrl: string
+  url: string
   thumbnail: string
 }
 
@@ -16,30 +19,32 @@ export const videos: VideoItem[] = [
   {
     id: 'GqUe1b0d5f4',
     title: 'Hangi Gengigel Ürününü Kullanmalıyım?',
-    youtubeUrl: 'https://www.youtube.com/watch?v=GqUe1b0d5f4&t=4s',
+    url: 'https://www.youtube.com/watch?v=GqUe1b0d5f4&t=4s',
     thumbnail: '/img/',
   },
   {
     id: 'dSavKI5kHpo',
     title: 'Sık Sorulan Sorular',
-    youtubeUrl: 'https://www.youtube.com/watch?v=dSavKI5kHpo&t=7s',
+    url: 'https://www.youtube.com/watch?v=dSavKI5kHpo&t=7s',
     thumbnail: '/img/',
   },
   {
     id: 'qsUhsz_lmU0',
     title: 'Türk Periodontoloji Derneği 53. Bilimsel Kongresi',
-    youtubeUrl: 'https://www.youtube.com/watch?v=qsUhsz_lmU0&t=2s',
+    url: 'https://www.youtube.com/watch?v=qsUhsz_lmU0&t=2s',
     thumbnail: '/img/',
   },
   {
     id: 'w8r2jBwERLU',
     title: 'Farmalink Tanıtım Videosu',
-    youtubeUrl: 'https://www.youtube.com/watch?v=w8r2jBwERLU',
+    url: 'https://www.youtube.com/watch?v=w8r2jBwERLU',
     thumbnail: '/img/',
   }
 ]
 
 export default function VideosSection() {
+  const [modal, setModal] = useState<MediaModalState>({ open: false })
+
   return (
     <section id="videolar" className={styles.section}>
       <div className="container">
@@ -50,12 +55,10 @@ export default function VideosSection() {
           </div>
           <div className={styles.videosRow}>
             {videos.map((v) => (
-              <a
+              <span
                 key={v.id}
-                href={v.youtubeUrl}
+                onClick={() => setModal({ open: true, type: 'video', url: v.url })}
                 className={styles.videoItem}
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 <div className={styles.thumbWrap}>
                   <Image
@@ -66,18 +69,21 @@ export default function VideosSection() {
                     className={styles.thumb}
                   />
                   <span className={styles.playIcon}>
-                    <svg width="38" height="38" viewBox="0 0 38 38">
-                      <circle cx="19" cy="19" r="19" fill="#fff" opacity="0.9" />
-                      <polygon points="16,12 28,19 16,26" fill="#e11d48" />
-                    </svg>
+                    <Play
+                      size={32}
+                      color="#e11d48"
+                      fill="#e11d48"
+                      style={{ zIndex: 1 }}
+                    />
                   </span>
                 </div>
                 <div className={styles.videoTitle}>{v.title}</div>
-              </a>
+              </span>
             ))}
           </div>
         </div>
       </div>
+      <MediaModal modal={modal} setModal={setModal} />
     </section>
   )
 }

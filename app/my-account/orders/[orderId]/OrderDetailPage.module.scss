@@ -1,0 +1,127 @@
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.detailWrap {
+  max-width: 960px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px #00335a10;
+  padding: 2.5rem 2rem 2rem;
+  @include tablet {
+    padding: 1.2rem 0.7rem;
+    border-radius: 1rem;
+  }
+}
+
+.titleDetail {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem 2rem;
+  margin-bottom: 1.5rem;
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1rem;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 0.8rem 0;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 0.97rem;
+      color: $muted;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+    input,
+    span {
+      font-size: 1.1rem;
+      padding: 0.55rem 0.9rem;
+      border: 1px solid #e7e7e7;
+      border-radius: 0.8rem;
+      background: #f7fafd;
+      color: $text;
+      font-weight: 600;
+      @include mobile {
+        padding: 0.45rem 0.65rem;
+      }
+    }
+  }
+  .addressCol {
+    grid-column: 1 / span 4;
+    @include tablet {
+      grid-column: 1 / span 2;
+    }
+    @include mobile {
+      grid-column: 1 / span 1;
+    }
+  }
+}
+
+.statusRow {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  > div {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.6rem;
+    label {
+      font-size: 0.97rem;
+      color: $muted;
+      margin-bottom: 0.2rem;
+    }
+    span {
+      font-size: 1.13rem;
+      font-weight: 500;
+      color: $primary;
+      background: #f3faff;
+      border-radius: 0.6rem;
+      padding: 0.45rem 0.7rem;
+    }
+  }
+}
+
+.productsWrap {
+  margin-top: 2rem;
+  table {
+    width: 100%;
+    background: #f9fbfc;
+    border-radius: 1rem;
+    overflow: hidden;
+    th,
+    td {
+      padding: 0.7rem 0.9rem;
+      text-align: left;
+    }
+    th {
+      font-size: 1rem;
+      color: $primary;
+      font-weight: 700;
+      border-bottom: 2px solid #e2e8f0;
+      background: #f4f8fc;
+    }
+    td {
+      font-size: 1.04rem;
+      color: $text;
+      border-bottom: 1px solid #f2f2f2;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+}

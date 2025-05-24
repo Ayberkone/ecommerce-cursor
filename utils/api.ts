@@ -1,11 +1,18 @@
 // utils/api.ts
 
-type ApiOptions = RequestInit & { skipAuth?: boolean }
+type ApiOptions = RequestInit & {
+  skipAuth?: boolean
+  baseUrl?: string // Optionally override the API root (e.g. for SSR vs client)
+}
 
-export async function api<T = any>(url: string, options: ApiOptions = {}): Promise<T> {
+export async function api<T = any>(path: string, options: ApiOptions = {}): Promise<T> {
+  const { skipAuth = false, baseUrl = process.env.NEXT_PUBLIC_API_BASE || "", ...fetchOptions } = options
+  // Compose final URL (can easily override for SSR, test, prod, etc.)
+  const url = path.startsWith("http") ? path : `${baseUrl}${path}`
   try {
     const res = await fetch(url, {
       ...options,
+      credentials: skipAuth ? "same-origin" : "include", // Use "include" for cookies if auth, "same-origin" otherwise
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {})

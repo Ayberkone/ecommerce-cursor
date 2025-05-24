@@ -50,6 +50,7 @@
 }
 .videoItem {
   flex: 1 1 45%;
+  cursor: pointer;
   background: #f8fafc;
   border-radius: 1.3rem;
   padding: 1.3rem 1rem 0.7rem 1rem;
@@ -86,8 +87,13 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  pointer-events: none;
-  transition: transform 0.13s;
+  border-radius: 50%;
+  border: 3px solid #e11d48;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background-color: white;
 }
 .videoTitle {
   font-weight: 600;

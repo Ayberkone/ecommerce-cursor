@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import styles from './RegisterPage.module.scss'
-import { User } from 'lucide-react'
+import { User, Eye, EyeOff } from 'lucide-react'
 import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
 import { api } from "@/utils/api"
@@ -46,6 +46,9 @@ type RegisterFormValues = {
   allowEmails?: boolean
 }
 
+export const RenderIconShowPsw = <Eye size={22} />
+export const RenderIconHidePsw = <EyeOff size={22} />
+
 export default function RegularRegisterForm() {
   const [showContract, setShowContract] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -74,7 +77,10 @@ export default function RegularRegisterForm() {
     try {
       const res = await api("/api/auth/register", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          type: 'regular'
+        }),
       })
       toast.success(res.message)
       // etc.
@@ -139,7 +145,7 @@ export default function RegularRegisterForm() {
               onClick={() => setShowPassword(v => !v)}
               aria-label={showPassword ? "Şifreyi Gizle" : "Şifreyi Göster"}
             >
-              {showPassword ? '🙈' : '👁️'}
+              {showPassword ? RenderIconHidePsw : RenderIconShowPsw}
             </button>
           </div>
           <div className={styles.passwordHint}>
@@ -163,12 +169,11 @@ export default function RegularRegisterForm() {
               onClick={() => setShowPassword2(v => !v)}
               aria-label={showPassword2 ? "Şifreyi Gizle" : "Şifreyi Göster"}
             >
-              {showPassword2 ? '🙈' : '👁️'}
+              {showPassword2 ? RenderIconHidePsw : RenderIconShowPsw}
             </button>
           </div>
           {errors.password2 && <span className={styles.error}>{errors.password2.message}</span>}
         </div>
-
         <div className={styles.formGroup}>
           <input
             {...register('phone')}
@@ -236,7 +241,7 @@ export default function RegularRegisterForm() {
         <button
           type="submit"
           className={styles.submitBtn}
-          disabled={isSubmitting}
+          disabled={!!errors.acceptContract || isSubmitting}
         >
           {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
         </button>

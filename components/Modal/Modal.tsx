@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Modal.module.scss'
+import { X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 type ModalProps = {
@@ -10,21 +11,27 @@ type ModalProps = {
 
 export default function Modal({ open, onClose, children }: ModalProps) {
   if (!open) return null
+
   return (
     <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.92 }}
-        transition={{ duration: 0.21 }}
-      >
-        <div className={styles.backdrop} onClick={onClose}>
+      <div className={styles.backdrop} onClick={onClose}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: .3, ease: true }}
+        >
           <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <button className={styles.closeBtn} onClick={onClose} aria-label="Kapat">✕</button>
+            <X
+              color="#555"
+              size={32}
+              className={styles.closeBtn}
+              onClick={onClose}
+            />
             {children}
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </AnimatePresence>
   )
 }

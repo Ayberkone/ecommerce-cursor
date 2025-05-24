@@ -82,9 +82,14 @@ export default function Navbar() {
           </button>
           {user ? (
             <>
-              <span className={`${styles.username} ${styles.desktopOnly}`}>
-                Merhaba, {user.username} <span className={styles.userType}>({user.type})</span>
-              </span>
+              <Link
+                href="/my-account"
+                className={`${styles.link} ${pathname === '/orders' ? styles.active : ''}`}
+              >
+                <span className={`${styles.username} ${styles.desktopOnly}`}>
+                  Merhaba, {user.username}
+                </span>
+              </Link>
               {user.type === 'pharmacy' && (
                 <Link href="/special-offers" className={`${styles.link} ${styles.desktopOnly}`}>Eczane Fırsatları</Link>
               )}
@@ -172,9 +177,15 @@ export default function Navbar() {
           <hr style={{ margin: '1.4rem 0', border: 'none', borderTop: '1px solid #ececec' }} />
           {user ? (
             <>
-              <span className={styles.username}>
-                Merhaba, {user.username} <span className={styles.userType}>({user.type})</span>
-              </span>
+              <Link
+                href="/my-account"
+                className={`${styles.link} ${pathname === '/orders' ? styles.active : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                <span className={styles.username}>
+                  Merhaba, {user.username}
+                </span>
+              </Link>
               <Link
                 href="/orders"
                 className={`${styles.link} ${pathname === '/orders' ? styles.active : ''}`}

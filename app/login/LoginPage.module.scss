@@ -24,6 +24,7 @@
   border-radius: 0.6rem;
   border: 1px solid #e0e0e0;
   font-size: 1rem;
+  width: 100%;
 }
 .button {
   background: $primary;
@@ -54,4 +55,25 @@
   color: $secondary;
   text-decoration: underline;
   margin-left: 0.4rem;
+}
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.pwToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 10px;
+  font-size: 18px;
+  color: #a4a4a4;
+  padding: 0 5px;
+  outline: none;
+  transition: color 0.2s;
+  &:hover {
+    color: #23539b;
+  }
 }
