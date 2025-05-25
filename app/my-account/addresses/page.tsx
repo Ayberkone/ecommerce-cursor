@@ -1,155 +1,166 @@
 'use client'
 
-import { useAuth } from '@/components/AuthContext/AuthContext'
-import { useState, useEffect } from 'react'
-import styles from './AddressesPage.module.scss'
-
-type Address = {
-  id: string
-  label: string
-  address: string
-  city: string
-  district: string
-  postalCode: string
-}
+import { useEffect, useState } from "react"
+import styles from "./AddressesPage.module.scss"
+import { getAddresses, addAddress, updateAddress, deleteAddress, Address } from "@/utils/addressApi"
+import { toast } from "sonner"
+import { Plus, Edit2, Trash2, Star } from "lucide-react"
+import { AnimatePresence, motion } from "framer-motion"
+import AddressForm, { AddressFormValues } from "@/components/AddressForm/AddressForm"
 
 export default function AddressesPage() {
-  const { user } = useAuth()
   const [addresses, setAddresses] = useState<Address[]>([])
-  const [form, setForm] = useState<Partial<Address>>({})
-  const [editingId, setEditingId] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [addMode, setAddMode] = useState(false)
+  const [editId, setEditId] = useState<string | null>(null)
+  const [editForm, setEditForm] = useState<Partial<AddressFormValues>>({})
 
+  // Fetch addresses
   useEffect(() => {
-    if (!user) return
-    const saved = JSON.parse(localStorage.getItem(`addresses_${user?.username}`) || '[]')
-    setAddresses(saved)
-  }, [user])
+    setLoading(true)
+    getAddresses()
+      .then(setAddresses)
+      .catch(() => toast.error("Adresler alınamadı"))
+      .finally(() => setLoading(false))
+  }, [])
 
-  if (!user) return <div>Lütfen giriş yapın.</div>
-
-  function saveAddresses(addrs: Address[]) {
-    setAddresses(addrs)
-    localStorage.setItem(`addresses_${user?.username}`, JSON.stringify(addrs))
+  // Add or Edit address
+  const handleFormSubmit = async (data: AddressFormValues) => {
+    setSaving(true)
+    try {
+      if (editId) {
+        const updated = await updateAddress(editId, data)
+        setAddresses(addrs => addrs.map(a => a._id === editId ? updated : a))
+        toast.success("Adres güncellendi!")
+      } else {
+        const newAddr = await addAddress(data)
+        setAddresses(addrs => [newAddr, ...addrs])
+        toast.success("Adres eklendi!")
+      }
+      setAddMode(false)
+      setEditId(null)
+      setEditForm({})
+    } catch {
+      toast.error("İşlem başarısız.")
+    } finally {
+      setSaving(false)
+    }
   }
 
-  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+  // Delete address
+  const handleDelete = async (id?: string) => {
+    if (!id) return
+    if (!window.confirm("Adres silinsin mi?")) return
+    setSaving(true)
+    try {
+      await deleteAddress(id)
+      setAddresses(addrs => addrs.filter(a => a._id !== id))
+      toast.success("Adres silindi!")
+    } catch {
+      toast.error("Adres silinemedi.")
+    } finally {
+      setSaving(false)
+    }
   }
 
-  function handleAddOrUpdate(e: React.FormEvent) {
-    e.preventDefault()
-    if (!form.label || !form.address || !form.city || !form.district || !form.postalCode) return
-    if (editingId) {
-      // Update existing
-      const updated = addresses.map(addr =>
-        addr.id === editingId ? { ...addr, ...form } as Address : addr
+  // Edit address
+  const handleEdit = (addr: Address) => {
+    setEditId(addr._id!)
+    setEditForm(addr)
+    setAddMode(false)
+  }
+
+  // Set as default
+  const handleSetDefault = async (id?: string) => {
+    if (!id) return
+    setSaving(true)
+    try {
+      await updateAddress(id, { isDefault: true })
+      setAddresses(addrs =>
+        addrs.map(a => ({ ...a, isDefault: a._id === id }))
       )
-      saveAddresses(updated)
-      setEditingId(null)
-    } else {
-      // Add new
-      saveAddresses([
-        { ...form, id: Date.now().toString() } as Address,
-        ...addresses,
-      ])
-    }
-    setForm({})
-  }
-
-  function handleEdit(id: string) {
-    const addr = addresses.find(a => a.id === id)
-    if (addr) {
-      setForm(addr)
-      setEditingId(id)
+      toast.success("Varsayılan adres seçildi.")
+    } catch {
+      toast.error("İşlem başarısız.")
+    } finally {
+      setSaving(false)
     }
   }
 
-  function handleDelete(id: string) {
-    const updated = addresses.filter(addr => addr.id !== id)
-    saveAddresses(updated)
-  }
-
-  function handleCancel() {
-    setForm({})
-    setEditingId(null)
+  // Animations for cards
+  const cardVariants = {
+    initial: { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -24, scale: 0.98 },
   }
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.title}>Adreslerim</h1>
-      <form className={styles.form} onSubmit={handleAddOrUpdate}>
-        <div className={styles.row}>
-          <input
-            name="label"
-            placeholder="Adres Başlığı (Ev, İş...)"
-            value={form.label || ''}
-            onChange={handleInput}
-            className={styles.input}
-            maxLength={20}
-          />
-          <input
-            name="city"
-            placeholder="Şehir"
-            value={form.city || ''}
-            onChange={handleInput}
-            className={styles.input}
-            maxLength={30}
-          />
-          <input
-            name="district"
-            placeholder="İlçe"
-            value={form.district || ''}
-            onChange={handleInput}
-            className={styles.input}
-            maxLength={30}
-          />
-        </div>
-        <input
-          name="address"
-          placeholder="Adres"
-          value={form.address || ''}
-          onChange={handleInput}
-          className={styles.input}
-          maxLength={120}
-        />
-        <div className={styles.row}>
-          <input
-            name="postalCode"
-            placeholder="Posta Kodu"
-            value={form.postalCode || ''}
-            onChange={handleInput}
-            className={styles.input}
-            maxLength={10}
-          />
-          <button className={styles.saveBtn} type="submit">
-            {editingId ? 'Güncelle' : 'Ekle'}
+    <>
+      <div className={styles.pageHeader}>
+        <h1>Adreslerim</h1>
+        {!addMode && !editId && (
+          <button className={styles.addBtn} onClick={() => setAddMode(true)} disabled={saving}>
+            <Plus size={22} /> Yeni Adres Ekle
           </button>
-          {editingId && (
-            <button className={styles.cancelBtn} type="button" onClick={handleCancel}>
-              İptal
-            </button>
-          )}
-        </div>
-      </form>
-
-      <div className={styles.list}>
-        {addresses.length === 0 && (
-          <div className={styles.empty}>Kayıtlı adresiniz yok.</div>
         )}
-        {addresses.map(addr => (
-          <div className={styles.addressCard} key={addr.id}>
-            <div className={styles.label}><strong>{addr.label}</strong></div>
-            <div className={styles.address}>{addr.address}</div>
-            <div>
-              {addr.district}, {addr.city} {addr.postalCode}
-            </div>
-            <div className={styles.actions}>
-              <button className={styles.editBtn} onClick={() => handleEdit(addr.id)}>Düzenle</button>
-              <button className={styles.deleteBtn} onClick={() => handleDelete(addr.id)}>Sil</button>
-            </div>
-          </div>
-        ))}
       </div>
-    </main>
+      <div className={styles.addressesWrap}>
+        <AnimatePresence>
+          {/* Add/Edit Address Form */}
+          {(addMode || editId) && (
+            <motion.div
+              key={editId ? `edit-${editId}` : "add-form"}
+              className={styles.addressCard}
+              variants={cardVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              layout
+              style={{ border: "2px dashed #99bbee" }}
+            >
+              <AddressForm
+                defaultValues={editId ? editForm : {}}
+                onSubmit={handleFormSubmit}
+                onCancel={() => { setAddMode(false); setEditId(null); setEditForm({}) }}
+                loading={saving}
+              />
+            </motion.div>
+          )}
+          {/* Address Cards */}
+          {addresses.map(addr =>
+            <motion.div
+              className={styles.addressCard}
+              key={addr._id}
+              variants={cardVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              layout
+              style={addr.isDefault ? { borderColor: "#43bfa3" } : {}}
+            >
+              <div className={styles.addressTitle}>
+                {addr.title}
+                {addr.isDefault && <span className={styles.defaultStar}><Star size={17} color="#43bfa3" /> Varsayılan</span>}
+              </div>
+              <div><b>Alıcı:</b> {addr.recipient} &nbsp; <b>Tel:</b> {addr.phone}</div>
+              <div><b>Adres:</b> {addr.address}</div>
+              <div><b>Şehir:</b> {addr.city} / {addr.district} {addr.postalCode ? `/ ${addr.postalCode}` : ""}</div>
+              {addr.tc && <div><b>TC:</b> {addr.tc}</div>}
+              {addr.taxNumber && <div><b>Vergi No:</b> {addr.taxNumber} / {addr.taxOffice}</div>}
+              <div className={styles.addressActions}>
+                <button className={styles.editBtn} onClick={() => handleEdit(addr)} disabled={saving}><Edit2 size={18} /> Düzenle</button>
+                <button className={styles.deleteBtn} onClick={() => handleDelete(addr._id)} disabled={saving}><Trash2 size={18} /> Sil</button>
+                {!addr.isDefault && (
+                  <button className={styles.addBtn} onClick={() => handleSetDefault(addr._id)} disabled={saving}><Star size={17} /> Varsayılan Yap</button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {loading && <div className={styles.infoText}>Yükleniyor...</div>}
+        {!addMode && !loading && addresses.length === 0 && <div className={styles.infoText}>Kayitli adres bulunamadi.</div>}
+      </div>
+    </>
   )
 }

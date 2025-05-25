@@ -1,0 +1,78 @@
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+@import "@/styles/formControls";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.grid,
+.billingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem 2rem;
+  background: #f9fbfc;
+  border-radius: 1rem;
+  padding: 1.3rem 1rem;
+
+  // Optional: border or shadow for separation
+  border: 1px solid #e3e6ef;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    gap: 1rem 0;
+    padding: 1rem 0.5rem;
+    border-radius: 0.7rem;
+  }
+}
+.addressCol {
+  grid-column: 1 / span 2;
+  @include mobile {
+    grid-column: 1 / span 1;
+  }
+}
+.formActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.submitButton {
+  background: $primary;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 1.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+  &:hover {
+    background: darken($primary, 10%);
+  }
+}
+.cancelButton {
+  background: #eee;
+  color: $dark;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 1.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+  &:hover {
+    background: #e4edfa;
+  }
+}
+.billingCheckbox {
+  font-size: 1.07rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.err {
+  color: $danger;
+  font-size: 0.97rem;
+  margin-top: 0.17rem;
+}

@@ -6,7 +6,9 @@ export async function getUserFromCookies() {
   const cookieStore = await cookies()
   console.log("🚀 ~ getUserFromCookies ~ cookieStore:", cookieStore)
   const cookie = cookieStore.get("token")?.value
+  console.log("BE JWT_SECRET:", JSON.stringify(process.env.JWT_SECRET), JSON.stringify(process.env.JWT_SECRET ? process.env.JWT_SECRET.length : "undefined"))
   console.log("🚀 ~ getUserFromCookies ~ cookie:", cookie)
+  console.log("🚀 ~ getUserFromCookies ~ jwt:", jwt)
   if (!cookie) return null
   try {
     const decoded = jwt.verify(cookie, process.env.JWT_SECRET!) // decoded: string | JwtPayload

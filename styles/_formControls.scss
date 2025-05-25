@@ -1,0 +1,37 @@
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.17rem;
+  margin-bottom: 1rem;
+
+  label {
+    font-size: 1.03rem;
+    color: $muted;
+    font-weight: 500;
+    margin-bottom: 0.29rem;
+  }
+
+  input,
+  select {
+    font-size: 1.07rem;
+    padding: 0.5rem 0.95rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 0.8rem;
+    background: #f7fafd;
+    color: $text;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.16s;
+
+    &:focus {
+      border-color: $primary;
+      background: #f4f8fc;
+    }
+  }
+
+  .err {
+    font-size: 0.97rem;
+    color: #d32f2f;
+    margin-top: 0.16rem;
+  }
+}
