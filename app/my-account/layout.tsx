@@ -5,7 +5,6 @@ import { redirect } from "next/navigation"
 import { getUserFromCookies } from "@/utils/authServer"
 
 export default async function MyAccountLayout({ children }: { children: ReactNode }) {
-  // `active` will be determined by the current route in the sidebar
   const user = await getUserFromCookies()
   if (!user) redirect("/login?next=/my-account")
 

@@ -7,11 +7,18 @@ import { toast } from 'sonner'
 export type UserType = 'pharmacy' | 'doctor' | 'regular'
 export type User = {
   username: string
+  firstName: string
+  lastName: string
   type: UserType
+  id: string
+  email: string
+  phone: string
 }
 
 type AuthContextType = {
   user: User | null
+  setUser: (user: User | null) => void
+  refreshUser: () => Promise<void> // Make sure this is implemented
   login: (username: string, password: string) => Promise<boolean | string>
   logout: () => void
 }
@@ -34,8 +41,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const user = await api('/api/auth/me')
         setUser({
-          username: user.email,
+          id: user.id,
+          email: user.email,
+          lastName: user.lastName,
+          firstName: user.firstName,
+          username: user.firstName + ' ' + user.lastName,
           type: user.type,
+          phone: user.phone,
         })
         if (typeof window !== 'undefined')
           localStorage.setItem('user', JSON.stringify({ username: user.email, type: user.type }))
@@ -55,8 +67,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ email: username, password })
       })
       setUser({
-        username: data.user.email,
+        id: data.user.id,
+        email: data.user.email,
+        lastName: data.user.lastName,
+        firstName: data.user.firstName,
+        username: data.user.firstName + ' ' + data.user.lastName,
         type: data.user.type,
+        phone: data.user.phone,
       })
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify({ username: data.user.email, type: data.user.type }))
@@ -77,8 +94,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     window.location.reload()
   }
 
+  const refreshUser = async () => {
+    try {
+      const updated = await api('/api/auth/me')
+      setUser(updated)
+    } catch {
+      setUser(null)
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   )

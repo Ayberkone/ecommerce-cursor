@@ -98,7 +98,7 @@ export default function AddressesPage() {
   return (
     <>
       <div className={styles.pageHeader}>
-        <h1>Adreslerim</h1>
+        <h1 className={styles.title}>Adreslerim</h1>
         {!addMode && !editId && (
           <button className={styles.addBtn} onClick={() => setAddMode(true)} disabled={saving}>
             <Plus size={22} /> Yeni Adres Ekle

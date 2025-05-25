@@ -6,6 +6,16 @@
   align-items: center;
   justify-content: space-between;
 }
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $primary;
+  margin-bottom: 1.5rem;
+
+  @include tablet {
+    font-size: 1.3rem;
+  }
+}
 .addressesWrap {
   background: #fff;
   border-radius: 1.3rem;
