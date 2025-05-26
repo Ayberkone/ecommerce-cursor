@@ -2,7 +2,7 @@
 
 import styles from './AccountSidebar.module.scss'
 import { useAuth } from '@/context/AuthContext/AuthContext'
-import { accountMenu } from '@/app/my-account/accountMenu'
+import { accountMenu } from '@/app/(public)/my-account/accountMenu'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -19,7 +19,8 @@ const keyToPath: Record<string, string> = {
 
 const AccountSidebar = () => {
   const { user, logout } = useAuth()
-  const type = user?.type || 'regular'
+  type AccountMenuType = keyof typeof accountMenu
+  const type: AccountMenuType = (user?.type as AccountMenuType) || 'regular'
   const menu = accountMenu[type]
   const pathname = usePathname()
   const router = useRouter()

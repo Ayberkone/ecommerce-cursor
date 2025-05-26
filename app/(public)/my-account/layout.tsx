@@ -6,7 +6,7 @@ import { getUserFromCookies } from "@/utils/authServer"
 
 export default async function MyAccountLayout({ children }: { children: ReactNode }) {
   const user = await getUserFromCookies()
-  console.log('🚀 ~ layout.tsx:9 ~ MyAccountLayout ~ user:', user)
+  debugger
   if (!user) redirect("/login?next=/my-account")
 
   return (

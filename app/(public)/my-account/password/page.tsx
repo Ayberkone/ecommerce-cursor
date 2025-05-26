@@ -8,7 +8,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
-import { passwordSchema, RenderIconHidePsw, RenderIconShowPsw } from "@/app/register/RegularRegisterForm"
+import { passwordSchema, RenderIconHidePsw, RenderIconShowPsw } from "@/app/(public)/register/RegularRegisterForm"
 
 const validationSchema = Yup.object({
   currentPassword: Yup.string().required('Mevcut parola gerekli'),

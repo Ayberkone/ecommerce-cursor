@@ -62,7 +62,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(null)
         if (typeof window !== 'undefined') {
           localStorage.removeItem('user')
-          window.location.reload()
         }
       }
     }
