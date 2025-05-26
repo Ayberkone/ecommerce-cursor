@@ -1,8 +1,8 @@
 import AlisverisAydinlatmaMetni from '@/content/contracts/AlisverisAydinlatmaMetni'
 
 export const metadata = {
-  title: 'Mesafeli Satış Sözleşmesi | Farmalink',
-  description: 'Farmalink Mesafeli Satış Sözleşmesi',
+  title: 'ALIŞVERİŞ AYDINLATMA METNİ | Farmalink',
+  description: 'Farmalink ALIŞVERİŞ AYDINLATMA METNİ',
 }
 
 export default function AlisverisAydinlatmaMetniPage() {

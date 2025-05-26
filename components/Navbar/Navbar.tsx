@@ -4,18 +4,18 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from "next/image"
 import { usePathname } from 'next/navigation'
-import { ShoppingCart, Menu, X } from 'lucide-react'
+import { ShoppingCart, Menu, X, UserSquare2 } from 'lucide-react'
 import styles from './Navbar.module.scss'
 import { useCart } from '@/components/CartContext'
 import CartDrawer from '@/components/CartDrawer/CartDrawer'
-import { useAuth } from "@/components/AuthContext/AuthContext"
+import { useAuth } from "@/context/AuthContext/AuthContext"
 
 export default function Navbar() {
   const pathname = usePathname()
   const { cart } = useCart()
   const count = cart.items.reduce((sum, item) => sum + (item.quantity || 0), 0)
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const { user, logout } = useAuth()
+  const { user } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
@@ -87,7 +87,8 @@ export default function Navbar() {
                 className={`${styles.link} ${pathname === '/orders' ? styles.active : ''}`}
               >
                 <span className={`${styles.username} ${styles.desktopOnly}`}>
-                  Merhaba, {user.username}
+                  <UserSquare2 color="#23539B" size={24} />
+                  {user.username}
                 </span>
               </Link>
               {user.type === 'pharmacy' && (
@@ -96,7 +97,6 @@ export default function Navbar() {
               {user.type === 'doctor' && (
                 <Link href="/doctor-portal" className={`${styles.link} ${styles.desktopOnly}`}>Doktor Portalı</Link>
               )}
-              <button className={`${styles.logout} ${styles.desktopOnly}`} onClick={logout}>Çıkış</button>
             </>
           ) : (
             <>
@@ -183,7 +183,8 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
               >
                 <span className={styles.username}>
-                  Merhaba, {user.username}
+                  <UserSquare2 color="#23539B" size={24} />
+                  {user.username}
                 </span>
               </Link>
               <Link
@@ -191,7 +192,6 @@ export default function Navbar() {
                 className={`${styles.link} ${pathname === '/orders' ? styles.active : ''}`}
                 onClick={() => setMobileOpen(false)}
               >Siparişlerim</Link>
-              <button className={styles.logout} onClick={() => { logout(); setMobileOpen(false); }}>Çıkış</button>
             </>
           ) : (
             <>

@@ -11,6 +11,7 @@ import styles from './RegisterPage.module.scss'
 import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
 import { api } from "@/utils/api"
+import { passwordSchema } from "./RegularRegisterForm"
 
 
 const TITLE_OPTIONS = [
@@ -34,13 +35,7 @@ const schema = Yup.object().shape({
     otherwise: (schema) => schema.notRequired(),
   }),
   email: Yup.string().email('Geçersiz e-posta').required('E-posta gerekli'),
-  password: Yup.string()
-    .min(8, 'Şifre en az 8 karakter olmalı')
-    .matches(/[A-Z]/, 'Şifre büyük harf içermeli')
-    .matches(/[a-z]/, 'Şifre küçük harf içermeli')
-    .matches(/\d/, 'Şifre rakam içermeli')
-    .matches(/[@$!%*?&]/, 'Şifre özel karakter içermeli')
-    .required('Şifre gerekli'),
+  password: passwordSchema,
   password2: Yup.string()
     .oneOf([Yup.ref('password')], 'Şifreler eşleşmiyor')
     .required('Şifreyi tekrar girin'),

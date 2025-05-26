@@ -2,7 +2,7 @@
 
 import styles from './ProductCard.module.scss'
 import { useCart } from '@/components/CartContext'
-import { useAuth } from '@/components/AuthContext/AuthContext'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import { toast } from 'sonner'
 import { useState } from 'react'
 import Image from 'next/image'

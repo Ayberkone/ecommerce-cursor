@@ -1,92 +1,152 @@
 'use client'
 
-import { useAuth } from '@/components/AuthContext/AuthContext'
-import { useState } from 'react'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import styles from './PasswordPage.module.scss'
+import { api } from '@/utils/api'
+import { toast } from 'sonner'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
+import { passwordSchema, RenderIconHidePsw, RenderIconShowPsw } from "@/app/register/RegularRegisterForm"
+
+const validationSchema = Yup.object({
+  currentPassword: Yup.string().required('Mevcut parola gerekli'),
+  newPassword: passwordSchema,
+  newPasswordRepeat: Yup.string()
+    .oneOf([Yup.ref('newPassword')], 'Şifreler eşleşmiyor')
+    .required('Yeni parolayı tekrar girin')
+})
 
 export default function PasswordPage() {
-  const { user, logout } = useAuth()
-  const [current, setCurrent] = useState('')
-  const [next, setNext] = useState('')
-  const [nextRepeat, setNextRepeat] = useState('')
-  const [error, setError] = useState('')
+  const { user } = useAuth()
   const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
+  // Her input için ayrı state
+  const [showCurrent, setShowCurrent] = useState(false)
+  const [showNew, setShowNew] = useState(false)
+  const [showNewRepeat, setShowNewRepeat] = useState(false)
 
   if (!user) return <div>Lütfen giriş yapın.</div>
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setSuccess(false)
-    // Load user from localStorage "users"
-    const users = JSON.parse(localStorage.getItem('users') || '[]')
-    const idx = users.findIndex((u: any) => u.username === user.username)
-    if (idx === -1) {
-      setError('Kullanıcı bulunamadı.')
-      return
-    }
-    if (users[idx].password !== current) {
-      setError('Mevcut parola yanlış.')
-      return
-    }
-    if (next.length < 4) {
-      setError('Yeni parola en az 4 karakter olmalı.')
-      return
-    }
-    if (next !== nextRepeat) {
-      setError('Yeni parolalar eşleşmiyor.')
-      return
-    }
-    users[idx].password = next
-    localStorage.setItem('users', JSON.stringify(users))
-    setSuccess(true)
-    setCurrent('')
-    setNext('')
-    setNextRepeat('')
-    // Optionally, log out user after password change:
-    // logout()
-  }
-
   return (
-    <main className={styles.main}>
+    <div>
       <h1 className={styles.title}>Parola Ayarları</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <label className={styles.label}>
-          Mevcut Parola
-          <input
-            className={styles.input}
-            type="password"
-            value={current}
-            onChange={e => setCurrent(e.target.value)}
-            autoComplete="current-password"
-          />
-        </label>
-        <label className={styles.label}>
-          Yeni Parola
-          <input
-            className={styles.input}
-            type="password"
-            value={next}
-            onChange={e => setNext(e.target.value)}
-            autoComplete="new-password"
-          />
-        </label>
-        <label className={styles.label}>
-          Yeni Parola (Tekrar)
-          <input
-            className={styles.input}
-            type="password"
-            value={nextRepeat}
-            onChange={e => setNextRepeat(e.target.value)}
-            autoComplete="new-password"
-          />
-        </label>
-        {error && <div className={styles.error}>{error}</div>}
-        <button className={styles.saveBtn} type="submit">
-          Parolayı Değiştir
-        </button>
-        {success && <div className={styles.success}>Parola başarıyla değiştirildi.</div>}
-      </form>
-    </main>
+      <Formik
+        initialValues={{
+          currentPassword: '',
+          newPassword: '',
+          newPasswordRepeat: ''
+        }}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { resetForm, setFieldError }) => {
+          setSuccess(false)
+          setLoading(true)
+          try {
+            await api('/api/auth/change-password', {
+              method: 'POST',
+              body: JSON.stringify({
+                currentPassword: values.currentPassword,
+                newPassword: values.newPassword,
+              }),
+            })
+            setSuccess(true)
+            resetForm()
+            toast.success('Parola başarıyla değiştirildi.')
+          } catch (err) {
+            setFieldError(
+              'currentPassword',
+              (err && typeof err === 'object' && 'message' in err && typeof (err as any).message === 'string')
+                ? (err as any).message
+                : 'Hata oluştu!'
+            )
+          } finally {
+            setLoading(false)
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className={styles.form}>
+            <label className={styles.label} style={{ position: "relative" }}>
+              Mevcut Parola
+              <div className={styles.passwordWrapper}>
+                <Field
+                  className={styles.input}
+                  type={showCurrent ? "text" : "password"}
+                  name="currentPassword"
+                  autoComplete="current-password"
+                  disabled={loading || isSubmitting}
+                />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className={styles.pwToggle}
+                  onClick={() => setShowCurrent(v => !v)}
+                  aria-label={showCurrent ? "Şifreyi Gizle" : "Şifreyi Göster"}
+                >
+                  {showCurrent ? RenderIconHidePsw : RenderIconShowPsw}
+                </button>
+              </div>
+              <ErrorMessage name="currentPassword" component="div" className={styles.error} />
+            </label>
+
+            <label className={styles.label} style={{ position: "relative" }}>
+              Yeni Parola
+              <div className={styles.passwordWrapper}>
+                <Field
+                  className={styles.input}
+                  type={showNew ? "text" : "password"}
+                  name="newPassword"
+                  autoComplete="new-password"
+                  disabled={loading || isSubmitting}
+                />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className={styles.pwToggle}
+                  onClick={() => setShowNew(v => !v)}
+                  aria-label={showNew ? "Şifreyi Gizle" : "Şifreyi Göster"}
+                >
+                  {showNew ? RenderIconHidePsw : RenderIconShowPsw}
+                </button>
+              </div>
+              <ErrorMessage name="newPassword" component="div" className={styles.error} />
+            </label>
+
+            <label className={styles.label} style={{ position: "relative" }}>
+              Yeni Parola (Tekrar)
+              <div className={styles.passwordWrapper}>
+                <Field
+                  className={styles.input}
+                  type={showNewRepeat ? "text" : "password"}
+                  name="newPasswordRepeat"
+                  autoComplete="new-password"
+                  disabled={loading || isSubmitting}
+                />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  className={styles.pwToggle}
+                  onClick={() => setShowNewRepeat(v => !v)}
+                  aria-label={showNewRepeat ? "Şifreyi Gizle" : "Şifreyi Göster"}
+                >
+                  {showNewRepeat ? RenderIconHidePsw : RenderIconShowPsw}
+                </button>
+              </div>
+              <ErrorMessage name="newPasswordRepeat" component="div" className={styles.error} />
+            </label>
+
+            <button
+              className={styles.saveBtn}
+              type="submit"
+              disabled={loading || isSubmitting}
+            >
+              Parolayı Değiştir
+            </button>
+            {success && <div className={styles.success}>Parola başarıyla değiştirildi.</div>}
+          </Form>
+        )}
+      </Formik>
+    </div>
   )
 }

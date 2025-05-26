@@ -7,8 +7,10 @@ import { toast } from "sonner"
 import { Plus, Edit2, Trash2, Star } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import AddressForm, { AddressFormValues } from "@/components/AddressForm/AddressForm"
+import { useAddressMap } from "@/context/AddressMapContext/AddressMapContext"
 
 export default function AddressesPage() {
+  const { getProvinceName, getDistrictName, getNeighbourhoodName, isMapsLoading } = useAddressMap()
   const [addresses, setAddresses] = useState<Address[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -121,8 +123,8 @@ export default function AddressesPage() {
             >
               <AddressForm
                 defaultValues={editId ? editForm : {}}
-                onSubmit={handleFormSubmit}
-                onCancel={() => { setAddMode(false); setEditId(null); setEditForm({}) }}
+                onSubmitAction={handleFormSubmit}
+                onCancelAction={() => { setAddMode(false); setEditId(null); setEditForm({}) }}
                 loading={saving}
               />
             </motion.div>
@@ -145,7 +147,7 @@ export default function AddressesPage() {
               </div>
               <div><b>Alıcı:</b> {addr.recipient} &nbsp; <b>Tel:</b> {addr.phone}</div>
               <div><b>Adres:</b> {addr.address}</div>
-              <div><b>Şehir:</b> {addr.city} / {addr.district} {addr.postalCode ? `/ ${addr.postalCode}` : ""}</div>
+              <div><b></b> {addr.provinceName} / {addr.districtName} / {addr.neighbourhoodName} {addr.postalCode ? `/ ${addr.postalCode}` : ""}</div>
               {addr.tc && <div><b>TC:</b> {addr.tc}</div>}
               {addr.taxNumber && <div><b>Vergi No:</b> {addr.taxNumber} / {addr.taxOffice}</div>}
               <div className={styles.addressActions}>
@@ -159,7 +161,7 @@ export default function AddressesPage() {
           )}
         </AnimatePresence>
         {loading && <div className={styles.infoText}>Yükleniyor...</div>}
-        {!addMode && !loading && addresses.length === 0 && <div className={styles.infoText}>Kayitli adres bulunamadi.</div>}
+        {!addMode && !loading && addresses.length === 0 && <div className={styles.infoText}>Kayıtlı adres bulunamadı.</div>}
       </div>
     </>
   )

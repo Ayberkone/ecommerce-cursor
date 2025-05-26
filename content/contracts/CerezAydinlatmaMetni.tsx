@@ -4,7 +4,7 @@ const CerezAydinlatmaMetni = () => (
   <div>
     <h2><strong>ÇEREZ AYDINLATMA METNİ</strong></h2>
     <p>
-      Bu Çerez Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (“Kanun”) 10. maddesi ile Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ kapsamında veri sorumlusu sıfatıyla FARMALİNK SAĞLIK ÜRÜNLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ (FARMALİNK) tarafından hazırlanmıştır.
+      Bu Çerez Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu&apos;nun (“Kanun”) 10. maddesi ile Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ kapsamında veri sorumlusu sıfatıyla FARMALİNK SAĞLIK ÜRÜNLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ (FARMALİNK) tarafından hazırlanmıştır.
     </p>
     <p>
       Bu Çerez Aydınlatma Metni’nin amacı, (“www.farmalink.com.tr” ve “www.gengigel.com.tr”) adlı internet sitelerimizde kullanılan çerezlerin cihazınıza yerleştirilmesi aracılığıyla otomatik yolla elde edilen kişisel verilerin işlenmesine ilişkin olarak, hangi amaçlarla hangi tür çerezleri kullandığımızı ve bu çerezleri nasıl yönetebileceğiniz hakkında sizlere bilgi vermektir.

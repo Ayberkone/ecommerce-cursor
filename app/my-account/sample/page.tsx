@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/components/AuthContext/AuthContext'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import { useState } from 'react'
 import styles from './SamplePage.module.scss'
 

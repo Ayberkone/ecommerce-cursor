@@ -1,0 +1,62 @@
+/* AdminSidebar.module.scss */
+.sidebar {
+  width: 220px;
+  background: #14213d;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2.2rem 1.2rem 1.2rem 1.2rem;
+  box-shadow: 2px 0 8px 0 rgba(30, 48, 100, 0.09);
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.07rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.16s, color 0.16s;
+  display: block;
+}
+
+.sidebar nav ul li a.active,
+.sidebar nav ul li a[aria-current="page"] {
+  background: #fca311;
+  color: #14213d;
+  font-weight: 600;
+}
+
+.sidebar nav ul li a:hover:not(.active) {
+  background: #334173;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    flex-direction: row;
+    padding: 1rem;
+    box-shadow: none;
+  }
+  .sidebar nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1.2rem;
+  }
+  .sidebar nav ul li {
+    margin-bottom: 0;
+  }
+}

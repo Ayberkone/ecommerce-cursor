@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/components/AuthContext/AuthContext'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import styles from './LoginPage.module.scss'
 import Link from 'next/link'
 import { RenderIconHidePsw, RenderIconShowPsw } from "../register/RegularRegisterForm"
@@ -18,12 +18,16 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    const resp = await login(username, password)
-    if (resp === true) {
+    const { flag, userType, errorMsg } = await login(username, password)
+    if (flag) {
       setError('')
-      router.push('/')
+      if (userType === "admin") {
+        router.push("/admin")
+      } else if (userType === "regular") {
+        router.push("/my-account")
+      }
     } else {
-      setError(resp || 'Invalid credentials')
+      setError(errorMsg)
     }
   }
 

@@ -58,7 +58,6 @@
 .editBtn,
 .deleteBtn {
   border: none;
-  padding: 0.42rem 1.2rem;
   border-radius: 1.3rem;
   font-size: 0.98rem;
   font-weight: 500;
@@ -72,12 +71,6 @@
   color: #d32f2f;
 }
 .addBtn {
-  display: flex;
-  align-items: center;
-  padding: 0.8rem 1.9rem;
-  border-radius: 2rem;
-  font-size: 1.06rem;
-  font-weight: 600;
   background: $primary;
   color: #fff;
   border: none;

@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { api } from '@/utils/api'
 import { toast } from 'sonner'
 
-export type UserType = 'pharmacy' | 'doctor' | 'regular'
+export type UserType = 'pharmacy' | 'doctor' | 'regular' | 'admin'
 export type User = {
   username: string
   firstName: string
@@ -15,11 +15,17 @@ export type User = {
   phone: string
 }
 
+type LoginResponse = {
+  flag: boolean
+  userType: UserType | null
+  errorMsg: string
+}
+
 type AuthContextType = {
   user: User | null
   setUser: (user: User | null) => void
   refreshUser: () => Promise<void> // Make sure this is implemented
-  login: (username: string, password: string) => Promise<boolean | string>
+  login: (username: string, password: string) => Promise<LoginResponse>
   logout: () => void
 }
 
@@ -49,12 +55,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           type: user.type,
           phone: user.phone,
         })
-        if (typeof window !== 'undefined')
+        if (typeof window !== 'undefined') {
           localStorage.setItem('user', JSON.stringify({ username: user.email, type: user.type }))
+        }
       } catch {
         setUser(null)
-        if (typeof window !== 'undefined')
+        if (typeof window !== 'undefined') {
           localStorage.removeItem('user')
+          window.location.reload()
+        }
       }
     }
     checkSession()
@@ -78,20 +87,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify({ username: data.user.email, type: data.user.type }))
       }
-      return true
+      return {
+        flag: true,
+        userType: data.user.type,
+        errorMsg: ''
+      }
     } catch (err) {
-      toast.error((err as Error)?.message || "Bir hata oluştu")
-      return (err as Error)?.message || "Bir hata oluştu"
+      const msg = (err as Error)?.message || "Bir hata oluştu"
+      toast.error(msg)
+      return { errorMsg: msg, flag: false, userType: null }
     }
   }
 
   const logout = async () => {
     setUser(null)
+    const data = await api('/api/auth/logout', { method: 'POST' })
     if (typeof window !== 'undefined') {
       localStorage.removeItem('user')
+      window.location.reload()
     }
-    const data = await api('/api/auth/logout', { method: 'POST' })
-    window.location.reload()
   }
 
   const refreshUser = async () => {

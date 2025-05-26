@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './AccountSidebar.module.scss'
-import { useAuth } from '@/components/AuthContext/AuthContext'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import { accountMenu } from '@/app/my-account/accountMenu'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'

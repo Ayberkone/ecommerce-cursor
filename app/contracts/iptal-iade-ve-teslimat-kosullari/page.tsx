@@ -1,8 +1,8 @@
 import IptalIadeKosul from '@/content/contracts/IptalIadeKosul'
 
 export const metadata = {
-  title: 'Mesafeli Satış Sözleşmesi | Farmalink',
-  description: 'Farmalink Mesafeli Satış Sözleşmesi',
+  title: 'İptal/iade Ve Teslimat Koşulları | Farmalink',
+  description: 'Farmalink İptal/iade Ve Teslimat Koşulları',
 }
 
 export default function IptalIadeKosulPage() {

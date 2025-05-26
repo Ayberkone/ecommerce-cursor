@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import styles from './ApprovalsPage.module.scss'
 import { fetchPendingUsers, approveUser, rejectUser } from '@/utils/adminApi'
 import { toast } from 'sonner'
-import RejectionModal from "@/components/Admin/RejectionModal"
+import RejectionModal from "@/components/Admin/RejectionModal/RejectionModal"
 
 type PendingUser = {
   _id: string

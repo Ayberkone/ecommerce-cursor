@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/components/AuthContext/AuthContext'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import styles from './DocsPage.module.scss'
 import { FileText, Image as FileImage, Download, ExternalLink } from 'lucide-react'
 import { useEffect, useState } from 'react'

@@ -1,14 +1,14 @@
-import UyelikAydinlatmaMetni from '@/content/contracts/UyelikAydinlatmaMetni'
+import UyelikSozlesmesi from '@/content/contracts/UyelikSozlesmesi'
 
 export const metadata = {
-  title: 'Mesafeli Satış Sözleşmesi | Farmalink',
-  description: 'Farmalink Mesafeli Satış Sözleşmesi',
+  title: 'Üyelik Sözleşmesi | Farmalink',
+  description: 'Farmalink Üyelik Sözleşmesi',
 }
 
-export default function UyelikAydinlatmaPage() {
+export default function UyelikSozlesmesiPage() {
   return (
     <main className="container" style={{ maxWidth: 820 }}>
-      <UyelikAydinlatmaMetni />
+      <UyelikSozlesmesi />
     </main>
   )
 }

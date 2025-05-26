@@ -8,7 +8,12 @@ export type Address = {
   email?: string
   address: string
   city: string
-  district: string
+  districtId: string
+  districtName: string
+  provinceId: string
+  provinceName: string
+  neighbourhoodId: string
+  neighbourhoodName: string
   postalCode?: string
   taxNumber?: string
   taxOffice?: string

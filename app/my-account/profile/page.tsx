@@ -1,11 +1,13 @@
 'use client'
 
-import { useAuth } from '@/components/AuthContext/AuthContext'
-import { useForm } from 'react-hook-form'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 import { useEffect, useState } from 'react'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 import styles from './ProfilePage.module.scss'
 import { api } from "@/utils/api"
 import { toast } from "sonner"
+import { isPhoneValid } from "@/utils/functions"
 
 type ProfileForm = {
   firstName: string
@@ -14,67 +16,109 @@ type ProfileForm = {
   phone?: string
 }
 
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required('Ad gerekli'),
+  lastName: Yup.string().required('Soyad gerekli'),
+  email: Yup.string().email('Geçerli bir e-posta girin').required('E-posta gerekli'),
+  phone: Yup.string()
+    .test('phone-valid', 'Geçerli bir telefon girin (ör: 5xxxxxxxxx)', value =>
+      !value || isPhoneValid(value)
+    )
+})
+
 export default function ProfilePage() {
   const { user, refreshUser } = useAuth() as { user: ProfileForm | null; refreshUser?: () => void }
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting, isSubmitSuccessful } } = useForm<ProfileForm>()
+  const [initialValues, setInitialValues] = useState<ProfileForm | null>(null)
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
     if (user) {
-      reset({
+      setInitialValues({
         firstName: user.firstName || '',
         lastName: user.lastName || '',
         email: user.email || '',
         phone: user.phone || ''
       })
     }
-  }, [user, reset])
+  }, [user])
 
-  if (!user) return <div>Lütfen giriş yapın.</div>
-
-  const onSubmit = async (data: ProfileForm) => {
-    try {
-      await api('/api/profile', {
-        method: 'PUT',
-        body: JSON.stringify(data)
-      })
-      toast.success('Güncelleme Basarili!')
-      refreshUser?.()
-    } catch (e: any) {
-      toast.error(e.message || 'Hata oluştu!')
-    } finally {
-      setTimeout(() => toast.error('Hata oluştu!'), 1500)
-    }
-  }
-
+  if (!user || !initialValues)
+    return <div>Lütfen giriş yapın.</div>
 
   return (
     <div>
       <h1 className={styles.title}>Hesap Bilgileri</h1>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.formGroup}>
-          <label>Ad*</label>
-          <input {...register("firstName", { required: "Ad gerekli" })} className={styles.input} />
-          {errors.firstName && <span className={styles.err}>{errors.firstName.message}</span>}
-        </div>
-        <div className={styles.formGroup}>
-          <label>Soyad*</label>
-          <input {...register("lastName", { required: "Soyad gerekli" })} className={styles.input} />
-          {errors.lastName && <span className={styles.err}>{errors.lastName.message}</span>}
-        </div>
-        <div className={styles.formGroup}>
-          <label>E-Posta*</label>
-          <input {...register("email", { required: "E-posta gerekli" })} className={styles.input} disabled readOnly />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Gsm</label>
-          <input {...register("phone")} className={styles.input} maxLength={13} placeholder="5xx xxx xx xx" />
-        </div>
-        <div className={styles.formGroup}>
-          <button type="submit" className={styles.saveBtn} disabled={isSubmitting}>Güncelle</button>
-        </div>
-        {saved && <div className={styles.saved}>Güncellendi!</div>}
-      </form>
+      <Formik
+        initialValues={initialValues}
+        enableReinitialize
+        validationSchema={validationSchema}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          try {
+            await api('/api/profile', {
+              method: 'PUT',
+              body: JSON.stringify(values)
+            })
+            toast.success('Güncelleme başarılı!')
+            setSaved(true)
+            refreshUser?.()
+            setInitialValues(values) // update base values
+            resetForm({ values })
+          } catch (e: any) {
+            toast.error(e.message || 'Hata oluştu!')
+          } finally {
+            setSubmitting(false)
+          }
+        }}
+      >
+        {({ values, errors, touched, isSubmitting, isValid, dirty, initialValues }) => {
+          // Compare all fields to prevent submit unless there is a real change
+          const hasChanged =
+            values.firstName !== initialValues.firstName ||
+            values.lastName !== initialValues.lastName ||
+            values.email !== initialValues.email ||
+            (values.phone || '') !== (initialValues.phone || '')
+          return (
+            <Form className={styles.form}>
+              <div className={styles.formGroup}>
+                <label>Ad*</label>
+                <Field name="firstName" className={styles.input} />
+                <ErrorMessage name="firstName" component="span" className={styles.err} />
+              </div>
+              <div className={styles.formGroup}>
+                <label>Soyad*</label>
+                <Field name="lastName" className={styles.input} />
+                <ErrorMessage name="lastName" component="span" className={styles.err} />
+              </div>
+              <div className={styles.formGroup}>
+                <label>E-Posta*</label>
+                <Field name="email" className={styles.input} disabled readOnly />
+                <ErrorMessage name="email" component="span" className={styles.err} />
+              </div>
+              <div className={styles.formGroup}>
+                <label>Gsm</label>
+                <Field
+                  name="phone"
+                  className={styles.input}
+                  maxLength={10}
+                  placeholder="5xxxxxxxxx"
+                  inputMode="numeric"
+                />
+                <ErrorMessage name="phone" component="span" className={styles.err} />
+              </div>
+              <div className={styles.formGroup}>
+                <button
+                  type="submit"
+                  className={styles.saveBtn}
+                  disabled={isSubmitting || !hasChanged || !isValid}
+                >
+                  Güncelle
+                </button>
+              </div>
+              {saved && <div className={styles.saved}>Güncelleme Başarılı!</div>}
+            </Form>
+          )
+        }}
+      </Formik>
     </div>
   )
 }

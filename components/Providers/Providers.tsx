@@ -2,15 +2,16 @@
 
 import NextNProgress from 'nextjs-progressbar'
 import { CartProvider } from '@/components/CartContext'
-import { AuthProvider } from "@/components/AuthContext/AuthContext"
+import { AuthProvider } from "@/context/AuthContext/AuthContext"
 import { Toaster } from 'sonner'
+import { AddressMapProvider } from "@/context/AddressMapContext/AddressMapContext"
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Toaster position="top-right" richColors />
       <NextNProgress
-        color="#e11d48"
+        color="#000000"
         startPosition={0.3}
         stopDelayMs={180}
         height={4}
@@ -18,7 +19,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       />
       <AuthProvider>
         <CartProvider>
-          {children}
+          <AddressMapProvider>
+            {children}
+          </AddressMapProvider>
         </CartProvider>
       </AuthProvider>
     </>

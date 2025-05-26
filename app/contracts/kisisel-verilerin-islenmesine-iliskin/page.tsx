@@ -1,8 +1,8 @@
 import KisiselVerilerinIslenmesi from '@/content/contracts/KisiselVerilerinIslenmesi'
 
 export const metadata = {
-  title: 'Mesafeli Satış Sözleşmesi | Farmalink',
-  description: 'Farmalink Mesafeli Satış Sözleşmesi',
+  title: 'Kişisel Verilerin İşlenmesine İlişkin | Farmalink',
+  description: 'Farmalink Kişisel Verilerin İşlenmesine İlişkin',
 }
 
 export default function KisiselVerilerinIslenmesiPage() {

@@ -109,12 +109,10 @@
 
 .username {
   font-size: 0.95rem;
-  color: $gray-700;
+  color: $primary;
   margin-right: 0.5rem;
-  .userType {
-    color: $primary-400;
-    font-size: 0.95em;
-  }
+  display: flex;
+  align-items: center;
 }
 
 .link,

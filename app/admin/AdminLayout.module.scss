@@ -1,0 +1,24 @@
+/* AdminLayout.module.scss */
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafd;
+}
+
+.adminMain {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  background: #fff;
+  min-height: 100vh;
+  box-shadow: -2px 0 8px 0 rgba(30, 48, 100, 0.06);
+  transition: background 0.2s;
+}
+
+@media (max-width: 900px) {
+  .adminLayout {
+    flex-direction: column;
+  }
+  .adminMain {
+    padding: 1.2rem 0.5rem;
+  }
+}
