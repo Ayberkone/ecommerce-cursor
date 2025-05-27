@@ -22,7 +22,7 @@ export async function api<T = any>(path: string, options: ApiOptions = {}): Prom
     if (!res.ok) {
       // Try to parse error
       const errData = await res.json().catch(() => ({}))
-      throw new Error(errData?.message || res.statusText || "API Error")
+      throw new Error(errData?.message || res?.statusText || "API Error")
     }
     if (res.status === 204) return {} as T // No content
     return await res.json()

@@ -1,62 +1,124 @@
-/* AdminSidebar.module.scss */
-.sidebar {
-  width: 220px;
-  background: #14213d;
-  color: #fff;
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
+.menu {
+  display: flex;
+  position: fixed;
+  min-width: 230px;
+  height: 100%;
   min-height: 100vh;
+  padding: 2.2rem 1.2rem;
+  box-shadow: 2px 0 18px 0 rgba(39, 70, 120, 0.09);
+  top: 0;
+  left: 0;
+  background: $primary-700;
+  max-width: 320px;
+  z-index: 3000;
+  transform: translateX(-90%);
+  transition: transform 0.28s cubic-bezier(0.6, 0.22, 0.38, 0.89);
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.menuContent {
   display: flex;
   flex-direction: column;
-  padding: 2.2rem 1.2rem 1.2rem 1.2rem;
-  box-shadow: 2px 0 8px 0 rgba(30, 48, 100, 0.09);
+  height: 100%;
+  gap: 1.1rem;
+  background: $primary-700;
+  color: $white;
 }
 
-.sidebar nav ul {
-  list-style: none;
+.hamburger {
   padding: 0;
-  margin: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 1rem;
+  right: -20px;
+  z-index: 3500;
+  background: $primary-700;
+  border-radius: 50%;
+  transition: left 0.28s cubic-bezier(0.6, 0.22, 0.38, 0.89);
+  box-shadow: 0 2px 8px rgba(36, 52, 85, 0.09);
+  color: $accent;
+  cursor: pointer;
+  background: white;
+
+  &.open {
+    // left: 210px;
+  }
 }
 
-.sidebar nav ul li {
-  margin-bottom: 1.5rem;
-}
-
-.sidebar nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.07rem;
+.menuItem {
+  display: flex;
+  align-items: center;
+  background: $primary-700;
+  color: $white;
+  border: 1px solid $primary-600;
+  border-radius: 2rem;
+  padding: 0.9rem 1.3rem;
+  font-size: 1.16rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background 0.16s, color 0.16s;
-  display: block;
+  cursor: pointer;
+  transition: background 0.15s, color 0.18s;
+  gap: 0.7rem;
+  outline: none;
+  margin-bottom: 0.4rem;
+  white-space: pre;
+
+  &.logout {
+    color: $danger;
+    background: $gray-400;
+    margin: auto auto 0;
+    width: 100%;
+
+    &:hover,
+    &:focus {
+      color: $danger;
+      background: $primary-100;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background: $primary-100;
+    color: $primary-900;
+  }
+  &.active {
+    background: $accent;
+    color: $primary-900;
+    font-weight: 600;
+  }
 }
 
-.sidebar nav ul li a.active,
-.sidebar nav ul li a[aria-current="page"] {
-  background: #fca311;
-  color: #14213d;
+.active {
+  background: $accent;
+  color: $primary-900;
   font-weight: 600;
 }
 
-.sidebar nav ul li a:hover:not(.active) {
-  background: #334173;
-  color: #fff;
+.icon {
+  display: flex;
+  margin-right: 0.5rem;
 }
 
-@media (max-width: 900px) {
-  .sidebar {
-    width: 100%;
-    min-height: auto;
-    flex-direction: row;
-    padding: 1rem;
-    box-shadow: none;
-  }
-  .sidebar nav ul {
-    display: flex;
-    flex-direction: row;
-    gap: 1.2rem;
-  }
-  .sidebar nav ul li {
-    margin-bottom: 0;
-  }
+.overlay {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+}
+
+.adminHeader {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2.3rem;
+  color: $accent;
 }

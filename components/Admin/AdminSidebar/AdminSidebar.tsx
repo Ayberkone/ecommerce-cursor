@@ -1,47 +1,101 @@
-// components/Admin/AdminSidebar.tsx
 'use client'
 
-import Link from "next/link"
-import styles from "./AdminSidebar.module.scss"
-import { useAuth } from '@/context/AuthContext/AuthContext'
+import styles from './AdminSidebar.module.scss'
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LogOut } from "lucide-react"
+import { useEffect, useState } from 'react'
+import { Menu, LogOut, Box, User, ShoppingBag, Settings } from 'lucide-react'
+import { useAuth } from '@/context/AuthContext/AuthContext'
 
-const menu = [
-	{ label: "Dashboard", href: "/admin" },
-	{ label: "Orders", href: "/admin/orders" },
-	{ label: "Users", href: "/admin/users" },
-	{ label: "Products", href: "/admin/products" },
+const adminMenu = [
+	{ key: 'dashboard', label: 'Panel', href: '/admin', icon: Box },
+	{ key: 'products', label: 'Ürünler', href: '/admin/products', icon: ShoppingBag },
+	{ key: 'orders', label: 'Siparişler', href: '/admin/orders', icon: Box },
+	{ key: 'users', label: 'Kullanıcılar', href: '/admin/users', icon: User },
+	{ key: 'rest', label: 'Diğer', href: '/admin/categories-brands', icon: User },
+	{ key: 'settings', label: 'Ayarlar', href: '/admin/settings', icon: Settings }
 ]
 
 export default function AdminSidebar() {
 	const { logout } = useAuth()
+	const pathname = usePathname()
 	const router = useRouter()
+	const [drawerOpen, setDrawerOpen] = useState(false) // Default to open for SSR
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const savedState = localStorage.getItem('adminSidebarOpen')
+			if (savedState !== null) {
+				setDrawerOpen(JSON.parse(savedState))
+			}
+		}
+	}, [])
 
-	function handleLogout() {
-		logout()
-		router.push('/')
+	// Effect to save drawerOpen state to localStorage whenever it changes
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('adminSidebarOpen', JSON.stringify(drawerOpen))
+		}
+	}, [drawerOpen])
+
+	// Active key for highlighting
+	const activeKey =
+		adminMenu
+			.filter(item => item.href !== '/admin') // Exclude the dashboard route from matching
+			.find(item => pathname?.startsWith(item.href))?.key
+		|| (pathname === '/admin' ? 'dashboard' : undefined)
+
+	function handleClick(item: typeof adminMenu[0]) {
+		setDrawerOpen(false)
+		if (item.key === 'logout') {
+			logout()
+			router.push('/login')
+		}
 	}
 
 	return (
-		<aside className={styles.sidebar}>
-			<nav>
-				<ul>
-					{menu.map(item => (
-						<li key={item.href}>
-							<Link href={item.href}>{item.label}</Link>
-						</li>
-					))}
+		<>
+			{/* Overlay */}
+			{drawerOpen && (
+				<div
+					className={styles.overlay}
+					onClick={() => setDrawerOpen(false)}
+					tabIndex={-1}
+					aria-label="Menüyü kapat"
+				/>
+			)}
+			<aside className={`${styles.menu} ${drawerOpen ? styles.open : ''}`}>
+				<div className={styles.menuContent}>
 					<button
-						className={styles.menuItem}
-						onClick={() => handleLogout()}
+						className={`${styles.hamburger} ${drawerOpen ? styles.open : ''}`}
+						aria-label="Admin menüsünü aç"
+						onClick={() => setDrawerOpen(x => !x)}
 						type="button"
 					>
-						Cikis yap
-						<span className={styles.icon}><LogOut size={20} /></span>
+						<Menu size={28} />
 					</button>
-				</ul>
-			</nav>
-		</aside>
+					<div className={styles.adminHeader}>Admin Panel</div>
+					{adminMenu.map(item => (
+						<Link
+							key={item.key}
+							href={item.href}
+							className={`${styles.menuItem} ${activeKey === item.key ? styles.active : ''}`}
+							onClick={() => handleClick(item)}
+						>
+							<span className={styles.icon}><item.icon size={20} /></span>
+							{item.label}
+						</Link>
+					))}
+					<button
+						className={styles.menuItem + ' ' + styles.logout}
+						aria-label="Çıkış Yap"
+						onClick={() => handleClick({ key: 'logout' } as any)}
+						type="button"
+					>
+						<span className={styles.icon}><LogOut size={20} /></span>
+						Çıkış Yap
+					</button>
+				</div>
+			</aside>
+		</>
 	)
 }

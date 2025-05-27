@@ -1,0 +1,117 @@
+.root {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px 0 rgba(36, 70, 120, 0.09);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+
+  &.expanded {
+    box-shadow: 0 4px 20px 2px rgba(36, 70, 120, 0.13);
+  }
+}
+
+.cardHeader {
+  cursor: pointer;
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.22rem;
+  font-weight: 600;
+  background: #eff5fb;
+  transition: background 0.18s;
+  user-select: none;
+  border-bottom: 1px solid #eee;
+}
+
+.cardHeader:hover {
+  background: #dde8f6;
+}
+
+.cardContent {
+  padding: 1.4rem 2rem 2.2rem 2rem;
+  animation: fadeIn 0.4s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tableWrap {
+  margin-top: 1.2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8rem;
+}
+
+.table th,
+.table td {
+  padding: 0.7rem 1.2rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 1.03rem;
+}
+
+.table th {
+  background: #f4f4f7;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.addForm {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  align-items: center;
+
+  & input {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #dde8f6;
+    font-size: 1rem;
+  }
+
+  & button {
+    background: #23539b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.1rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.16s;
+  }
+  & button[type="button"] {
+    background: #fca311;
+    color: #14213d;
+  }
+}

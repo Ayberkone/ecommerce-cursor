@@ -1,4 +1,7 @@
 /* AdminLayout.module.scss */
+@import "@/styles/variables";
+@import "@/styles/breakpoints";
+
 .adminLayout {
   display: flex;
   min-height: 100vh;
@@ -9,16 +12,22 @@
   flex: 1;
   padding: 2rem 2.5rem;
   background: #fff;
-  min-height: 100vh;
   box-shadow: -2px 0 8px 0 rgba(30, 48, 100, 0.06);
   transition: background 0.2s;
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: $primary;
+  }
 }
 
-@media (max-width: 900px) {
+@include tablet {
   .adminLayout {
     flex-direction: column;
   }
   .adminMain {
-    padding: 1.2rem 0.5rem;
+    padding: 4rem 0.5rem;
   }
 }

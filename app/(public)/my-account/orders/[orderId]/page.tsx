@@ -18,7 +18,7 @@ export default function OrderDetailPage() {
       .then(setOrder)
       .catch(() => router.push("/my-account/orders"))
       .finally(() => setLoading(false))
-  }, [orderId])
+  }, [orderId, router])
 
   if (loading) return <div>Yükleniyor...</div>
   if (!order) return <div>Sipariş bulunamadı.</div>

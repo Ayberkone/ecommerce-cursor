@@ -1,0 +1,62 @@
+.productForm {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px 0 rgba(27, 47, 84, 0.09);
+  max-width: 720px;
+  margin: 2rem auto;
+
+  label {
+    display: block;
+    margin-bottom: 0.9rem;
+    font-weight: 500;
+    input,
+    textarea,
+    select {
+      display: block;
+      width: 100%;
+      margin-top: 0.25rem;
+      padding: 0.7rem;
+      border: 1.5px solid #dbeafe;
+      border-radius: 8px;
+      font-size: 1.03rem;
+      transition: border 0.15s;
+
+      &[type="checkbox"] {
+        height: 1.2rem;
+        align-items: center;
+        display: flex;
+        width: 1.2rem;
+      }
+
+      &:focus {
+        border-color: #23539b;
+        outline: none;
+      }
+    }
+  }
+
+  .section {
+    position: relative;
+    margin-bottom: 1.8rem;
+  }
+  .sectionRow {
+    display: flex;
+    position: relative;
+    gap: 1.4rem;
+    margin-top: 1.2rem;
+    > * {
+      flex: 1;
+    }
+  }
+  .err {
+    color: #d32f2f;
+    font-size: 0.98rem;
+    position: absolute;
+    bottom: -0.5rem;
+  }
+  .errorInput {
+    border-color: #d32f2f !important;
+    background: #fff2f2 !important;
+  }
+}
