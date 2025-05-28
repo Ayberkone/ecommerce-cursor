@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .content {
   display: flex;
@@ -11,7 +10,7 @@
 .titleDetail {
   font-size: 1.24rem;
   font-weight: 700;
-  color: $primary;
+  color: var(--primary);
   margin-bottom: 0.3rem;
 }
 
@@ -29,7 +28,7 @@
   transition: border-color 0.18s;
   &:focus {
     outline: none;
-    border-color: $primary;
+    border-color: var(--primary);
     background: #f4f8fc;
   }
 }
@@ -50,21 +49,21 @@
   font-weight: 600;
   cursor: pointer;
   background: #e3e7ef;
-  color: $muted;
+  color: var(--muted, #6c757d);
   transition: background 0.17s, color 0.17s;
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
     background: #d0e1ff;
-    color: $primary;
+    color: var(--primary);
   }
 }
 
 .confirmBtn {
-  background: $danger;
+  background: var(--danger);
   color: #fff;
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
-    background: darken($danger, 6%);
+    background: darken(var(--danger), 6%);
     color: #fff;
   }
   &:disabled {

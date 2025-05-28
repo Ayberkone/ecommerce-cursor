@@ -63,7 +63,10 @@ export default function AdminSidebar() {
 					aria-label="Menüyü kapat"
 				/>
 			)}
-			<aside className={`${styles.menu} ${drawerOpen ? styles.open : ''}`}>
+			<aside
+				className={`${styles.menu} ${drawerOpen ? styles.open : ''}`}
+				onMouseEnter={() => setDrawerOpen(true)}
+			>
 				<div className={styles.menuContent}>
 					<button
 						className={`${styles.hamburger} ${drawerOpen ? styles.open : ''}`}

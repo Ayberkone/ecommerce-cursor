@@ -1,5 +1,4 @@
-@import '@/styles/variables';
-@import '@/styles/breakpoints';
+@use "@/styles/variables" as *;
 
 .main {
   max-width: 500px;
@@ -23,17 +22,17 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: $primary;
+  color: var(--primary);
 }
 
 .text {
   font-size: 1.1rem;
   margin-bottom: 2rem;
-  color: $dark;
+  color: var(--dark);
 }
 
 .button {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
   padding: 1rem 2.5rem;

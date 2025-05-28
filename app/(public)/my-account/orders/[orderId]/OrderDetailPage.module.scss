@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .detailWrap {
   max-width: 960px;
@@ -41,7 +40,7 @@
     flex-direction: column;
     label {
       font-size: 0.97rem;
-      color: $muted;
+      color: var(--muted, #6c757d);
       font-weight: 500;
       margin-bottom: 0.3rem;
     }
@@ -82,13 +81,13 @@
     margin-bottom: 0.6rem;
     label {
       font-size: 0.97rem;
-      color: $muted;
+      color: var(--muted, #6c757d);
       margin-bottom: 0.2rem;
     }
     span {
       font-size: 1.13rem;
       font-weight: 500;
-      color: $primary;
+      color: var(--primary);
       background: #f3faff;
       border-radius: 0.6rem;
       padding: 0.45rem 0.7rem;
@@ -110,7 +109,7 @@
     }
     th {
       font-size: 1rem;
-      color: $primary;
+      color: var(--primary);
       font-weight: 700;
       border-bottom: 2px solid #e2e8f0;
       background: #f4f8fc;

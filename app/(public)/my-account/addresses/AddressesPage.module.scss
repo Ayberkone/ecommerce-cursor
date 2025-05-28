@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .pageHeader {
   display: flex;
@@ -9,7 +8,7 @@
 .title {
   font-size: 2rem;
   font-weight: 700;
-  color: $primary;
+  color: var(--primary);
   margin-bottom: 1.5rem;
 
   @include tablet {
@@ -44,7 +43,7 @@
 .addressTitle {
   font-size: 1.12rem;
   font-weight: 600;
-  color: $primary;
+  color: var(--primary);
   margin-bottom: 0.35rem;
   display: flex;
   align-items: center;
@@ -63,7 +62,7 @@
   font-weight: 500;
   cursor: pointer;
   background: #e4edfa;
-  color: $primary;
+  color: var(--primary);
   transition: background 0.18s, color 0.18s;
 }
 .deleteBtn {
@@ -71,13 +70,13 @@
   color: #d32f2f;
 }
 .addBtn {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   border: none;
   cursor: pointer;
   transition: background 0.18s;
   &:hover {
-    background: darken($primary, 7%);
+    background: darken(var(--primary), 7%);
   }
 }
 

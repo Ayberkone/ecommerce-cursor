@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .main {
   max-width: 1200px;
@@ -11,7 +10,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: $dark;
+  color: var(--dark);
 }
 
 .productFilters {

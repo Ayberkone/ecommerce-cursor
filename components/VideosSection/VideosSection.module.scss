@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .section {
   margin: 0 0 2.7rem 0;
@@ -22,10 +21,10 @@
 .title {
   font-size: 2rem;
   font-weight: 800;
-  color: $primary;
+  color: var(--primary);
 }
 .allBtn {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   padding: 0.7rem 1.4rem;
   border-radius: 1.2rem;
@@ -56,7 +55,7 @@
   padding: 1.3rem 1rem 0.7rem 1rem;
   box-shadow: 0 1px 8px rgba(34, 45, 59, 0.06);
   text-decoration: none;
-  color: $dark;
+  color: var(--dark);
   min-width: 260px;
   max-width: 380px;
   position: relative;
@@ -99,7 +98,7 @@
   font-weight: 600;
   font-size: 1.12rem;
   margin-bottom: 0.13rem;
-  color: $primary;
+  color: var(--primary);
 }
 .watchBtn {
   margin-top: 0.15rem;

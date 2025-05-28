@@ -1,5 +1,5 @@
+// AdminSidebar.module.scss
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .menu {
   display: flex;
@@ -7,11 +7,10 @@
   min-width: 230px;
   height: 100%;
   min-height: 100vh;
-  padding: 2.2rem 1.2rem;
   box-shadow: 2px 0 18px 0 rgba(39, 70, 120, 0.09);
   top: 0;
   left: 0;
-  background: $primary-700;
+  background: var(--primary-700);
   max-width: 320px;
   z-index: 3000;
   transform: translateX(-90%);
@@ -20,15 +19,21 @@
   &.open {
     transform: translateX(0);
   }
+
+  @include mobile {
+    transform: translateX(-100%);
+  }
 }
 
 .menuContent {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  gap: 1.1rem;
-  background: $primary-700;
-  color: $white;
+  padding: 2.2rem 1.2rem;
+  height: 100vh;
+  overflow-y: auto;
+  gap: 0.4rem;
+  background: var(--primary-700);
+  color: var(--white);
 }
 
 .hamburger {
@@ -42,11 +47,11 @@
   top: 1rem;
   right: -20px;
   z-index: 3500;
-  background: $primary-700;
+  background: var(--primary-700);
   border-radius: 50%;
   transition: left 0.28s cubic-bezier(0.6, 0.22, 0.38, 0.89);
   box-shadow: 0 2px 8px rgba(36, 52, 85, 0.09);
-  color: $accent;
+  color: var(--accent);
   cursor: pointer;
   background: white;
 
@@ -58,48 +63,46 @@
 .menuItem {
   display: flex;
   align-items: center;
-  background: $primary-700;
-  color: $white;
-  border: 1px solid $primary-600;
+  background: var(--primary-700);
+  color: var(--white);
+  border: 1px solid var(--primary-600);
   border-radius: 2rem;
   padding: 0.9rem 1.3rem;
   font-size: 1.16rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s, color 0.18s;
-  gap: 0.7rem;
   outline: none;
-  margin-bottom: 0.4rem;
   white-space: pre;
 
   &.logout {
-    color: $danger;
-    background: $gray-400;
+    color: var(--danger);
+    background: var(--gray-200);
     margin: auto auto 0;
     width: 100%;
 
     &:hover,
     &:focus {
-      color: $danger;
-      background: $primary-100;
+      color: var(--danger);
+      background: var(--primary-100);
     }
   }
 
   &:hover,
   &:focus {
-    background: $primary-100;
-    color: $primary-900;
+    background: var(--primary-200);
+    color: var(--primary-900);
   }
   &.active {
-    background: $accent;
-    color: $primary-900;
+    background: var(--accent);
+    color: var(--primary-900);
     font-weight: 600;
   }
 }
 
 .active {
-  background: $accent;
-  color: $primary-900;
+  background: var(--accent);
+  color: var(--primary-900);
   font-weight: 600;
 }
 
@@ -120,5 +123,5 @@
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 2.3rem;
-  color: $accent;
+  color: var(--accent);
 }

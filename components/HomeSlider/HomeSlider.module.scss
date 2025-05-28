@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .sliderWrap {
   padding-top: $navbar-height;
@@ -57,7 +56,7 @@
   display: inline-block;
   margin-top: 0.4rem;
   padding: 0.6rem 1.7rem;
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   border-radius: 1.4rem;
   font-weight: 700;

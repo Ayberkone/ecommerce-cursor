@@ -1,6 +1,5 @@
 @use "sass:color";
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .faqSection {
   max-width: 720px;
@@ -11,7 +10,7 @@
 
 .title {
   font-size: 2.1rem;
-  color: $primary-700;
+  color: var(--primary-700);
   font-weight: 700;
   text-align: center;
   margin-bottom: $space-md;
@@ -28,23 +27,23 @@
   max-width: 400px;
   padding: $space-xs $space-sm;
   font-size: 1.1rem;
-  border: 1.5px solid $primary-200;
+  border: 1.5px solid var(--primary-200);
   border-radius: 0.75rem;
   outline: none;
-  background: $primary-50;
-  color: $primary-900;
+  background: var(--primary)-50;
+  color: var(--primary-900);
   transition: border-color 0.25s;
-  box-shadow: 0 2px 10px color.adjust($primary-100, $alpha: -0.9);
+  box-shadow: 0 2px 10px color.adjust(var(--primary-100), $alpha: -0.9);
 
   &:focus {
-    border-color: $primary;
-    background: $white;
+    border-color: var(--primary);
+    background: var(--white);
   }
 }
 
 .notFound {
   text-align: center;
-  color: $gray-700;
+  color: var(--gray-200);
   padding: $space-md;
   font-style: italic;
 }
@@ -54,17 +53,17 @@
 }
 
 .accordionItem {
-  background: $white;
+  background: var(--white);
   border-radius: 1.2rem;
   margin-bottom: 1.2rem;
-  border: 1.5px solid $primary-100;
-  box-shadow: 0 2px 10px color.adjust($primary-50, $alpha: -0.92);
+  border: 1.5px solid var(--primary-100);
+  box-shadow: 0 2px 10px color.adjust(var(--primary)-50, $alpha: -0.92);
   overflow: hidden;
   transition: box-shadow 0.3s;
 
   &.active {
-    border-color: $primary-400;
-    box-shadow: 0 4px 16px color.adjust($primary-100, $alpha: -0.86);
+    border-color: var(--primary-400);
+    box-shadow: 0 4px 16px color.adjust(var(--primary-100), $alpha: -0.86);
   }
 }
 
@@ -76,7 +75,7 @@
   padding: $space-sm $space-md;
   font-size: 1.08rem;
   font-weight: 600;
-  color: $primary-700;
+  color: var(--primary-700);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -85,21 +84,21 @@
 
   &:hover,
   &:focus {
-    background: $primary-50;
+    background: var(--primary)-50;
     outline: none;
   }
 }
 
 .chevron {
   transition: transform 0.3s ease-in-out;
-  color: $primary-500;
+  color: var(--primary-500);
 }
 
 .accordionPanel {
   max-height: 0;
   overflow: hidden;
-  background: $primary-50;
-  border-top: 1px solid $primary-100;
+  background: var(--primary)-50;
+  border-top: 1px solid var(--primary-100);
   transition: max-height 0.3s ease-in-out;
 }
 
@@ -109,7 +108,7 @@
 
 .accordionBody {
   padding: $space-sm $space-md;
-  color: $gray-800;
+  color: var(--gray-800);
   font-size: 1rem;
   line-height: 1.7;
   border-radius: 0 0 1rem 1rem;

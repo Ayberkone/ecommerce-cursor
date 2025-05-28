@@ -8,7 +8,7 @@
 
   label {
     font-size: 1.03rem;
-    color: $muted;
+    color: var(--muted, #6c757d);
     font-weight: 500;
     margin-bottom: 0.29rem;
   }
@@ -26,7 +26,7 @@
     transition: border-color 0.16s;
 
     &:focus {
-      border-color: $primary;
+      border-color: var(--primary);
       background: #f4f8fc;
     }
   }

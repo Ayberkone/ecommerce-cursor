@@ -1,7 +1,6 @@
 // ApprovalsPage.module.scss
 
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .approvalsMain {
   padding: 2rem 0;
@@ -10,7 +9,7 @@
   font-family: $font-family-base;
 
   h1 {
-    color: $primary-700;
+    color: var(--primary-700);
     font-size: 2.2rem;
     font-weight: 600;
     margin-bottom: 2rem;
@@ -22,8 +21,8 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: $white;
-  box-shadow: 0 2px 16px rgba($primary-700, 0.05);
+  background: var(--white);
+  box-shadow: 0 2px 16px rgba(var(--primary-700), 0.05);
   border-radius: 16px;
   overflow: hidden;
   font-size: 1rem;
@@ -33,13 +32,13 @@
   td {
     padding: 1rem 1.2rem;
     text-align: left;
-    border-bottom: 1px solid $gray-100;
+    border-bottom: 1px solid var(--gray-100);
     vertical-align: middle;
   }
 
   th {
-    background: $primary-50;
-    color: $primary-700;
+    background: var(--primary)-50;
+    color: var(--primary-700);
     font-weight: 600;
     font-size: 1.05rem;
   }
@@ -49,7 +48,7 @@
   }
 
   td {
-    color: $dark;
+    color: var(--dark);
   }
 }
 
@@ -68,7 +67,7 @@
 
 .approveBtn {
   background: $success;
-  color: $white;
+  color: var(--white);
 
   &:hover {
     background: $success-700;
@@ -76,12 +75,12 @@
 }
 
 .rejectBtn {
-  background: $danger-200;
-  color: $danger-600;
+  background: var(--danger)-200;
+  color: var(--danger)-600;
 
   &:hover {
-    background: $danger-600;
-    color: $white;
+    background: var(--danger)-600;
+    color: var(--white);
   }
 }
 
@@ -113,8 +112,8 @@
   }
   .approvalsTable tr {
     margin-bottom: 1.3rem;
-    background: $white;
-    box-shadow: 0 2px 10px rgba($primary-700, 0.06);
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(var(--primary-700), 0.06);
     border-radius: 10px;
     overflow: hidden;
     padding: 1rem;
@@ -127,7 +126,7 @@
     &:before {
       content: attr(data-label) ": ";
       font-weight: 600;
-      color: $primary-700;
+      color: var(--primary-700);
       display: inline-block;
       min-width: 120px;
       font-size: 0.98em;

@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .offersMain {
   padding: 2rem 0;
@@ -11,7 +10,7 @@
 }
 .title {
   font-size: 2.2rem;
-  color: $primary-700;
+  color: var(--primary-700);
   text-align: center;
   margin-bottom: 2.5rem;
   font-weight: 600;
@@ -29,7 +28,7 @@
   padding: 0 1rem;
 }
 .bundleCard {
-  background: $white;
+  background: var(--white);
   border-radius: 1.5rem;
   box-shadow: 0 4px 24px 0 rgba(35, 83, 155, 0.06);
   display: flex;
@@ -46,7 +45,7 @@
   overflow: hidden;
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
-  background: $primary-50;
+  background: var(--primary)-50;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,7 +63,7 @@
 }
 .bundleName {
   font-size: 1.25rem;
-  color: $primary;
+  color: var(--primary);
   font-weight: 600;
   margin-bottom: 0.7rem;
 }
@@ -77,14 +76,14 @@
     align-items: center;
     gap: 0.8rem;
     font-size: 1rem;
-    color: $dark;
+    color: var(--dark);
     margin-bottom: 0.2rem;
     .productIcon {
       width: 32px;
       height: 32px;
       object-fit: contain;
       border-radius: 6px;
-      background: $primary-100;
+      background: var(--primary-100);
     }
   }
 }
@@ -93,7 +92,7 @@
   align-items: center;
   gap: 1.1rem;
   .oldPrice {
-    color: $gray-400;
+    color: var(--gray-400);
     text-decoration: line-through;
     font-size: 1.15rem;
   }
@@ -109,8 +108,8 @@
 }
 .addCartBtn {
   margin-top: 1.2rem;
-  background: $primary;
-  color: $white;
+  background: var(--primary);
+  color: var(--white);
   border: none;
   padding: 0.7em 2.4em;
   font-size: 1.1rem;
@@ -119,6 +118,6 @@
   cursor: pointer;
   transition: background 0.14s;
   &:hover {
-    background: $primary-600;
+    background: var(--primary-600);
   }
 }

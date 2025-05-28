@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .container {
   display: flex;
@@ -31,7 +30,7 @@
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  color: $dark;
+  color: var(--dark);
   border: 1px solid #e3e6ef;
   border-radius: 2rem;
   padding: 0.9rem 1.3rem;
@@ -44,12 +43,12 @@
   &:hover,
   &:focus {
     background: #e6f1fa;
-    color: $primary;
+    color: var(--primary);
   }
 }
 
 .active {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
 }
 
@@ -66,7 +65,7 @@
 
 .title {
   font-size: 2.3rem;
-  color: $primary;
+  color: var(--primary);
   margin-bottom: 1.5rem;
   font-weight: 700;
 }

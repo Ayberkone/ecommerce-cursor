@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .blogDetailSection {
   padding: $navbar-height 2.5rem;
@@ -36,9 +35,9 @@
 
 .date {
   font-size: 1rem;
-  color: $primary-400;
+  color: var(--primary-400);
   b {
-    color: $primary-700;
+    color: var(--primary-700);
     font-weight: 700;
   }
 }
@@ -48,7 +47,7 @@
   align-items: center;
   gap: 1.2rem;
   font-size: 0.95rem;
-  color: $gray-800;
+  color: var(--gray-800);
 
   & > div {
     font-weight: 500;
@@ -57,7 +56,7 @@
   a {
     display: inline-flex;
     align-items: center;
-    color: $primary;
+    color: var(--primary);
     transition: color 0.18s;
     svg {
       width: 22px;
@@ -71,21 +70,21 @@
 }
 
 .blogContent {
-  background: $white;
+  background: var(--white);
   border-radius: 1.1rem;
   box-shadow: 0 4px 16px rgba(35, 83, 155, 0.07);
   padding: 2.5rem 2rem;
   margin-bottom: 2rem;
 
   h1 {
-    color: $primary-800;
+    color: var(--primary)-800;
     font-size: 2.2rem;
     margin-bottom: 1.2rem;
     font-weight: 700;
   }
   h2,
   h3 {
-    color: $primary-700;
+    color: var(--primary-700);
     margin-top: 2.2rem;
     margin-bottom: 0.8rem;
     font-weight: 600;
@@ -103,17 +102,17 @@
     li {
       list-style: disc;
       margin-bottom: 0.4rem;
-      color: $dark;
+      color: var(--dark);
       font-size: 1rem;
     }
   }
   p {
-    color: $dark;
+    color: var(--dark);
     line-height: 1.7;
     margin-bottom: 1.1rem;
   }
   a {
-    color: $primary-700;
+    color: var(--primary-700);
     text-decoration: underline;
     &:hover {
       color: $secondary;

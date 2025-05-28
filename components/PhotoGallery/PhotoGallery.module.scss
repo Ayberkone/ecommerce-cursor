@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .resimler {
   display: flex;
@@ -29,11 +28,11 @@
         padding: 2px;
       }
       &.active {
-        border: 1px solid $primary-600;
+        border: 1px solid var(--primary-600);
         box-shadow: 0 2px 8px rgba(35, 83, 155, 0.08);
       }
       &:hover:not(.active) {
-        border: 1px solid $primary-400;
+        border: 1px solid var(--primary-400);
       }
     }
   }

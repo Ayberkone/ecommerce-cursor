@@ -1,12 +1,11 @@
-@import '@/styles/variables';
-@import '@/styles/breakpoints';
+@import "@/styles/variables";
 
 .form {
   background: #f8fafc;
   border-radius: 1rem;
   padding: 1rem 1.5rem 1.2rem 1.5rem;
   margin-top: 2rem;
-  box-shadow: 0 1px 8px rgba(34,45,59,0.06);
+  box-shadow: 0 1px 8px rgba(34, 45, 59, 0.06);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -42,11 +41,11 @@
   color: #e0e0e0;
   transition: color 0.17s;
   &:focus {
-    outline: 2px solid $primary;
+    outline: 2px solid var(--primary);
   }
 }
 .starActive {
-  color: #FFD166;
+  color: #ffd166;
 }
 .textarea {
   padding: 0.7rem 1rem;
@@ -58,7 +57,7 @@
   max-height: 200px;
 }
 .button {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
   border: none;

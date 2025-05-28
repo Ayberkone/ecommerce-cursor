@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .menu {
   min-width: 230px;
@@ -68,7 +67,7 @@
   align-items: center;
   justify-content: space-between;
   background: #fff;
-  color: $dark;
+  color: var(--dark);
   border: 1px solid #e3e6ef;
   border-radius: 2rem;
   padding: 0.9rem 1.3rem;
@@ -82,10 +81,10 @@
   &:hover,
   &:focus {
     background: #e6f1fa;
-    color: $primary;
+    color: var(--primary);
   }
   &.active {
-    background: $primary;
+    background: var(--primary);
     color: #fff;
   }
   @include tablet {
@@ -94,7 +93,7 @@
 }
 
 .active {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
 }
 

@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 @use "@/styles/formControls" as *;
 
 .form {
@@ -38,7 +37,7 @@
   margin-top: 1rem;
 }
 .submitButton {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 0.8rem 2rem;
@@ -47,12 +46,12 @@
   cursor: pointer;
   transition: background 0.18s;
   &:hover {
-    background: darken($primary, 10%);
+    background: darken(var(--primary), 10%);
   }
 }
 .cancelButton {
   background: #eee;
-  color: $dark;
+  color: var(--dark);
   border: none;
   padding: 0.8rem 1.6rem;
   border-radius: 1.7rem;
@@ -72,7 +71,7 @@
   margin-top: 0.6rem;
 }
 .err {
-  color: $danger;
+  color: var(--danger);
   font-size: 0.97rem;
   margin-top: 0.17rem;
 }

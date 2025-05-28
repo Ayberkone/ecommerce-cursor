@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .registerWrapper {
   background: $gray-50;
@@ -16,7 +15,7 @@
 }
 
 .formContainer {
-  background: $white;
+  background: var(--white);
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(30, 40, 70, 0.09);
   padding: 36px 40px 28px 40px;
@@ -42,11 +41,11 @@
 
   .icon {
     font-size: 3rem;
-    color: $primary-600;
+    color: var(--primary-600);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $primary-50;
+    background: var(--primary)-50;
     border-radius: 50%;
     width: 52px;
     height: 52px;
@@ -54,7 +53,7 @@
 
   b {
     font-size: 1.28rem;
-    color: $primary-800;
+    color: var(--primary)-800;
     letter-spacing: 0.01em;
   }
 }
@@ -70,21 +69,21 @@
   input[type="tel"],
   select {
     background: $gray-50;
-    border: 1px solid $gray-200;
+    border: 1px solid var(--gray-200);
     border-radius: 7px;
     padding: 10px 13px;
     font-size: 1rem;
     transition: border 0.2s;
-    color: $gray-800;
+    color: var(--gray-800);
     outline: none;
 
     &:focus {
-      border: 1.5px solid $primary-400;
-      background: $white;
+      border: 1.5px solid var(--primary-400);
+      background: var(--white);
     }
 
     &::placeholder {
-      color: $gray-400;
+      color: var(--gray-400);
       font-size: 0.98rem;
     }
   }
@@ -96,11 +95,11 @@
   gap: 8px;
   margin-bottom: 14px;
   font-size: 0.97rem;
-  color: $gray-700;
+  color: var(--gray-200);
 
   .checkbox {
     margin-top: 3px;
-    accent-color: $primary-500;
+    accent-color: var(--primary-500);
     width: 1.12em;
     height: 1.12em;
   }
@@ -111,20 +110,20 @@
     line-height: 1.25;
   }
   .underline {
-    color: $primary-600;
+    color: var(--primary-600);
     text-decoration: underline;
     cursor: pointer;
     transition: color 0.18s;
 
     &:hover,
     &:focus {
-      color: $primary-800;
+      color: var(--primary)-800;
     }
   }
 }
 
 .contractBox {
-  border: 1px solid $gray-200;
+  border: 1px solid var(--gray-200);
   background: $gray-50;
   max-height: 260px;
   overflow-y: auto;
@@ -137,7 +136,7 @@
 }
 
 .error {
-  color: $danger-600;
+  color: var(--danger)-600;
   font-size: 0.93em;
   margin-top: 5px;
   margin-bottom: -10px;
@@ -146,8 +145,8 @@
 
 .submitBtn {
   width: 100%;
-  background: $primary-600;
-  color: $white;
+  background: var(--primary-600);
+  color: var(--white);
   font-weight: 600;
   font-size: 1.04rem;
   border: none;
@@ -160,7 +159,7 @@
   box-shadow: 0 1px 5px rgba(30, 60, 140, 0.06);
 
   &:hover:not(:disabled) {
-    background: $primary-700;
+    background: var(--primary-700);
     transform: translateY(-1.5px) scale(1.012);
   }
 
@@ -175,7 +174,7 @@
   text-align: center;
 
   .link {
-    color: $primary-700;
+    color: var(--primary-700);
     font-weight: 500;
     font-size: 0.97rem;
     text-decoration: underline;
@@ -183,7 +182,7 @@
     transition: color 0.18s;
 
     &:hover {
-      color: $primary-900;
+      color: var(--primary-900);
     }
   }
 }
@@ -254,12 +253,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $primary-50;
+  background: var(--primary)-50;
   border-radius: 999px;
   padding: 0.25rem;
   width: fit-content;
   margin: 2.2rem auto 2.5rem auto;
-  box-shadow: 0 2px 8px 0 rgba($primary-400, 0.05);
+  box-shadow: 0 2px 8px 0 rgba(var(--primary-400), 0.05);
 
   button {
     background: transparent;
@@ -267,7 +266,7 @@
     font-family: $font-family-base;
     font-size: 1.09rem;
     font-weight: 500;
-    color: $primary-600;
+    color: var(--primary-600);
     border-radius: 999px;
     padding: 0.64em 2.2em;
     transition: background 0.18s, color 0.18s, box-shadow 0.16s;
@@ -278,15 +277,15 @@
 
     &:hover,
     &:focus-visible {
-      background: $primary-100;
-      color: $primary-800;
+      background: var(--primary-100);
+      color: var(--primary)-800;
     }
   }
 
   .activeTab {
-    background: $white;
-    color: $primary-700;
-    box-shadow: 0 1px 6px 0 rgba($primary-400, 0.09);
+    background: var(--white);
+    color: var(--primary-700);
+    box-shadow: 0 1px 6px 0 rgba(var(--primary-400), 0.09);
     font-weight: 600;
     z-index: 2;
   }

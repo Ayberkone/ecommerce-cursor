@@ -1,17 +1,16 @@
 /* AdminLayout.module.scss */
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .adminLayout {
   display: flex;
   min-height: 100vh;
-  background: #f8fafd;
+  background: var(--white);
 }
 
 .adminMain {
   flex: 1;
   padding: 2rem 2.5rem;
-  background: #fff;
+  background: var(--white);
   box-shadow: -2px 0 8px 0 rgba(30, 48, 100, 0.06);
   transition: background 0.2s;
 
@@ -19,7 +18,7 @@
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    color: $primary;
+    color: var(--primary);
   }
 }
 
@@ -28,6 +27,6 @@
     flex-direction: column;
   }
   .adminMain {
-    padding: 4rem 0.5rem;
+    padding: 4rem 2rem;
   }
 }

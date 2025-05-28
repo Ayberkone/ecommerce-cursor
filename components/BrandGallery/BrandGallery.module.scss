@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .section {
   margin: 0 0 3rem 0;
@@ -28,10 +27,10 @@
 .brandFamily {
   font-weight: 800;
   font-size: 2.2rem;
-  color: $primary;
+  color: var(--primary);
 }
 .brandProductsTitle {
-  color: $primary;
+  color: var(--primary);
   font-size: 1.18rem;
   margin-bottom: 1.1rem;
   font-weight: 600;
@@ -68,9 +67,9 @@
 
   &:hover,
   &.active {
-    background: $primary;
+    background: var(--primary);
     color: #fff;
-    border-color: $primary;
+    border-color: var(--primary);
   }
 }
 .uruntur {
@@ -96,7 +95,7 @@
 }
 .showAllBtn {
   margin-left: auto;
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   padding: 0.6rem 1.4rem;
   border-radius: 1.2rem;
@@ -146,7 +145,7 @@
 .productName {
   font-weight: 600;
   font-size: 1.03rem;
-  color: $dark;
+  color: var(--dark);
   text-decoration: none;
   margin-bottom: 0.35rem;
   display: block;
@@ -169,7 +168,7 @@
 }
 .price {
   font-weight: 700;
-  color: $primary;
+  color: var(--primary);
   font-size: 1.09rem;
 }
 .brandGalleryPrev {

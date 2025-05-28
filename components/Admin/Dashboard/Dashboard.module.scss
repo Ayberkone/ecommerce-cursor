@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .dashboard {
   padding: 2.4rem;
@@ -9,7 +8,7 @@
   font-size: 2.1rem;
   font-weight: 800;
   margin-bottom: 2.2rem;
-  color: $primary-700;
+  color: var(--primary-700);
   letter-spacing: -0.01em;
 }
 
@@ -24,7 +23,7 @@
   display: flex;
   align-items: center;
   gap: 1.1rem;
-  background: $white;
+  background: var(--white);
   border-radius: 1.3rem;
   box-shadow: 0 3px 18px 0 rgba(39, 70, 120, 0.06);
   border: 2.5px solid;
@@ -35,7 +34,7 @@
 
   &:hover {
     box-shadow: 0 6px 28px 0 rgba(66, 84, 135, 0.1);
-    border-color: $primary;
+    border-color: var(--primary);
   }
 }
 
@@ -53,12 +52,12 @@
 .statValue {
   font-size: 1.35rem;
   font-weight: 700;
-  color: $primary-900;
+  color: var(--primary-900);
 }
 
 .statLabel {
   font-size: 1.07rem;
-  color: $muted;
+  color: var(--muted, #6c757d);
   margin-top: 0.22rem;
 }
 
@@ -74,13 +73,13 @@
 }
 
 .sectionLink {
-  color: $primary;
+  color: var(--primary);
   font-weight: 600;
   text-decoration: underline;
 }
 
 .tableWrap {
-  background: $white;
+  background: var(--white);
   border-radius: 1.1rem;
   box-shadow: 0 2px 10px 0 rgba(50, 60, 90, 0.07);
   padding: 1.2rem 1.2rem 0.5rem 1.2rem;
@@ -97,22 +96,22 @@
     text-align: left;
   }
   th {
-    color: $primary-800;
+    color: var(--primary)-800;
     font-weight: 700;
-    border-bottom: 1.5px solid $primary-200;
-    background: $primary-50;
+    border-bottom: 1.5px solid var(--primary-200);
+    background: var(--primary)-50;
   }
   td {
-    color: $dark;
-    border-bottom: 1px solid $gray-100;
+    color: var(--dark);
+    border-bottom: 1px solid var(--gray-100);
   }
 }
 
 .warning {
   display: flex;
   align-items: center;
-  background: $danger-50;
-  color: $danger;
+  background: var(--danger);
+  color: var(--danger);
   border-radius: 0.6rem;
   font-size: 1.07rem;
   padding: 0.8rem 1.2rem;
@@ -126,7 +125,7 @@
   margin: 2.5rem 0 2.1rem 0;
 }
 .quickBtn {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
   padding: 1rem 2.2rem;
@@ -139,7 +138,7 @@
   box-shadow: 0 1px 4px 0 rgba(44, 60, 92, 0.08);
   transition: background 0.14s, box-shadow 0.18s;
   &:hover {
-    background: $primary-700;
+    background: var(--primary-700);
     box-shadow: 0 2px 8px 0 rgba(24, 45, 65, 0.12);
   }
 }

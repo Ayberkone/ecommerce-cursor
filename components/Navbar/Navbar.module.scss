@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .navbar {
   position: fixed;
@@ -8,7 +7,7 @@
   left: 0;
   width: 100vw;
   height: $navbar-height;
-  background: $white;
+  background: var(--white);
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
@@ -49,7 +48,7 @@
 }
 
 .navLink {
-  color: $primary;
+  color: var(--primary);
   font-weight: 500;
   font-size: 1rem;
   text-decoration: none;
@@ -57,16 +56,16 @@
   transition: color 0.18s;
   &:hover,
   &:focus {
-    color: $primary-400;
+    color: var(--primary-400);
   }
 }
 
 .navLink.active,
 .link.active,
 .login.active {
-  color: $primary;
+  color: var(--primary);
   font-weight: 600;
-  border-bottom: 2px solid $primary;
+  border-bottom: 2px solid var(--primary);
 }
 
 .actions {
@@ -86,12 +85,12 @@
   align-items: center;
 
   &:focus {
-    outline: 2px solid $primary-300;
+    outline: 2px solid var(--primary-300);
   }
 }
 
 .cartBadge {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -109,7 +108,7 @@
 
 .username {
   font-size: 0.95rem;
-  color: $primary;
+  color: var(--primary);
   margin-right: 0.5rem;
   display: flex;
   align-items: center;
@@ -117,7 +116,7 @@
 
 .link,
 .login {
-  color: $primary-600;
+  color: var(--primary-600);
   background: none;
   border: none;
   padding: 0.35rem 0.8rem;
@@ -128,22 +127,22 @@
   transition: background 0.18s, color 0.18s;
   &:hover,
   &:focus {
-    background: $primary-50;
-    color: $primary-500;
+    background: var(--primary)-50;
+    color: var(--primary-500);
   }
 }
 
 .logout {
   background: none;
   border: none;
-  color: $danger;
+  color: var(--danger);
   font-weight: 500;
   cursor: pointer;
   margin-left: 1rem;
   transition: color 0.16s;
   &:hover,
   &:focus {
-    color: $danger-600;
+    color: var(--danger)-600;
   }
 }
 
@@ -160,7 +159,7 @@
   svg {
     width: 32px;
     height: 32px;
-    color: $primary-700;
+    color: var(--primary-700);
   }
 
   @include tablet {
@@ -185,7 +184,7 @@
     height: 100vh;
     width: 82vw;
     max-width: 340px;
-    background: $white;
+    background: var(--white);
     box-shadow: 2px 0 24px 0 rgba(35, 83, 155, 0.1);
     z-index: 1002; // must be above overlay
     padding: 1.8rem 1.2rem 1.2rem 1.4rem;
@@ -225,8 +224,8 @@
 }
 // Add register button style
 .register {
-  color: $white;
-  background: $primary;
+  color: var(--white);
+  background: var(--primary);
   border: none;
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
@@ -238,8 +237,8 @@
   box-shadow: 0 1px 8px rgba(35, 83, 155, 0.07);
   &:hover,
   &:focus {
-    background: $primary-600;
-    color: $white;
+    background: var(--primary-600);
+    color: var(--white);
     outline: none;
   }
 }

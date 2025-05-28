@@ -1,5 +1,4 @@
-@import '@/styles/variables';
-@import '@/styles/breakpoints';
+@import "@/styles/variables";
 
 .list {
   display: flex;
@@ -11,7 +10,7 @@
   background: #f8fafc;
   border-radius: 1rem;
   padding: 1rem 1.5rem;
-  box-shadow: 0 1px 8px rgba(34,45,59,0.05);
+  box-shadow: 0 1px 8px rgba(34, 45, 59, 0.05);
 }
 .header {
   display: flex;
@@ -22,14 +21,14 @@
 }
 .user {
   font-weight: 700;
-  color: $primary;
+  color: var(--primary);
 }
 .stars {
   display: flex;
   gap: 0.1rem;
 }
 .starActive {
-  color: #FFD166;
+  color: #ffd166;
 }
 .star {
   color: #e0e0e0;
@@ -43,7 +42,7 @@
   }
 }
 .comment {
-  color: $dark;
+  color: var(--dark);
 }
 .empty {
   color: #888;

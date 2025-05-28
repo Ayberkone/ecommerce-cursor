@@ -9,15 +9,15 @@
 .tabBtn {
   font-size: 1.19rem;
   font-weight: 700;
-  color: $primary;
-  background: $gray-200;
+  color: var(--primary);
+  background: var(--gray-200);
   border: none;
   border-radius: 1.2rem 1.2rem 0 0;
   padding: 0.6rem 2.3rem;
   cursor: pointer;
   transition: background 0.13s, color 0.13s;
   &.active {
-    background: $primary;
+    background: var(--primary);
     color: #fff;
   }
 }

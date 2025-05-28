@@ -6,7 +6,7 @@
   border-radius: 1.1rem;
   box-shadow: 0 1px 8px rgba(34, 45, 59, 0.07);
   overflow: hidden;
-  color: $dark;
+  color: var(--dark);
   text-decoration: none;
   transition: box-shadow 0.13s;
   width: 100%;
@@ -47,7 +47,7 @@
   font-size: 1.08rem;
   min-height: 4rem;
   padding: 1rem 1.1rem 0.5rem 1.1rem;
-  color: $primary;
+  color: var(--primary);
 }
 .mediaFooter {
   padding: 0 1.1rem 1rem 1.1rem;

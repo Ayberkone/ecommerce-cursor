@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .main {
   background: $gray-50;
@@ -35,7 +34,7 @@
   flex: 0 0 340px;
   width: 340px;
   height: 340px;
-  background: $white;
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +65,7 @@
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
-  color: $primary-500;
+  color: var(--primary-500);
   @include mobile {
     font-size: 1.35rem;
   }
@@ -74,7 +73,7 @@
 
 .price {
   font-size: 1.4rem;
-  color: $primary-600;
+  color: var(--primary-600);
   font-weight: 700;
   margin-bottom: 0.6rem;
   .priceValue {
@@ -89,16 +88,16 @@
   flex-direction: column;
   gap: 2.3rem;
   font-size: 1.1rem;
-  color: $gray-700;
+  color: var(--gray-200);
   .formInfo,
   .category {
     display: flex;
     align-items: center;
     gap: 0.35rem;
     font-size: 0.8rem;
-    color: $gray-700;
+    color: var(--gray-200);
     b {
-      color: $primary-500;
+      color: var(--primary-500);
       font-weight: 600;
     }
   }
@@ -109,8 +108,8 @@
 }
 
 .addCartBtn {
-  background: $primary;
-  color: $white;
+  background: var(--primary);
+  color: var(--white);
   font-weight: 700;
   font-size: 1.16rem;
   padding: 0.8rem 2.5rem;
@@ -122,8 +121,8 @@
   cursor: pointer;
   &:hover,
   &:focus {
-    background: $primary-600;
-    color: $white;
+    background: var(--primary-600);
+    color: var(--white);
   }
   @include mobile {
     width: 100%;
@@ -153,8 +152,8 @@
 }
 
 .tab {
-  background: $primary-50;
-  color: $primary-600;
+  background: var(--primary)-50;
+  color: var(--primary-600);
   border: none;
   font-weight: 600;
   font-size: 1.1rem;
@@ -165,12 +164,12 @@
   transition: background 0.2s, color 0.18s;
   &:hover,
   &:focus {
-    background: $primary-100;
-    color: $primary-700;
+    background: var(--primary-100);
+    color: var(--primary-700);
   }
   &.active {
-    background: $primary;
-    color: $white;
+    background: var(--primary);
+    color: var(--white);
   }
   @include mobile {
     padding: 0.5rem 1.2rem;
@@ -180,7 +179,7 @@
 
 .tabPanel {
   font-size: 1.1rem;
-  color: $dark;
+  color: var(--dark);
   line-height: 1.7;
   ul {
     margin-top: 1rem;
@@ -207,7 +206,7 @@
 .counter {
   display: flex;
   align-items: center;
-  border: 1.5px solid $primary-100;
+  border: 1.5px solid var(--primary-100);
   border-radius: 1.1rem;
   background: $gray-50;
   padding: 0.15rem 0.6rem;
@@ -217,7 +216,7 @@
 .counterBtn {
   background: none;
   border: none;
-  color: $primary-600;
+  color: var(--primary-600);
   font-size: 1.3rem;
   font-weight: 700;
   cursor: pointer;
@@ -227,8 +226,8 @@
   transition: background 0.18s;
   &:hover,
   &:focus {
-    background: $primary-50;
-    color: $primary-700;
+    background: var(--primary)-50;
+    color: var(--primary-700);
   }
 }
 
@@ -237,7 +236,7 @@
   text-align: center;
   font-size: 1.12rem;
   font-weight: 600;
-  color: $primary-700;
+  color: var(--primary-700);
   letter-spacing: 0.04em;
 }
 
@@ -258,7 +257,7 @@
 .sectionTitle {
   font-size: 1.45rem;
   font-weight: 700;
-  color: $primary-700;
+  color: var(--primary-700);
   margin-bottom: 1.2rem;
 }
 

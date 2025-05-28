@@ -1,5 +1,4 @@
 @use "@/styles/variables" as *;
-@use "@/styles/breakpoints" as *;
 
 .main {
   max-width: 700px;
@@ -11,7 +10,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: $primary;
+  color: var(--primary);
 }
 
 .cartList {
@@ -35,25 +34,25 @@
 
 .cartItemName {
   font-weight: 600;
-  color: $dark;
+  color: var(--dark);
 }
 .cartItemQty {
   color: #555;
 }
 .cartItemPrice {
-  color: $primary;
+  color: var(--primary);
   font-weight: 700;
 }
 
 .checkoutTotal {
   font-size: 1.2rem;
   font-weight: bold;
-  color: $dark;
+  color: var(--dark);
   margin-bottom: 1.2rem;
 }
 
 .place {
-  background: $primary;
+  background: var(--primary);
   color: #fff;
   padding: 1rem;
   border: none;
