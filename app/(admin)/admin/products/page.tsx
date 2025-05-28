@@ -16,7 +16,7 @@ export default function ProductsPage() {
 
 	useEffect(() => {
 		setLoading(true)
-		api<{ products: Product[]; count: number }>("/api/admin/products")
+		api<{ products: Product[]; count: number }>("/api/admin/products", { showLoader: true })
 			.then((data) => {
 				setProducts(data?.products)
 				setCount(data?.count)
@@ -39,7 +39,7 @@ export default function ProductsPage() {
 		<>
 			{/* <div className={styles.page}> */}
 			<h1>Ürünler</h1>
-			<button onClick={handleAdd}>+ Yeni Ürün</button>
+			<button className="btn btn-primary" onClick={handleAdd}>+ Yeni Ürün</button>
 			{/* <button className={styles.addBtn} onClick={handleAdd}>+ Yeni Ürün</button> */}
 			<ProductTable products={products} count={count} onEditAction={handleEdit} onDeleteAction={handleDelete} loading={loading} />
 		</>
