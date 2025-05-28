@@ -1,6 +1,6 @@
 @use "sass:color";
-@import "@/styles/variables";
-@import "@/styles/breakpoints";
+@use "@/styles/variables" as *;
+@use "@/styles/breakpoints" as *;
 
 .faqSection {
   max-width: 720px;

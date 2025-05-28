@@ -1,6 +1,6 @@
 // File: app/about-us/AboutUs.module.scss
-@import "@/styles/variables";
-@import "@/styles/breakpoints";
+@use "@/styles/variables" as *;
+@use "@/styles/breakpoints" as *;
 
 .aboutUs {
   padding: $navbar-height 1rem;

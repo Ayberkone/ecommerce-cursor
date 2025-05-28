@@ -11,7 +11,7 @@ type Item = { _id: string, name: string }
 function useFetchData(endpoint: string) {
 	const [data, setData] = useState<Item[]>([])
 	const [loading, setLoading] = useState(false)
-	const fetchAll = async () => {
+	const fetchAll = React.useCallback(async () => {
 		setLoading(true)
 		try {
 			const items = await api(endpoint)
@@ -19,8 +19,8 @@ function useFetchData(endpoint: string) {
 		} finally {
 			setLoading(false)
 		}
-	}
-	useEffect(() => { fetchAll() }, [])
+	}, [endpoint])
+	useEffect(() => { fetchAll() }, [fetchAll])
 	return { data, loading, refetch: fetchAll }
 }
 

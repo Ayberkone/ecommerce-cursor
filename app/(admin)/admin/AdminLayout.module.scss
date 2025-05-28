@@ -1,6 +1,6 @@
 /* AdminLayout.module.scss */
-@import "@/styles/variables";
-@import "@/styles/breakpoints";
+@use "@/styles/variables" as *;
+@use "@/styles/breakpoints" as *;
 
 .adminLayout {
   display: flex;
