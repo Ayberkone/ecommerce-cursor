@@ -2,7 +2,7 @@
 import { getUserFromCookies } from '@/utils/authServer'
 import { redirect } from 'next/navigation'
 import Footer from "@/components/Footer/Footer"
-import '../globals.scss'
+import '@/styles/globals.scss'
 import Navbar from '@/components/Navbar/Navbar'
 import Providers from "@/components/Providers/Providers"
 import { debug } from "console"

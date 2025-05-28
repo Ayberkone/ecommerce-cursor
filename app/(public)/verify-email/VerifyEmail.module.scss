@@ -61,7 +61,7 @@
   }
 }
 .success {
-  border-left: 5px solid $success;
+  border-left: 5px solid var(--success);
 }
 .error {
   border-left: 5px solid var(--danger);

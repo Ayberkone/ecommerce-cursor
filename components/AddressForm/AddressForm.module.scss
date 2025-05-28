@@ -1,5 +1,5 @@
 @use "@/styles/variables" as *;
-@use "@/styles/formControls" as *;
+@use "@/styles/variables/formControls" as *;
 
 .form {
   display: flex;
@@ -36,32 +36,7 @@
   gap: 1rem;
   margin-top: 1rem;
 }
-.submitButton {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 1.7rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.18s;
-  &:hover {
-    background: darken(var(--primary), 10%);
-  }
-}
-.cancelButton {
-  background: #eee;
-  color: var(--dark);
-  border: none;
-  padding: 0.8rem 1.6rem;
-  border-radius: 1.7rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.18s;
-  &:hover {
-    background: #e4edfa;
-  }
-}
+
 .billingCheckbox {
   font-size: 1.07rem;
   font-weight: 500;

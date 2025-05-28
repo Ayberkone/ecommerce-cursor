@@ -6,6 +6,7 @@ import { ShoppingBag, User, CreditCard, Package, Plus, AlertCircle } from 'lucid
 import Link from 'next/link'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
+
 const stats = [
 	{ label: 'Total Orders', value: 1287, icon: <ShoppingBag />, color: '#23539b', link: '/admin/orders' },
 	{ label: 'Users', value: 623, icon: <User />, color: '#43bfa3', link: '/admin/users' },

@@ -51,7 +51,7 @@
       border: 1px solid #e7e7e7;
       border-radius: 0.8rem;
       background: #f7fafd;
-      color: $text;
+      color: var(--text);
       font-weight: 600;
       @include mobile {
         padding: 0.45rem 0.65rem;
@@ -116,7 +116,7 @@
     }
     td {
       font-size: 1.04rem;
-      color: $text;
+      color: var(--text);
       border-bottom: 1px solid #f2f2f2;
     }
     tr:last-child td {

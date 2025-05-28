@@ -58,7 +58,7 @@
   transition: background 0.16s;
   cursor: pointer;
   &:hover {
-    background: $secondary;
+    background: var(--secondary);
   }
 }
 .error {

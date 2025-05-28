@@ -66,11 +66,11 @@
 }
 
 .approveBtn {
-  background: $success;
+  background: var(--success);
   color: var(--white);
 
   &:hover {
-    background: $success-700;
+    background: var(--success)-700;
   }
 }
 

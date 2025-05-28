@@ -2,7 +2,7 @@
 
 .offersMain {
   padding: 2rem 0;
-  background: $gray-50;
+  background: var(--gray)-50;
   min-height: 100vh;
   @include tablet {
     padding-top: 0;
@@ -97,10 +97,10 @@
     font-size: 1.15rem;
   }
   .bundlePrice {
-    color: $success;
+    color: var(--success);
     font-size: 1.3rem;
     font-weight: bold;
-    background: $success-bg;
+    background: var(--success)-bg;
     padding: 0.2em 0.8em;
     border-radius: 0.6em;
     margin-left: 0.2em;

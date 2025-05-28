@@ -65,6 +65,6 @@
   transition: background 0.17s;
   text-decoration: none;
   &:hover {
-    background: $secondary;
+    background: var(--secondary);
   }
 }

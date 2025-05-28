@@ -54,31 +54,6 @@
   gap: 0.6rem;
   margin-top: 0.5rem;
 }
-.editBtn,
-.deleteBtn {
-  border: none;
-  border-radius: 1.3rem;
-  font-size: 0.98rem;
-  font-weight: 500;
-  cursor: pointer;
-  background: #e4edfa;
-  color: var(--primary);
-  transition: background 0.18s, color 0.18s;
-}
-.deleteBtn {
-  background: #ffe1e1;
-  color: #d32f2f;
-}
-.addBtn {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  transition: background 0.18s;
-  &:hover {
-    background: darken(var(--primary), 7%);
-  }
-}
 
 .infoText {
   padding-top: 2rem;

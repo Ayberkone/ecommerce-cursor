@@ -22,12 +22,15 @@
   --success: #059669;
   --danger: #d32f2f;
   --danger-600: #811b1b;
+  --gray: #6c6c6c;
   --gray-50: #fafbfc;
   --gray-100: #f4f4f7;
   --gray-200: #ececec;
   --gray-400: #b5b8bb;
   --gray-700: #46494c;
   --gray-800: #282c31;
+
+  --text: var(--dark);
   --muted: var(--gray-700);
 
   --font-size-base: 1rem;
@@ -61,12 +64,15 @@
   --success: #6ee7b7;
   --danger: #fe7979;
   --danger-600: #811b1b;
+  --gray: #bfbfbf;
   --gray-50: #2c2c2c;
   --gray-100: #3a3a3a;
   --gray-200: #4a4a4a;
   --gray-400: #6a6a6a;
   --gray-700: #9a9a9a;
   --gray-800: #bfbfbf;
+
+  --text: var(--dark);
   --muted: var(--gray-700);
 
   --font-size-base: 1rem;

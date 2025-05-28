@@ -63,11 +63,11 @@
   transition: background 0.2s;
   width: 100%;
   &:hover {
-    background: $secondary;
+    background: var(--secondary);
   }
 }
 
 .link {
-  color: $secondary;
+  color: var(--secondary);
   text-decoration: underline;
 }

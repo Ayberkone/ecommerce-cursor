@@ -20,7 +20,7 @@
     border: 1px solid #e7e7e7;
     border-radius: 0.8rem;
     background: #f7fafd;
-    color: $text;
+    color: var(--text);
     font-weight: 500;
     outline: none;
     transition: border-color 0.16s;

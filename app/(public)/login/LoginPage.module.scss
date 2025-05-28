@@ -36,7 +36,7 @@
   transition: background 0.18s;
   cursor: pointer;
   &:hover {
-    background: $secondary;
+    background: var(--secondary);
   }
 }
 .error {
@@ -51,7 +51,7 @@
   margin-top: 0.8rem;
 }
 .link {
-  color: $secondary;
+  color: var(--secondary);
   text-decoration: underline;
   margin-left: 0.4rem;
 }

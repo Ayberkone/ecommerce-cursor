@@ -15,7 +15,7 @@
 }
 
 .icon {
-  color: $secondary;
+  color: var(--secondary);
 }
 
 .title {
@@ -41,6 +41,6 @@
   font-size: 1.1rem;
   transition: background 0.18s;
   &:hover {
-    background: $secondary;
+    background: var(--secondary);
   }
 }

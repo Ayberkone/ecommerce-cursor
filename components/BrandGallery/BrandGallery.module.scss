@@ -103,7 +103,7 @@
   text-decoration: none;
   transition: background 0.13s;
   &:hover {
-    background: $secondary;
+    background: var(--secondary);
   }
 }
 .slideArea {

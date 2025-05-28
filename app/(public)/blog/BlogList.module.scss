@@ -48,7 +48,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16/9;
-  background: $gray-50;
+  background: var(--gray)-50;
 }
 
 .blogImage {
