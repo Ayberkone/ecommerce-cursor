@@ -23,14 +23,15 @@ export type Address = {
 
 // List addresses
 export async function getAddresses(): Promise<Address[]> {
-  return api("/api/addresses")
+  return api("/api/addresses", { showLoader: true })
 }
 
 // Add address
 export async function addAddress(address: Partial<Address>) {
   return api("/api/addresses", {
     method: "POST",
-    body: JSON.stringify(address)
+    body: JSON.stringify(address),
+    showLoader: true
   })
 }
 
@@ -38,13 +39,15 @@ export async function addAddress(address: Partial<Address>) {
 export async function updateAddress(id: string, address: Partial<Address>) {
   return api(`/api/addresses/${id}`, {
     method: "PUT",
-    body: JSON.stringify(address)
+    body: JSON.stringify(address),
+    showLoader: true
   })
 }
 
 // Delete address
 export async function deleteAddress(id: string) {
   return api(`/api/addresses/${id}`, {
-    method: "DELETE"
+    method: "DELETE",
+    showLoader: true
   })
 }

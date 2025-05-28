@@ -45,6 +45,7 @@ export default function PasswordPage() {
           try {
             await api('/api/auth/change-password', {
               method: 'POST',
+              showLoader: true,
               body: JSON.stringify({
                 currentPassword: values.currentPassword,
                 newPassword: values.newPassword,

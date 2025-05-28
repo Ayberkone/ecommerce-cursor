@@ -31,7 +31,7 @@ export default function ProductsPage() {
 
 	const handleDelete = async (id: string) => {
 		if (!confirm("Silmek istediğinize emin misiniz?")) return
-		await api(`/api/admin/products/${id}`, { method: "DELETE" })
+		await api(`/api/admin/products/${id}`, { method: "DELETE", showLoader: true })
 		setProducts(products => products.filter(p => p._id !== id))
 	}
 

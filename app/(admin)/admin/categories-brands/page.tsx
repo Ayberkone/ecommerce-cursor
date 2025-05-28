@@ -14,7 +14,7 @@ function useFetchData(endpoint: string) {
 	const fetchAll = React.useCallback(async () => {
 		setLoading(true)
 		try {
-			const items = await api(endpoint)
+			const items = await api(endpoint, { showLoader: true })
 			setData(items)
 		} finally {
 			setLoading(false)
@@ -57,9 +57,9 @@ function CRUDCard({ title, endpoint, adminEndpoint }: CardProps) {
 		}
 		try {
 			if (editId) {
-				await api(`${adminEndpoint}/${editId}`, { method: "PUT", body: JSON.stringify({ name: editFormValue }) })
+				await api(`${adminEndpoint}/${editId}`, { method: "PUT", body: JSON.stringify({ name: editFormValue }), showLoader: true })
 			} else {
-				await api(adminEndpoint, { method: "POST", body: JSON.stringify({ name: formValue }) })
+				await api(adminEndpoint, { method: "POST", body: JSON.stringify({ name: formValue }), showLoader: true })
 			}
 			setFormValue("")
 			setEditFormValue("")
@@ -72,7 +72,7 @@ function CRUDCard({ title, endpoint, adminEndpoint }: CardProps) {
 
 	const handleDelete = async (id: string) => {
 		if (!window.confirm("Silmek istediğinize emin misiniz?")) return
-		await api(`${adminEndpoint}/${id}`, { method: "DELETE" })
+		await api(`${adminEndpoint}/${id}`, { method: "DELETE", showLoader: true })
 		refetch()
 	}
 

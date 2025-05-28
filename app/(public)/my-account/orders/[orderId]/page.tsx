@@ -14,7 +14,7 @@ export default function OrderDetailPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api(`/api/orders/${orderId}`)
+    api(`/api/orders/${orderId}`, { showLoader: true })
       .then(setOrder)
       .catch(() => router.push("/my-account/orders"))
       .finally(() => setLoading(false))

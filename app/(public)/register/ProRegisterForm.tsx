@@ -86,6 +86,7 @@ export default function ProRegisterForm() {
       const res = await api("/api/auth/register-pro", {
         method: "POST",
         body: JSON.stringify(data),
+        showLoader: true
       })
       toast.success(res.message)
       // Optional: redirect or reset form

@@ -81,11 +81,13 @@ export default function ProductForm() {
 					await api(`/api/admin/products/${params.id}`, {
 						method: 'PUT',
 						body: JSON.stringify(_valuesToSubmit),
+						showLoader: true
 					})
 				} else {
 					await api('/api/admin/products', {
 						method: 'POST',
 						body: JSON.stringify(_valuesToSubmit),
+						showLoader: true
 					})
 				}
 				router.push('/api/admin/products')

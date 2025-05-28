@@ -26,7 +26,7 @@ export default function OrdersTable({ admin = false }) {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		api("/api/" + (admin ? "admin/" : "") + "orders", { method: "GET" })
+		api("/api/" + (admin ? "admin/" : "") + "orders", { method: "GET", showLoader: true })
 			.then(setOrders)
 			.catch(() => toast.error("Siparişler alınamadı"))
 			.finally(() => setLoading(false))
@@ -36,6 +36,7 @@ export default function OrdersTable({ admin = false }) {
 		try {
 			await api(`/api/admin/orders/${orderId}/${field}`, {
 				method: "PATCH",
+				showLoader: true,
 				body: JSON.stringify({ [field]: value })
 			})
 			setOrders(orders =>

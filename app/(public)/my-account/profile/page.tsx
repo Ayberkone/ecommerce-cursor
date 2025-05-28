@@ -56,7 +56,8 @@ export default function ProfilePage() {
           try {
             await api('/api/profile', {
               method: 'PUT',
-              body: JSON.stringify(values)
+              body: JSON.stringify(values),
+              showLoader: true
             })
             toast.success('Güncelleme başarılı!')
             setSaved(true)

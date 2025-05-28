@@ -83,6 +83,7 @@ export default function RegularRegisterForm() {
           ...data,
           type: 'regular'
         }),
+        showLoader: true
       })
       toast.success(res.message)
       // etc.
