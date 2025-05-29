@@ -1,15 +1,36 @@
-import { useState } from 'react'
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import styles from './PhotoGallery.module.scss'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode, Thumbs, Keyboard } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import 'swiper/css/thumbs'
 
 interface PhotoGalleryProps {
   images: string[]
 }
 
 export default function PhotoGallery({ images }: PhotoGalleryProps) {
-  const [selected, setSelected] = useState(0)
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [modalOpen, setModalOpen] = useState(false)
+  const mainSwiperRef = useRef<any>(null)
 
-  if (!images?.length) {
+  // Fix: Reconnect thumbs after both swipers mounted
+  useEffect(() => {
+    if (mainSwiperRef.current && thumbsSwiper && !thumbsSwiper.destroyed) {
+      // Force update and sync
+      mainSwiperRef.current.thumbs.swiper = thumbsSwiper
+      mainSwiperRef.current.thumbs.init()
+      mainSwiperRef.current.update()
+      mainSwiperRef.current.slideTo(activeIndex)
+    }
+  }, [thumbsSwiper])
+
+  if (!images || images.length === 0) {
     return (
       <div className={styles.resimler}>
         <div className={styles.mainPhoto}>
@@ -27,29 +48,108 @@ export default function PhotoGallery({ images }: PhotoGalleryProps) {
   }
 
   return (
-    <div className={styles.resimler}>
-      <div className={styles.thumbnails}>
-        {images.map(img =>
-          <div
-            key={img}
-            className={`${styles.thumbnail} ${images[selected] === img ? styles.active : ''}`}
-            onClick={() => setSelected(images.indexOf(img))}
-            aria-label="Ürün küçük görseli"
+    <>
+      <div className={styles.resimler}>
+        <div className={styles.mainPhotoGallery}>
+          <Swiper
+            onSwiper={swiper => {
+              mainSwiperRef.current = swiper
+            }}
+            onSlideChange={swiper => {
+              setActiveIndex(swiper.activeIndex)
+            }}
+            thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+            modules={[FreeMode, Thumbs, Keyboard]}
+            spaceBetween={10}
+            slidesPerView={1}
+            loop={images.length > 1}
+            keyboard
+            className={styles.mainProductSwiper}
           >
-            <Image src={img} alt="" width={78} height={78} />
+            {images.map((img, index) => (
+              <SwiperSlide key={index}>
+                <div
+                  className={styles.anaresimWrap}
+                  tabIndex={0}
+                  onClick={() => setModalOpen(true)}
+                  aria-label="Fotoğrafı büyüt"
+                  role="button"
+                  style={{ cursor: 'zoom-in' }}
+                >
+                  <Image
+                    src={img}
+                    alt={`Ürün görseli ${index + 1}`}
+                    className={styles.anaresim}
+                    priority
+                    loading="eager"
+                    width={340}
+                    height={340}
+                  />
+                  <span className={styles.expandIcon}>🔍</span>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className={styles.thumbnailsGallery}>
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            modules={[FreeMode, Thumbs]}
+            spaceBetween={8}
+            slidesPerView={Math.min(images.length, 6)}
+            watchSlidesProgress
+            direction="vertical"
+            className={styles.productThumbsSwiper}
+            freeMode
+          >
+            {images.map((img, index) => (
+              <SwiperSlide
+                key={index}
+                className={`${styles.thumbnailSlide} ${activeIndex === index ? styles.activeThumb : ''}`}
+                onClick={() => setActiveIndex(index)}
+                tabIndex={0}
+                role="button"
+                aria-label={`Küçük ürün görseli ${index + 1}`}
+              >
+                <Image
+                  src={img}
+                  alt={`Küçük ürün görseli ${index + 1}`}
+                  width={100}
+                  height={80}
+                  className={styles.thumbnailImage}
+                  loading="lazy"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+
+      {/* Modal (expand image) */}
+      {modalOpen && (
+        <div className={styles.modalOverlay} onClick={() => setModalOpen(false)}>
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <button className={styles.closeBtn} onClick={() => setModalOpen(false)} aria-label="Kapat">
+              ×
+            </button>
+            <Image
+              src={images[activeIndex]}
+              alt={`Büyük ürün görseli ${activeIndex + 1}`}
+              width={900}
+              height={900}
+              className={styles.modalImage}
+              style={{
+                color: 'transparent',
+                objectFit: 'contain',
+                width: '100%',
+                height: '100%'
+              }}
+
+              loading="eager"
+            />
           </div>
-        )}
-      </div>
-      <div className={styles.mainPhoto}>
-        <Image
-          src={images[selected]}
-          alt="Ürün ana resmi"
-          width={340}
-          height={340}
-          className={styles.anaresim}
-          priority
-        />
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   )
 }

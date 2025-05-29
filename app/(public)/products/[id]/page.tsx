@@ -1,95 +1,99 @@
 'use client'
 
-import { notFound } from 'next/navigation'
+import { notFound, useParams } from 'next/navigation'
 import { CartItem, useCart } from '@/components/CartContext'
 import { toast } from 'sonner'
 import styles from './ProductDetail.module.scss'
 import React, { useEffect, useState } from 'react'
 import ReviewList from "@/components/ReviewList/ReviewList"
-import { products } from "@/lib/products"
-// import { products } from "@/app/api/products/route"
 import PhotoGallery from "@/components/PhotoGallery/PhotoGallery"
 import Image from "next/image"
+import { api } from "@/utils/api"
+import type { Product } from '@/types/Product'
+import { useAuth } from "@/context/AuthContext/AuthContext"
 
-type ProductDetailPageProps = {
-  id: string
+type Review = {
+  id: number
+  user: string
+  rating: number
+  comment: string
+  date: string
 }
 
 const productTabs = [
   { key: 'description', label: 'Açıklama' },
-  { key: 'usage', label: 'Kullanım Şekli' },
+  { key: 'usage', label: 'Kullanım Şekli' }
 ]
 
-const sampleReviews = [
-  { id: 1, user: 'Ayberk B.', rating: 5, comment: 'Hızlı kargo, mükemmel ürün!', date: '2024-05-01' },
-  { id: 2, user: 'Zeynep Y.', rating: 4, comment: 'Diş etlerimde rahatlama hissettim.', date: '2024-05-02' },
-  { id: 3, user: 'Mehmet C.', rating: 3, comment: 'Kullanımı kolay, etkili.', date: '2024-05-04' },
-]
-
-export default function ProductDetailPage({ params }: { params: Promise<ProductDetailPageProps> }) {
-  const actualParams = React.use(params)
-  const product = products.find(p => p.url.includes(String(actualParams.id)))
+export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { addToCart } = useCart()
-  const [reviews, setReviews] = useState(sampleReviews)
+  const { user } = useAuth()
+  const resolvedParams = React.use(params)
+  const [product, setProduct] = useState<Product | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [reviews, setReviews] = useState<Review[]>([])
   const [quantity, setQuantity] = useState(1)
   const [tab, setTab] = useState<'description' | 'usage'>('description')
 
+  // Fetch product data from backend
   useEffect(() => {
-    fetch(`/api/reviews?productId=${actualParams.id}`)
-      .then(res => res.json())
+    setLoading(true)
+    setError(null)
+    api<Product>(`/api/products/${resolvedParams.id}`, { showLoader: true })
+      .then(setProduct)
+      .catch(() => setError("Ürün bulunamadı"))
+      .finally(() => setLoading(false))
+  }, [resolvedParams.id])
+
+  // Fetch reviews from backend
+  useEffect(() => {
+    api<Review[]>(`/api/reviews?productId=${resolvedParams.id}`, { showLoader: true })
       .then(setReviews)
-  }, [actualParams.id])
+      .catch(() => setReviews([]))
+  }, [resolvedParams.id])
 
-  if (!product) return notFound()
+  if (loading) return <div>Yükleniyor...</div>
+  if (error || !product) return notFound()
 
+  // Handle add to cart
   const handleAdd = () => {
     const _product: CartItem = {
-      id: product.id,
+      id: product._id ?? '',
       name: product.name,
-      price: product.price,
+      price: user?.type !== 'regular' && product.price.pro ? product.price.pro : product.price.regular,
       quantity,
-      image: product.images[0]
+      image: product.photoUrls?.[0] || '/placeholder.png', // Fallback image
     }
-    addToCart(_product, quantity) // Make sure your addToCart accepts quantity
+    addToCart(_product, quantity)
     toast.success('Sepete eklendi!')
   }
 
-  // Example descriptions (replace with your actual data or fields)
+  // Example tab contents (customize as needed)
   const description = (
-    <>
-      <p>
-        4 kat fazla yüksek moleküler ağırlıklı hyaluronik asit içeriği ile dokuda maksimum tutunma ve durulama sağlar.
-        Ağız, diş ve diş etini kaplamak için özel olarak formüle edilmiştir. Ayrıca ağız dokusunda daha uzun süre tutunmasını sağlayan özgün bir Biyo-yapışkan matris içerir.
-      </p>
-      <ul>
-        <li>Yüksek saflıkta hyaluronik asit içerir.</li>
-        <li>Diş eti problemlerinde güvenle kullanılır.</li>
-        <li>Alkol ve SLS içermez.</li>
-      </ul>
-    </>
+    <div>
+      <p>{product?.description?.normal || "-"}</p>
+      {product?.keywords && (
+        <ul>
+          {product.keywords.map((k, i) => <li key={i}>{k}</li>)}
+        </ul>
+      )}
+    </div>
   )
-
   const usage = (
-    <>
-      <p>
-        Günde 3-5 defa, tercihen yemeklerden sonra doğrudan sorunlu bölgeye püskürtülerek uygulanır. Uygulamadan sonra en az 30 dakika yemek yenilmemeli, bir şey içilmemelidir.
-      </p>
-      <ul>
-        <li>Kullanımdan önce çalkalayınız.</li>
-        <li>Çocukların ulaşamayacağı yerde saklayınız.</li>
-      </ul>
-    </>
+    <div>
+      <p>{product?.description?.mini || "Kullanım talimatı yakında eklenecek."}</p>
+    </div>
   )
 
   return (
     <main className={styles.main}>
       <div className={styles.productDetailContainer}>
-        <PhotoGallery images={product.images} />
-        {/* SUMMARY */}
+        <PhotoGallery images={product.photoUrls || []} />
         <div className={styles.productSummary}>
           <h1 className={styles.productName}>{product.name || '-'}</h1>
           <div className={styles.price}>
-            <span className={styles.priceValue}>₺{product.price?.toFixed(2) || '-'}</span>
+            <span className={styles.priceValue}>₺{product.price?.regular?.toFixed(2) || '-'}</span>
           </div>
           <div className={styles.productShortInfo}>
             <span className={styles.formInfo}>
@@ -103,10 +107,10 @@ export default function ProductDetailPage({ params }: { params: Promise<ProductD
                 />
               </div>
               <span className="flex-col">
-                <b>Form</b> <span>{product?.type || 'Sprey'}</span>
+                <b>Form</b> <span>{product?.category || 'Sprey'}</span>
               </span>
             </span>
-            <span>{product?.productShortInfo || 'Ameliyat süresi ve sonrası dönemde yaralara uygulamak için idealdir. Etkili, hızlı ve uygulaması kolay kullanım sağlamak için özel olarak tasarlanmıştır.'}</span>
+            <span>{product?.proDescription?.mini || product?.description?.mini || '-'}</span>
           </div>
           <div className={styles.counterRow}>
             <div className={styles.counter}>
@@ -147,6 +151,7 @@ export default function ProductDetailPage({ params }: { params: Promise<ProductD
           {tab === 'description' ? description : usage}
         </div>
       </div>
+
       {/* REVIEWS */}
       <section className={styles.reviewsSection}>
         <h2 className={styles.sectionTitle}>Kullanıcı Yorumları</h2>

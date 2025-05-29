@@ -1,4 +1,5 @@
 // utils/adminApi.ts
+import { Brand, Category, ProductFormValues } from "@/types/Product"
 import { api } from "./api"
 
 export async function fetchPendingUsers() {
@@ -31,4 +32,20 @@ export async function fetchSalesHistory() {
 
 export async function fetchLatestOrders() {
   return api("/api/admin/dashboard/orders/latest", { showLoader: true })
+}
+
+export async function fetchCategories() {
+  return api<Category[]>("/api/categories")
+}
+
+export async function fetchBrands() {
+  return api<Brand[]>("/api/brands")
+}
+
+export async function fetchProduct(id: string) {
+  return api<ProductFormValues>(`/api/admin/products/${id}`)
+}
+
+export const deleteProduct = async (id: string) => {
+  return api(`/api/admin/products/${id}`, { method: "DELETE", showLoader: true })
 }

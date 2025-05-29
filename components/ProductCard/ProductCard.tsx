@@ -4,39 +4,55 @@ import styles from './ProductCard.module.scss'
 import { useCart } from '@/components/CartContext'
 import { useAuth } from '@/context/AuthContext/AuthContext'
 import { toast } from 'sonner'
-import { useState } from 'react'
 import Image from 'next/image'
 import Link from "next/link"
-import { GalleryProduct } from "@/lib/products"
-
+import { Product } from "@/types/Product"
 
 type Props = {
-  product: GalleryProduct
+  product: Product
 }
 
 const ProductCard = ({ product }: Props) => {
   const { addToCart } = useCart()
   const { user } = useAuth()
 
-  // Show special price if user is a pharmacy/doctor and specialPrice exists
-  const showSpecial = user && ['pharmacy', 'doctor'].includes(user.type) && product.specialPrice
-  const displayPrice = showSpecial ? product.specialPrice : product.price
+  // Determine price variant
+  // If user is pharmacy/doctor, show "pro" price if available; else show regular price.
+  let displayPrice = product.price?.regular
+  let specialPriceLabel = null
+  if (user && ['pharmacy', 'doctor'].includes(user.type)) {
+    if (product.price?.pro) {
+      displayPrice = product.price.pro
+      specialPriceLabel = 'Eczane/Doktor Fiyatı'
+    } else if (product.price?.storage) {
+      displayPrice = product.price.storage
+      specialPriceLabel = 'Depo Fiyatı'
+    }
+  }
 
-  const handleAdd = () => {
+  // Use first photo as image
+  const imageUrl = product.photoUrls?.[0] || '/placeholder.png'
+
+  // If you have product detail page route, generate URL here
+  const detailUrl = `/products/${product._id}`
+
+  const handleAdd = (e: React.MouseEvent) => {
+    e.preventDefault() // prevent navigating to detail when clicking "Sepete Ekle"
     addToCart({
       ...product,
+      id: product._id ?? '',
       price: displayPrice,
-      image: product.images[0]
-    })
-    toast.success('Added to cart!')
+      image: imageUrl
+    }, 1)
+    toast.success('Sepete eklendi!')
   }
 
   return (
-    <Link href={product.url} className={styles.productImg}>
+    <Link href={detailUrl} className={styles.productImg}>
       <div className={styles.card}>
         <div className={styles.image}>
           <Image
-            src={product?.images[0] || '/placeholder.png'}
+            src={imageUrl}
             alt={product?.name || '-'}
             width={120}
             height={120}
@@ -47,11 +63,15 @@ const ProductCard = ({ product }: Props) => {
         <div className={styles.title}>{product?.name || '-'}</div>
         <div className={styles.price}>
           ₺{displayPrice !== undefined ? displayPrice.toFixed(2) : '-'}
-          {showSpecial && (
-            <span className={styles.specialLabel}>Special Price</span>
+          {specialPriceLabel && (
+            <span className={styles.specialLabel}>{specialPriceLabel}</span>
           )}
         </div>
-        <button className={styles.button} onClick={handleAdd}>
+        <button
+          className={styles.button}
+          onClick={handleAdd}
+          tabIndex={0}
+        >
           Sepete Ekle
         </button>
       </div>

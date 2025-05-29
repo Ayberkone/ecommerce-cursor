@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react'
 import ImageUploader from '@/components/ImageUploader/ImageUploader'
 import styles from './ProductForm.module.scss'
 import { api } from '@/utils/api'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Image from "next/image"
+import { fetchBrands, fetchCategories, fetchProduct } from "@/utils/adminApi"
 
-export default function ProductForm() {
-	const params = useParams<{ id?: string }>()
+export default function ProductForm({ params }: { params: { id?: string } }) {
 	const router = useRouter()
 	const [categories, setCategories] = useState<Category[]>([])
 	const [brands, setBrands] = useState<Brand[]>([])
@@ -42,18 +42,35 @@ export default function ProductForm() {
 
 	// Fetch categories/brands and product if editing
 	useEffect(() => {
+		// async function fetchCategories() {
+		// 	const cats = await api<Category[]>('/api/categories')
+		// 	setCategories(cats)
+		// }
+
+		// async function fetchBrands() {
+		// 	const brs = await api<Brand[]>('/api/brands')
+		// 	setBrands(brs)
+		// }
+
+		// async function fetchProduct() {
+		// 	if (params.id && params.id !== 'new') {
+		// 		setEditMode(true)
+		// 		const product = await api<ProductFormValues>(`/api/admin/products/${params.id}`)
+		// 		setFormValues(product)
+		// 	}
+		// }
+
 		async function load() {
 			try {
-				const [cats, brs] = await Promise.all([
-					api<Category[]>('/api/categories'),
-					api<Brand[]>('/api/brands')
+				const [cats, brs, product] = await Promise.all([
+					fetchCategories(),
+					fetchBrands(),
+					params.id && params.id !== 'new' ? fetchProduct(params.id as string) : Promise.resolve(null)
 				])
 				setCategories(cats)
 				setBrands(brs)
-				if (params.id && params.id !== 'new') {
-					// If editing, fetch product details
+				if (product) {
 					setEditMode(true)
-					const product = await api<ProductFormValues>(`/api/admin/products/${params.id}`)
 					setFormValues(product)
 				}
 			} finally {
@@ -127,7 +144,7 @@ export default function ProductForm() {
 			</div>
 			<div className={styles.sectionRow}>
 				<div>
-					<label>Açıklama*<textarea name="description.normal" value={formik.values.description.normal} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
+					<label>Açıklama*<textarea rows={20} name="description.normal" value={formik.values.description.normal} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 					{formik.touched.description?.normal && formik.errors.description?.normal && <div className={styles.err}>{formik.errors.description.normal}</div>}
 				</div>
 			</div>
@@ -139,7 +156,7 @@ export default function ProductForm() {
 			</div>
 			<div className={styles.sectionRow}>
 				<div>
-					<label>Pro Açıklama*<textarea name="proDescription.normal" value={formik.values.proDescription.normal} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
+					<label>Pro Açıklama*<textarea rows={20} name="proDescription.normal" value={formik.values.proDescription.normal} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 					{formik.touched.proDescription?.normal && formik.errors.proDescription?.normal && <div className={styles.err}>{formik.errors.proDescription.normal}</div>}
 				</div>
 			</div>

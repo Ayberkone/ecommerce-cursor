@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import { usePathname, useRouter } from 'next/navigation'
 // import styles from "./ProductsPage.module.scss"
 import ProductTable from "@/components/ProductTable/ProductTable"
+import { deleteProduct } from "@/utils/adminApi"
 
 export default function ProductsPage() {
 	const router = useRouter()
@@ -27,11 +28,11 @@ export default function ProductsPage() {
 
 	const handleAdd = () => router.push('/admin/products/new')
 
-	const handleEdit = (product: Product) => router.push('/admin/products/new' + product._id)
+	const handleEdit = (product: Product) => router.push('/admin/products/' + product._id)
 
 	const handleDelete = async (id: string) => {
 		if (!confirm("Silmek istediğinize emin misiniz?")) return
-		await api(`/api/admin/products/${id}`, { method: "DELETE", showLoader: true })
+		await deleteProduct(id)
 		setProducts(products => products.filter(p => p._id !== id))
 	}
 

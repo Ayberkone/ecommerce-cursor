@@ -2,8 +2,4 @@
 
 import LayoutLoader from "@/components/LayoutLoader/LayoutLoader"
 
-export default function AdminLoading() {
-	return (
-		<LayoutLoader />
-	)
-}
+export default function AdminLoading() { <LayoutLoader /> }

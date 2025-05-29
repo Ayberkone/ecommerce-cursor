@@ -3,22 +3,41 @@
 import { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import styles from './ProductsPage.module.scss'
-// import { products } from "../api/products/route"
-import { products } from "@/lib/products"
-
-const categories = Array.from(new Set(products.map(p => p.category)))
+import { api } from '@/utils/api'
+import type { Product } from '@/types/Product'
 
 const ProductsPage = () => {
+  const [products, setProducts] = useState<Product[]>([])
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('')
-  // const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  // useEffect(() => {
-  //   fetch('/api/products')
-  //     .then(res => res.json())
-  //     .then(setProducts)
-  // }, [])
+  // Fetch products from backend API
+  useEffect(() => {
+    setLoading(true)
+    setError(null)
+    api<{ products: Product[] }>('/api/products')
+      .then(res => setProducts(res.products || []))
+      .catch(err => setError(err.message || 'Error fetching products'))
+      .finally(() => setLoading(false))
+  }, [])
 
+  // When category or query changes, refetch
+  useEffect(() => {
+    setLoading(true)
+    setError(null)
+    const url = `/api/products?${category ? `category=${category}&` : ''}${query ? `q=${encodeURIComponent(query)}` : ''}`
+    api<{ products: Product[] }>(url)
+      .then(res => setProducts(res.products || []))
+      .catch(err => setError(err.message || 'Error fetching products'))
+      .finally(() => setLoading(false))
+  }, [category, query])
+
+  // Dynamic category list (may want to fetch categories from backend in real app)
+  const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)))
+
+  // Filtered products
   const filtered = products.filter(product =>
     (!category || product.category === category) &&
     (!query || product.name?.toLowerCase().includes(query.toLowerCase()))
@@ -47,11 +66,15 @@ const ProductsPage = () => {
         </select>
       </div>
       <div className={styles.productGrid}>
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div>Yükleniyor...</div>
+        ) : error ? (
+          <div style={{ color: "red" }}>{error}</div>
+        ) : filtered.length === 0 ? (
           <div>No products found.</div>
         ) : (
           filtered.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product._id} product={product} />
           ))
         )}
       </div>

@@ -21,6 +21,7 @@ export default function AdminSidebar() {
 	const pathname = usePathname()
 	const router = useRouter()
 	const [drawerOpen, setDrawerOpen] = useState(false) // Default to open for SSR
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const savedState = localStorage.getItem('adminSidebarOpen')
@@ -45,7 +46,6 @@ export default function AdminSidebar() {
 		|| (pathname === '/admin' ? 'dashboard' : undefined)
 
 	function handleClick(item: typeof adminMenu[0]) {
-		setDrawerOpen(false)
 		if (item.key === 'logout') {
 			logout()
 			router.push('/login')
