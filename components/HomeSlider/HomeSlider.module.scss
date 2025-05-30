@@ -30,7 +30,7 @@
   z-index: 2;
   position: relative;
   @include mobile {
-    padding: 1rem 0.7rem;
+    padding: 1rem 12px;
     margin-left: 2vw;
     max-width: 90vw;
   }
@@ -38,7 +38,7 @@
 .title {
   font-size: 2.1rem;
   font-weight: 800;
-  margin-bottom: 0.7rem;
+  margin-bottom: 12px;
   text-shadow: 0 2px 8px rgba(24, 32, 47, 0.14);
   @include mobile {
     font-size: 1.1rem;

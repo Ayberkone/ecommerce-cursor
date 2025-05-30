@@ -38,7 +38,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s, color 0.18s;
-  gap: 0.7rem;
+  gap: 12px;
   outline: none;
   &:hover,
   &:focus {
@@ -53,7 +53,7 @@
 }
 
 .icon {
-  margin-left: 0.7rem;
+  margin-left: 12px;
   display: flex;
 }
 

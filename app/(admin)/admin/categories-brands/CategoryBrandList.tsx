@@ -17,7 +17,7 @@ export default function CategoryBrandList({ items, type, onEdit, onDelete, loadi
 					<span>{item.name}</span>
 					<div>
 						<button onClick={() => onEdit(item)}>Düzenle</button>
-						<button onClick={() => onDelete(item._id)}>Sil</button>
+						<button className="btn btn-danger" onClick={() => onDelete(item._id)}>Sil</button>
 					</div>
 				</li>
 			))}

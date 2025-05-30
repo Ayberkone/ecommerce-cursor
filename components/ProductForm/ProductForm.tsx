@@ -9,7 +9,7 @@ import styles from './ProductForm.module.scss'
 import { api } from '@/utils/api'
 import { useRouter } from 'next/navigation'
 import Image from "next/image"
-import { fetchBrands, fetchCategories, fetchProduct } from "@/utils/adminApi"
+import { fetchBrands, fetchCategories, fetchProduct } from "@/utils/admin/adminApi"
 
 export default function ProductForm({ params }: { params: { id?: string } }) {
 	const router = useRouter()
@@ -255,7 +255,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 			</div>
 			<div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
 				<button type="submit" disabled={submitting}>{editMode ? 'Güncelle' : 'Ekle'}</button>
-				<button type="button" onClick={() => router.push('/api/admin/products')}>Vazgeç</button>
+				<button type="button" onClick={() => router.push('/admin/products')}>Vazgeç</button>
 			</div>
 		</form>
 	)

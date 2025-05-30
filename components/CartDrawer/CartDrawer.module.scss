@@ -69,7 +69,7 @@
 }
 .itemImg {
   flex: 0 0 54px;
-  border-radius: 0.7rem;
+  border-radius: 12px;
   overflow: hidden;
   background: #f2f4f7;
 }
@@ -91,7 +91,7 @@
 .qtyRow {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 12px;
 }
 .qtyBtn {
   width: 1.7rem;
@@ -121,7 +121,7 @@
   color: #b91c1c;
   font-size: 1.6rem;
   cursor: pointer;
-  margin-left: 0.7rem;
+  margin-left: 12px;
   transition: color 0.12s;
   &:hover {
     color: #e11d48;
@@ -149,7 +149,7 @@
   background: none;
   border: 1px solid #e11d48;
   color: #e11d48;
-  border-radius: 0.7rem;
+  border-radius: 12px;
   font-weight: 700;
   padding: 0.8rem 1.2rem;
   cursor: pointer;
@@ -163,7 +163,7 @@
   background: #e11d48;
   color: #fff;
   border: none;
-  border-radius: 0.7rem;
+  border-radius: 12px;
   font-weight: 700;
   padding: 0.8rem 1.2rem;
   cursor: pointer;

@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { usePathname, useRouter } from 'next/navigation'
 // import styles from "./ProductsPage.module.scss"
 import ProductTable from "@/components/ProductTable/ProductTable"
-import { deleteProduct } from "@/utils/adminApi"
+import { deleteProduct } from "@/utils/admin/adminApi"
 
 export default function ProductsPage() {
 	const router = useRouter()

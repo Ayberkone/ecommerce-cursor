@@ -1,0 +1,48 @@
+.adminUsersMain {
+  padding: 2rem;
+  background: var(--gray-50);
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 2rem;
+  }
+}
+
+.tabPanel {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px 0 rgba(30, 48, 100, 0.04);
+  padding: 0.5rem 1rem 1rem;
+}
+
+.usersTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 12px 1.1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 1rem;
+  }
+  th {
+    background: var(--gray-50);
+    font-weight: 600;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+.usersFilters {
+  display: flex;
+  float: left;
+}

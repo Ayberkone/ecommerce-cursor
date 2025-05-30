@@ -8,7 +8,7 @@
   box-shadow: 0 2px 16px #00335a10;
   padding: 2.5rem 2rem 2rem;
   @include tablet {
-    padding: 1.2rem 0.7rem;
+    padding: 1.2rem 12px;
     border-radius: 1rem;
   }
 }
@@ -90,7 +90,7 @@
       color: var(--primary);
       background: #f3faff;
       border-radius: 0.6rem;
-      padding: 0.45rem 0.7rem;
+      padding: 0.45rem 12px;
     }
   }
 }
@@ -104,7 +104,7 @@
     overflow: hidden;
     th,
     td {
-      padding: 0.7rem 0.9rem;
+      padding: 12px 0.9rem;
       text-align: left;
     }
     th {

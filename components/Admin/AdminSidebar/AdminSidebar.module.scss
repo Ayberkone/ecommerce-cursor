@@ -31,7 +31,6 @@
   padding: 2.2rem 1.2rem;
   height: 100vh;
   overflow-y: auto;
-  gap: 0.4rem;
   background: var(--primary-700);
   color: var(--white);
 }
@@ -61,8 +60,6 @@
   align-items: center;
   background: var(--primary-700);
   color: var(--white);
-  border: 1px solid var(--primary-600);
-  border-radius: 2rem;
   padding: 0.9rem 1.3rem;
   font-size: 1.16rem;
   font-weight: 500;

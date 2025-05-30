@@ -45,3 +45,28 @@
     background: #024c9b;
   }
 }
+
+.tableControls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.searchInput {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  justify-content: flex-end;
+}
+
+.noData {
+  text-align: center;
+  color: var(--muted, #888);
+}

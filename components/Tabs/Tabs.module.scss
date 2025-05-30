@@ -1,0 +1,54 @@
+// components/Tabs/Tabs.module.scss
+
+.tabsContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--space-sm); /* Adapted to space-sm (1rem) */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    gap: var(--space-md); /* Adapted to space-md (2rem) */
+    padding-left: 1rem;
+  }
+}
+
+.tabButton {
+  background-color: transparent;
+  border: none;
+  padding: 0.8rem 0;
+  border-radius: 0;
+  font-size: var(--font-size-base); /* Adapted to font-size-base */
+  font-weight: 500;
+  color: var(--muted); /* Adapted to muted for default text */
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--text); /* Adapted to text for hover */
+    background-color: var(--white);
+  }
+
+  &.active {
+    color: var(--primary); /* Adapted to primary for active tab color */
+    font-weight: 600;
+  }
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary); /* Adapted to primary for indicator color */
+  border-radius: 2px 2px 0 0;
+  transform: scaleX(1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -44,8 +44,8 @@ export interface ProductFormValues {
   taxRate: number
   stockQuantity: number
   barcode: string
-  category: Category
-  brand: Brand
+  category: string
+  brand: string
   photoUrls: ProductPhoto[]
   documentUrl: string
 }
@@ -58,4 +58,12 @@ export interface Category {
 export interface Brand {
   _id: string
   name: string
+}
+
+export type Review = {
+  id: number
+  user: string
+  rating: number
+  comment: string
+  date: string
 }

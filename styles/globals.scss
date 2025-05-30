@@ -189,13 +189,13 @@ button {
 .filter-input {
   padding: 0.6rem 1rem;
   border: 1px solid #e0e0e0;
-  border-radius: 0.7rem;
+  border-radius: 12px;
   font-size: 1rem;
 }
 .filter-select {
   padding: 0.6rem 1rem;
   border: 1px solid #e0e0e0;
-  border-radius: 0.7rem;
+  border-radius: 12px;
   font-size: 1rem;
 }
 input[type="password"]::-ms-reveal {
@@ -205,4 +205,99 @@ input[type="password"]::-ms-reveal {
 .flex-col {
   display: flex;
   flex-direction: column;
+}
+
+// Checkbox styles
+input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+
+  &:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+
+    &:hover {
+      background-color: var(--primary-200);
+      border-color: var(--primary-200);
+    }
+    &:active {
+      background-color: var(--primary-300);
+      border-color: var(--primary-300);
+    }
+    &:focus {
+      outline: 2px solid var(--primary-300);
+    }
+  }
+
+  &:focus {
+    outline: 2px solid var(--primary);
+  }
+
+  &:hover {
+    background-color: var(--primary-100);
+    border-color: var(--primary-100);
+  }
+
+  &:active {
+    background-color: var(--primary-200);
+    border-color: var(--primary-200);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: #b0bec5;
+    border-color: #b0bec5;
+
+    &:checked {
+      background-color: #b0bec5;
+      border-color: #b0bec5;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background-color: #b0bec5;
+      border-color: #b0bec5;
+    }
+  }
+}
+
+// Text input styles
+input[type="text"] {
+  padding: 12px 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+
+  input,
+  textarea,
+  select {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.15s;
+
+    &[type="checkbox"] {
+      height: 1.2rem;
+      align-items: center;
+      display: flex;
+      width: 1.2rem;
+    }
+
+    &:focus {
+      border-color: #23539b;
+      outline: none;
+    }
+  }
 }

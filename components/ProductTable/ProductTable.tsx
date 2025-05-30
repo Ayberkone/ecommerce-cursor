@@ -17,7 +17,7 @@ export default function ProductTable({ products, count, onEditAction, onDeleteAc
 
 	const columns: Column<Product>[] = [
 		{ header: "Ad", accessor: (p: Product) => p.name },
-		{ header: "Kategori", accessor: (p: Product) => p.category || "-" },
+		{ header: "Kategori", accessor: (p: Product) => p.category?.name || "-" },
 		{ header: "Fiyat", accessor: (p: Product) => p.price?.regular ? `${p.price.regular}₺` : "-" },
 		{ header: "Stok", accessor: (p: Product) => p.stockQuantity },
 		{

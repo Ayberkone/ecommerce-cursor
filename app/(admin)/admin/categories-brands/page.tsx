@@ -124,14 +124,14 @@ function CRUDCard({ title, endpoint, adminEndpoint }: CardProps) {
 													{editId === item._id
 														? (
 															<>
-																<button type="submit" onClick={handleSubmit}>Kaydet</button>
-																<button type="button" onClick={handleCancel}>İptal</button>
+																<button type="submit" className="btn btn-small btn-primary" onClick={handleSubmit}>Kaydet</button>
+																<button type="button" className="btn btn-small btn-danger" onClick={handleCancel}>İptal</button>
 															</>
 														)
 														: (
 															<>
-																<button type="button" onClick={() => handleEdit(item)}>Düzenle</button>
-																<button type="button" onClick={() => handleDelete(item._id)}>Sil</button>
+																<button type="button" className="btn btn-small btn-primary" onClick={() => handleEdit(item)}>Düzenle</button>
+																<button type="button" className="btn btn-small btn-danger" onClick={() => handleDelete(item._id)}>Sil</button>
 															</>
 														)
 													}

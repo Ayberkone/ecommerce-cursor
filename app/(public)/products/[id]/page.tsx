@@ -1,6 +1,6 @@
 'use client'
 
-import { notFound, useParams } from 'next/navigation'
+import { notFound, useRouter } from 'next/navigation'
 import { CartItem, useCart } from '@/components/CartContext'
 import { toast } from 'sonner'
 import styles from './ProductDetail.module.scss'
@@ -9,16 +9,8 @@ import ReviewList from "@/components/ReviewList/ReviewList"
 import PhotoGallery from "@/components/PhotoGallery/PhotoGallery"
 import Image from "next/image"
 import { api } from "@/utils/api"
-import type { Product } from '@/types/Product'
+import type { Product, Review } from '@/types/Product'
 import { useAuth } from "@/context/AuthContext/AuthContext"
-
-type Review = {
-  id: number
-  user: string
-  rating: number
-  comment: string
-  date: string
-}
 
 const productTabs = [
   { key: 'description', label: 'Açıklama' },
@@ -28,6 +20,7 @@ const productTabs = [
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { addToCart } = useCart()
   const { user } = useAuth()
+  const router = useRouter() // Initialize useRouter
   const resolvedParams = React.use(params)
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
@@ -88,6 +81,14 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
 
   return (
     <main className={styles.main}>
+      {/* Go back button */}
+      <button
+        className={styles.goBackBtn} // Add this class to your SCSS for styling
+        onClick={() => router.push('/products')}
+        aria-label="Ürünlere Geri Dön"
+      >
+        Ürünlere Git
+      </button>
       <div className={styles.productDetailContainer}>
         <PhotoGallery images={product.photoUrls || []} />
         <div className={styles.productSummary}>
