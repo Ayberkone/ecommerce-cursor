@@ -1,55 +1,81 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import styles from './ProductsPage.module.scss'
-import { api } from '@/utils/api'
-import type { Product } from '@/types/Product'
+import type { Category, Product } from '@/types/Product'
+import { fetchProducts } from "@/utils/products"
+import { fetchCategories } from "@/utils/admin/adminApi"
+
+const DEBOUNCE_DELAY = 500
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('')
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch products from backend API
+  // For debouncing the search query
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // State to hold the debounced query that triggers the API call
+  const [debouncedQuery, setDebouncedQuery] = useState('')
+
   useEffect(() => {
-    setLoading(true)
-    setError(null)
-    api<{ products: Product[] }>('/api/products')
-      .then(res => setProducts(res.products || []))
-      .catch(err => setError(err.message || 'Error fetching products'))
-      .finally(() => setLoading(false))
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    timeoutRef.current = setTimeout(() => {
+      setDebouncedQuery(query)
+    }, DEBOUNCE_DELAY)
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [query])
+
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        setLoading(true)
+        const cats = fetchCategories()
+        cats.then(res => setCategories(res))
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadCategories()
   }, [])
 
-  // When category or query changes, refetch
   useEffect(() => {
-    setLoading(true)
-    setError(null)
-    const url = `/api/products?${category ? `category=${category}&` : ''}${query ? `q=${encodeURIComponent(query)}` : ''}`
-    api<{ products: Product[] }>(url)
-      .then(res => setProducts(res.products || []))
-      .catch(err => setError(err.message || 'Error fetching products'))
-      .finally(() => setLoading(false))
-  }, [category, query])
-
-  // Dynamic category list (may want to fetch categories from backend in real app)
-  const categories = Array.from(new Set(products.map(p => p.category).filter(Boolean)))
-
-  // Filtered products
-  const filtered = products.filter(product =>
-    (!category || product.category === category) &&
-    (!query || product.name?.toLowerCase().includes(query.toLowerCase()))
-  )
+    const getProducts = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        // Call the exportable function
+        const fetchedProducts = await fetchProducts(category, debouncedQuery)
+        setProducts(fetchedProducts)
+      } catch (err: any) {
+        setError(err.message || 'Error fetching products')
+      } finally {
+        setLoading(false)
+      }
+    }
+    getProducts()
+    // Dependencies: fetch when category or debouncedQuery changes
+  }, [category, debouncedQuery])
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.sectionTitle}>All Products</h1>
+      <h1 className={styles.sectionTitle}>Ürünler</h1>
       <div className={styles.productFilters}>
         <input
           type="text"
-          placeholder="Search products..."
+          placeholder="Ürün ara..."
           value={query}
           onChange={e => setQuery(e.target.value)}
           className={styles.filterInput}
@@ -59,9 +85,9 @@ const ProductsPage = () => {
           onChange={e => setCategory(e.target.value)}
           className={styles.filterSelect}
         >
-          <option value="">All Categories</option>
+          <option value="">Tüm Kategoriler</option>
           {categories.map(c => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c?._id} value={c?._id}>{c?.name}</option>
           ))}
         </select>
       </div>
@@ -70,10 +96,10 @@ const ProductsPage = () => {
           <div>Yükleniyor...</div>
         ) : error ? (
           <div style={{ color: "red" }}>{error}</div>
-        ) : filtered.length === 0 ? (
-          <div>No products found.</div>
+        ) : products.length === 0 ? (
+          <div>Ürün bulunamadı.</div>
         ) : (
-          filtered.map(product => (
+          products.map(product => (
             <ProductCard key={product._id} product={product} />
           ))
         )}

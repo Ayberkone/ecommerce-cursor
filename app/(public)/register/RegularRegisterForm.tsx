@@ -95,7 +95,7 @@ export default function RegularRegisterForm() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.formHeader}>
-        <div className={styles.icon}><User className={styles.iconPdf} size={22} /></div>
+        <div className={styles.icon}><User className={styles.iconPdf} size={36} /></div>
         <div>
           <b>Üyelik Kaydı</b>
           <div className="text-muted" style={{ fontSize: 13, marginTop: 2 }}>Farmalink’e katıl!</div>

@@ -1,39 +1,54 @@
 // components/Tabs/Tabs.tsx
 'use client'
 
-import React from 'react'
-import styles from './Tabs.module.scss' // Create this SCSS file
+import React, { CSSProperties } from 'react'
+import styles from './Tabs.module.scss'
 
-// Define the shape of a single tab item
 interface TabItem {
 	key: string
 	label: string
 }
 
 interface TabsProps {
-	tabs: TabItem[] // Array of tab objects
-	activeTabKey: string // Key of the currently active tab
-	onTabChangeAction: (key: string) => void // Callback for when a tab is clicked
-	ariaLabel?: string // Optional ARIA label for accessibility
+	tabs: TabItem[]
+	activeTabKey: string
+	onTabChangeAction: (key: string) => void
+	ariaLabel?: string
+	buttonStyle?: CSSProperties // Add this prop
+	activeButtonStyle?: CSSProperties // Optional: style for active tab
 }
 
-export default function Tabs({ tabs, activeTabKey, onTabChangeAction, ariaLabel = 'Section tabs' }: TabsProps) {
+export default function Tabs({
+	tabs,
+	activeTabKey,
+	onTabChangeAction,
+	ariaLabel = 'Section tabs',
+	buttonStyle,
+	activeButtonStyle,
+}: TabsProps) {
 	return (
 		<div className={styles.tabsContainer} role="tablist" aria-label={ariaLabel}>
-			{tabs.map((tab) => (
-				<button
-					key={tab.key}
-					className={`${styles.tabButton} ${activeTabKey === tab.key ? styles.active : ''}`}
-					onClick={() => onTabChangeAction(tab.key)}
-					role="tab"
-					aria-selected={activeTabKey === tab.key}
-					id={`tab-${tab.key}`} // Unique ID for accessibility
-					aria-controls={`panel-${tab.key}`} // Links to content panel (if you have one)
-				>
-					{tab.label}
-					{activeTabKey === tab.key && <span className={styles.activeIndicator}></span>}
-				</button>
-			))}
+			{tabs.map((tab) => {
+				const isActive = activeTabKey === tab.key
+				return (
+					<button
+						key={tab.key}
+						className={`${styles.tabButton} ${isActive ? styles.active : ''}`}
+						onClick={() => onTabChangeAction(tab.key)}
+						role="tab"
+						aria-selected={isActive}
+						id={`tab-${tab.key}`}
+						aria-controls={`panel-${tab.key}`}
+						style={{
+							...buttonStyle,
+							...(isActive ? activeButtonStyle : {}),
+						}}
+					>
+						{tab.label}
+						<span className={styles.activeIndicator}></span>
+					</button>
+				)
+			})}
 		</div>
 	)
 }

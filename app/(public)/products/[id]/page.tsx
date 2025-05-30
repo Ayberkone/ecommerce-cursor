@@ -11,6 +11,7 @@ import Image from "next/image"
 import { api } from "@/utils/api"
 import type { Product, Review } from '@/types/Product'
 import { useAuth } from "@/context/AuthContext/AuthContext"
+import { fetchProductById, fetchReviewsByProductId } from "@/utils/products"
 
 const productTabs = [
   { key: 'description', label: 'Açıklama' },
@@ -20,7 +21,7 @@ const productTabs = [
 export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { addToCart } = useCart()
   const { user } = useAuth()
-  const router = useRouter() // Initialize useRouter
+  const router = useRouter()
   const resolvedParams = React.use(params)
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
@@ -29,21 +30,33 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   const [quantity, setQuantity] = useState(1)
   const [tab, setTab] = useState<'description' | 'usage'>('description')
 
-  // Fetch product data from backend
+  // Fetch product data
   useEffect(() => {
-    setLoading(true)
-    setError(null)
-    api<Product>(`/api/products/${resolvedParams.id}`, { showLoader: true })
-      .then(setProduct)
-      .catch(() => setError("Ürün bulunamadı"))
-      .finally(() => setLoading(false))
+    const getProduct = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const fetchedProduct = await fetchProductById(resolvedParams.id)
+        setProduct(fetchedProduct)
+      } catch (err: any) {
+        setError(err.message || "Ürün bulunamadı")
+      } finally {
+        setLoading(false)
+      }
+    }
+    getProduct()
   }, [resolvedParams.id])
 
-  // Fetch reviews from backend
   useEffect(() => {
-    api<Review[]>(`/api/reviews?productId=${resolvedParams.id}`, { showLoader: true })
-      .then(setReviews)
-      .catch(() => setReviews([]))
+    const getReviews = async () => {
+      try {
+        const fetchedReviews = await fetchReviewsByProductId(resolvedParams.id)
+        setReviews(fetchedReviews)
+      } catch (err) {
+        setReviews([])
+      }
+    }
+    getReviews()
   }, [resolvedParams.id])
 
   if (loading) return <div>Yükleniyor...</div>
@@ -56,7 +69,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       name: product.name,
       price: user?.type !== 'regular' && product.price.pro ? product.price.pro : product.price.regular,
       quantity,
-      image: product.photoUrls?.[0] || '/placeholder.png', // Fallback image
+      image: product.photoUrls?.[0] || '/placeholder.png',
     }
     addToCart(_product, quantity)
     toast.success('Sepete eklendi!')

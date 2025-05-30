@@ -5,8 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShieldPlus, Eye, EyeOff } from 'lucide-react'
-
+import { ShieldPlus, Eye, EyeOff, Glasses } from 'lucide-react'
 import styles from './RegisterPage.module.scss'
 import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
@@ -22,7 +21,7 @@ const TITLE_OPTIONS = [
   'Dt.',
   'Eczacı',
   'Öğrenci',
-  'Diğer',
+  'Diğer'
 ]
 
 const schema = Yup.object().shape({
@@ -88,8 +87,18 @@ export default function ProRegisterForm() {
         body: JSON.stringify(data),
         showLoader: true
       })
-      toast.success(res.message)
-      // Optional: redirect or reset form
+      const successToastId = toast.success(res.message, {
+        duration: Infinity,
+        position: 'top-center',
+        icon: <Glasses size={24} />,
+        description: 'Kayıt işlemi başarıyla tamamlandı ve hesabınız onay sürecinde. Hesabınız onaylandığında sizlere mail gönderilecek.',
+        action: {
+          label: 'Anladım',
+          onClick: () => {
+            toast.dismiss(successToastId)
+          }
+        }
+      })
     } catch (err: any) {
       toast.error(err.message || "Bir hata oluştu")
     }
@@ -101,7 +110,7 @@ export default function ProRegisterForm() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.formHeader}>
-        <div className={styles.icon}><ShieldPlus className={styles.iconPdf} size={22} /></div>
+        <div className={styles.icon}><ShieldPlus className={styles.iconPdf} size={36} /></div>
         <div>
           <b>Uzman / Eczacı Kaydı</b>
           <div style={{ fontSize: 13, marginTop: 2, color: '#64748b' }}>Yetkili kaydı</div>

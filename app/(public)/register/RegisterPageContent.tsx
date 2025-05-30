@@ -6,6 +6,12 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import styles from './RegisterPage.module.scss'
 import RegularRegisterForm from './RegularRegisterForm'
 import ProRegisterForm from './ProRegisterForm'
+import Tabs from "@/components/Tabs/Tabs"
+
+const TABS = [
+  { key: 'regular', label: 'Kayıt Ol' },
+  { key: 'pro', label: 'Sağlık Prof Başvuru' },
+] as const
 
 export default function RegisterPageContent() {
   // Use Next.js hook to get query string
@@ -29,28 +35,13 @@ export default function RegisterPageContent() {
   return (
     <div className={styles.registerWrapper}>
       {/* Switch Buttons */}
-      <div className={styles.tabSwitch} role="tablist" aria-label="Kayıt türü seçimi">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === 'regular'}
-          tabIndex={activeTab === 'regular' ? 0 : -1}
-          className={activeTab === 'regular' ? styles.activeTab : ''}
-          onClick={() => handleTabSwitch('regular')}
-        >
-          Kayıt Ol
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={activeTab === 'pro'}
-          tabIndex={activeTab === 'pro' ? 0 : -1}
-          className={activeTab === 'pro' ? styles.activeTab : ''}
-          onClick={() => handleTabSwitch('pro')}
-        >
-          Sağlık Prof Başvuru
-        </button>
-      </div>
+      <Tabs
+        tabs={[...TABS]} // Pass a mutable copy of your tabs array
+        activeTabKey={activeTab} // Pass the currently active tab key
+        onTabChangeAction={(key: string) => handleTabSwitch(key as 'regular' | 'pro')} // Cast key to correct type
+        ariaLabel="Kayıt türü seçimi" // Optional ARIA label for accessibility
+        buttonStyle={{ fontSize: '1.5rem' }} // Make buttons full width
+      />
       {/* Render appropriate form */}
       {activeTab === 'regular' ? <RegularRegisterForm /> : <ProRegisterForm />}
     </div>

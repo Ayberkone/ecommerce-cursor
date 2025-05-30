@@ -76,10 +76,10 @@
 
 .rejectBtn {
   background: var(--danger)-200;
-  color: var(--danger)-600;
+  color: var(--danger);
 
   &:hover {
-    background: var(--danger)-600;
+    background: var(--danger-600);
     color: var(--white);
   }
 }

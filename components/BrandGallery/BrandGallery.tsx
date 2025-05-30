@@ -7,65 +7,38 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import styles from './BrandGallery.module.scss'
 import Image from "next/image"
-import { GalleryProduct } from "@/lib/products"
 import Link from "next/link"
+import { fetchCategories } from "@/utils/admin/adminApi"
+import { fetchProducts } from "@/utils/products"
+import { Category, Product } from "@/types/Product"
 
 const brandLogo = '/img/FarmalinkLogo.png'
 
-const productTypes = [
-  {
-    id: 'all',
-    label: 'Tüm Ürünler',
-    icon: '/img/category-icons/jel.png',
-    color: ''
-  },
-  {
-    id: 'jel',
-    label: 'Jel',
-    icon: '/img/category-icons/jel.png',
-    color: 'yesil'
-  },
-  {
-    id: 'gargara',
-    label: 'Gargara',
-    icon: '/img/category-icons/gargara.png',
-    color: 'pembe'
-  },
-  {
-    id: 'sprey',
-    label: 'Sprey',
-    icon: '/img/category-icons/spray.png',
-    color: 'mavi'
-  },
-  {
-    id: 'siringa',
-    label: 'Şırınga',
-    icon: '/img/category-icons/syringe.png',
-    color: 'sari'
-  },
-  {
-    id: 'macun',
-    label: 'Diş ve Diş Eti Macunu',
-    icon: '/img/category-icons/jel.png',
-    color: 'yesil'
-  }
-]
-
 export default function BrandGallery() {
   const [selectedType, setSelectedType] = useState('all')
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   const filtered = selectedType === 'all'
     ? products
-    : products.filter((p: GalleryProduct) => p.type === selectedType)
+    : products.filter((p: Product) => p?.category?.name === selectedType)
 
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => { setProducts(data); setLoading(false) })
-      .catch(e => { setError(e); setLoading(false) })
+    async function load() {
+      try {
+        const [cats, products] = await Promise.all([
+          fetchCategories(),
+          fetchProducts()
+        ])
+        setCategories(cats)
+        setProducts(products)
+      } finally {
+        setLoading(false)
+      }
+    }
+    load()
   }, [])
 
   if (loading) return <div>Yükleniyor...</div>
@@ -90,27 +63,18 @@ export default function BrandGallery() {
             </Link>
           </div>
           <div className={styles.typeBtns}>
-            {productTypes.map(t => (
+            {categories.map((t: Category) => (
               <button
-                key={t.id}
-                className={`${styles.typeBtn} ${t.color ? styles[t.color] : ''} ${selectedType === t.id ? styles.active : ''}`}
-                onClick={() => setSelectedType(t.id)}
+                key={t._id}
+                onClick={() => setSelectedType(t._id)}
                 type="button"
               >
                 <div className={styles.uruntur}>
                   <div className={styles.icon}>
-                    <Image
-                      src={t.icon}
-                      alt={t.label}
-                      title={t.label}
-                      width={76}
-                      height={76}
-                      className={styles.brandLogo}
-                    />
                   </div>
                   <div className={styles.turadi}>
-                    {t.id !== 'all' && <span>Form</span>}
-                    {t.label}
+                    {t._id !== 'all' && <span>Form</span>}
+                    {t.name}
                   </div>
                 </div>
               </button>
@@ -134,51 +98,10 @@ export default function BrandGallery() {
                   1200: { slidesPerView: 3 }
                 }}
               >
-                {filtered.map((prod: GalleryProduct) => (
-                  <SwiperSlide key={prod.id}>
+                {filtered.map((prod: Product) => (
+                  <SwiperSlide key={prod._id}>
                     <div className={styles.productCard}>
-                      <div className={`${styles.uruntur} ${prod.typeColor ? styles[prod.typeColor] : ''}`}>
-                        <div className={styles.icon}>
-                          <Image
-                            src={prod.typeIcon}
-                            alt={prod.typeLabel}
-                            width={32}
-                            height={32}
-                            className={styles.iconImg}
-                          />
-                        </div>
-                        <div className={styles.turadi}>
-                          <span>Form</span>
-                          {prod.typeLabel}
-                        </div>
-                      </div>
-                      <a href={prod.url} className={styles.productImg}>
-                        <Image
-                          src={prod.images[0]}
-                          alt={prod.name}
-                          width={180}
-                          height={180}
-                          className={styles.productImg}
-                        />
-                      </a>
-                      <div className={styles.productInfo}>
-                        <div className={styles.left}>
-                          <a href={prod.url} className={styles.productName}>{prod.name}</a>
-                          <div className={styles.commentsRow}>
-                            <div className={styles.stars}>
-                              {[...Array(5)].map((_, i) => (
-                                <span key={i} className={styles.star}>★</span>
-                              ))}
-                            </div>
-                            <div className={styles.commentCount}>{prod.comments} Yorum</div>
-                          </div>
-                        </div>
-                        <div className={styles.right}>
-                          <div className={styles.price}>
-                            <span>{prod.price}₺</span>
-                          </div>
-                        </div>
-                      </div>
+
                     </div>
                   </SwiperSlide>
                 ))}

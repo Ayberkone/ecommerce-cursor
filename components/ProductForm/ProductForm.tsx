@@ -42,24 +42,6 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 
 	// Fetch categories/brands and product if editing
 	useEffect(() => {
-		// async function fetchCategories() {
-		// 	const cats = await api<Category[]>('/api/categories')
-		// 	setCategories(cats)
-		// }
-
-		// async function fetchBrands() {
-		// 	const brs = await api<Brand[]>('/api/brands')
-		// 	setBrands(brs)
-		// }
-
-		// async function fetchProduct() {
-		// 	if (params.id && params.id !== 'new') {
-		// 		setEditMode(true)
-		// 		const product = await api<ProductFormValues>(`/api/admin/products/${params.id}`)
-		// 		setFormValues(product)
-		// 	}
-		// }
-
 		async function load() {
 			try {
 				const [cats, brs, product] = await Promise.all([

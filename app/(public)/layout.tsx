@@ -5,7 +5,6 @@ import Footer from "@/components/Footer/Footer"
 import '@/styles/globals.scss'
 import Navbar from '@/components/Navbar/Navbar'
 import Providers from "@/components/Providers/Providers"
-import { debug } from "console"
 
 export default async function PublicRootLayout({ children }: { children: React.ReactNode }) {
   // SSR: This runs on every public page
