@@ -125,20 +125,10 @@
       &.activeThumb {
         opacity: 1;
         border-color: var(--primary);
-        box-shadow: 0 0 0 2px var(--primary);
         z-index: 2;
       }
     }
   }
-}
-
-// Active thumbnail state
-.swiper-slide-thumb-active,
-.thumbnailSlide.activeThumb {
-  opacity: 1;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px var(--primary);
-  z-index: 2;
 }
 
 // Placeholder for main photo

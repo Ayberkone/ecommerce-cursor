@@ -8,6 +8,7 @@ import { FreeMode, Thumbs, Keyboard } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/thumbs'
+import Modal from "../Modal/Modal"
 
 interface PhotoGalleryProps {
   images: string[]
@@ -126,30 +127,22 @@ export default function PhotoGallery({ images }: PhotoGalleryProps) {
       </div>
 
       {/* Modal (expand image) */}
-      {modalOpen && (
-        <div className={styles.modalOverlay} onClick={() => setModalOpen(false)}>
-          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <button className={styles.closeBtn} onClick={() => setModalOpen(false)} aria-label="Kapat">
-              ×
-            </button>
-            <Image
-              src={images[activeIndex]}
-              alt={`Büyük ürün görseli ${activeIndex + 1}`}
-              width={900}
-              height={900}
-              className={styles.modalImage}
-              style={{
-                color: 'transparent',
-                objectFit: 'contain',
-                width: '100%',
-                height: '100%'
-              }}
-
-              loading="eager"
-            />
-          </div>
-        </div>
-      )}
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <Image
+          src={images[activeIndex]}
+          alt={`Büyük ürün görseli ${activeIndex + 1}`}
+          width={900}
+          height={900}
+          className={styles.modalImage}
+          style={{
+            color: 'transparent',
+            objectFit: 'contain',
+            width: '100%',
+            height: '100%'
+          }}
+          loading="eager"
+        />
+      </Modal>
     </>
   )
 }

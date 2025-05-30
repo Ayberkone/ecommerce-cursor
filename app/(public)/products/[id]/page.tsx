@@ -107,7 +107,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                 />
               </div>
               <span className="flex-col">
-                <b>Form</b> <span>{product?.category || 'Sprey'}</span>
+                <b>Form</b> <span>{product?.category?.name}</span>
               </span>
             </span>
             <span>{product?.proDescription?.mini || product?.description?.mini || '-'}</span>

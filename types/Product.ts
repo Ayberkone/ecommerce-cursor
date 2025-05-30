@@ -24,8 +24,8 @@ export type Product = {
   taxRate?: number
   stockQuantity: number
   barcode?: string
-  category?: string
-  brand?: string
+  category?: Category // changed from string to Category
+  brand?: Brand
   photoUrls?: ProductPhoto[]
   documentUrl?: string
   createdAt?: string
@@ -44,8 +44,8 @@ export interface ProductFormValues {
   taxRate: number
   stockQuantity: number
   barcode: string
-  category: string
-  brand: string
+  category: Category
+  brand: Brand
   photoUrls: ProductPhoto[]
   documentUrl: string
 }

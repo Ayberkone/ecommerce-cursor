@@ -88,14 +88,14 @@
   flex-direction: column;
   gap: 2.3rem;
   font-size: 1.1rem;
-  color: var(--gray-200);
+  color: var(--gray-800);
   .formInfo,
   .category {
     display: flex;
     align-items: center;
     gap: 0.35rem;
     font-size: 0.8rem;
-    color: var(--gray-200);
+    color: var(--gray-700);
     b {
       color: var(--primary-500);
       font-weight: 600;
