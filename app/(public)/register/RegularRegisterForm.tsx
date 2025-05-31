@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import styles from './RegisterPage.module.scss'
-import { User, Eye, EyeOff } from 'lucide-react'
+import { User, Eye, EyeOff, Glasses } from 'lucide-react'
 import { toast } from 'sonner'
 import MembershipContract from '@/content/contracts/MembershipContract'
 import { api } from "@/utils/api"
@@ -63,17 +63,9 @@ export default function RegularRegisterForm() {
     reset,
   } = useForm<RegisterFormValues>({
     resolver: yupResolver(schema) as any,
-    mode: 'onChange', // show errors on every change
+    mode: 'onChange',
     reValidateMode: 'onChange',
   })
-
-  // const onSubmit = async (data: RegisterFormValues) => {
-  //   setSuccess(false)
-  //   // Simulate API
-  //   await new Promise((r) => setTimeout(r, 900))
-  //   setSuccess(true)
-  //   reset()
-  // }
 
   const onSubmit = async (data: RegisterFormValues) => {
     try {
@@ -85,11 +77,30 @@ export default function RegularRegisterForm() {
         }),
         showLoader: true
       })
-      toast.success(res.message)
-      // etc.
+      const successToastId = toast.success(res.message, {
+        duration: Infinity,
+        position: 'top-center',
+        icon: <Glasses size={24} />,
+        description: 'Aktivasyon e-postası gönderildi. Lütfen e-postanızı kontrol edin.',
+        action: {
+          label: 'Anladım',
+          onClick: () => {
+            toast.dismiss(successToastId)
+          }
+        }
+      })
+      reset()
     } catch (err: any) {
       toast.error(err.message || "Bir hata oluştu")
+    } finally {
+      setShowContract(false)
+      setShowPassword(false)
+      setShowPassword2(false)
     }
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+    // Reset form and scroll to top after submission
   }
 
   return (
@@ -244,7 +255,7 @@ export default function RegularRegisterForm() {
         <button
           type="submit"
           className={styles.submitBtn}
-          disabled={!!errors.acceptContract || isSubmitting}
+          disabled={Boolean(errors.acceptContract) || isSubmitting}
         >
           {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
         </button>

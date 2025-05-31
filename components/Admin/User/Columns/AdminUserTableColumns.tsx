@@ -1,5 +1,6 @@
 // /components/Admin/AdminUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
+import { Trash } from 'lucide-react'
 
 const USER_TYPE_LABELS: Record<string, string> = {
   regular: "Normal",
@@ -22,6 +23,17 @@ export const userColumns: Column<any>[] = [
     header: "Kayıt Tarihi",
     accessor: (row: any) => new Date(row.createdAt).toLocaleDateString("tr-TR"),
     sortKey: "createdAt"
+  },
+  {
+    header: "İşlemler",
+    accessor: (row: any) => row._id,
+    className: "actions",
+    cell: (value, row, triggerAction) => (
+      <>
+        <button onClick={() => triggerAction("delete", row)} className="btn btn-danger">Sil</button>
+        <button onClick={() => triggerAction("approve", row)} className="btn btn-success">Onayla</button>
+      </>
+    )
   }
   // You can add action buttons, etc here as needed
 ]

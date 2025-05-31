@@ -5,10 +5,13 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background: rgba(25, 29, 43, 0.77);
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: #10124999;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 .modal {
   background: #fff;

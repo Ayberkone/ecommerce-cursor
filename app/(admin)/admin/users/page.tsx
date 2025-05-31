@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import styles from "./AdminUsersPage.module.scss"
 import { Table } from "@/components/Table/Table"
 import { toast } from "sonner"
-import { approveUser, rejectUser, reactivateUser } from "@/utils/admin/usersApi"
+import { approveUser, rejectUser, reactivateUser, deleteUser } from "@/utils/admin/usersApi"
 import { userColumns } from "@/components/Admin/User/Columns/AdminUserTableColumns"
 import { pendingUserColumns } from "@/components/Admin/User/Columns/AdminPendingUserTableColumns"
 import { rejectedUserColumns } from "@/components/Admin/User/Columns/AdminRejectedUserTableColumns"
@@ -27,27 +27,63 @@ const TABS = [
 export default function AdminUsersPage() {
 	const [tab, setTab] = useState<'users' | 'pending' | 'rejected'>('users')
 	const [userTypeFilter, setUserTypeFilter] = useState("")
+	const [refresh, setRefresh] = useState(false)
 
-	// Listen to actions triggered from Table cells
-	useEffect(() => {
-		function handleApprove(e: any) {
-			approveUser(e.detail._id).then(() => toast.success("Kullanıcı onaylandı!"))
+	function refetchData() {
+		setRefresh(r => !r) // Toggle refresh state to trigger re-fetch
+	}
+
+	function handleUserAction(action: string, row: any) {
+		switch (action) {
+			case "delete":
+				if (window.confirm(`Kullanıcıyı silmek istiyor musunuz?\n${row.firstName} ${row.lastName}`)) {
+					deleteUser(row._id)
+						.then(() => {
+							toast.success("Kullanıcı silindi!")
+							refetchData()
+							// Trigger data refresh - easiest: use a refetch function or change a state to trigger useEffect
+						})
+						.catch(() => toast.error("Kullanıcı silinemedi"))
+				}
+				break
+			case "reactivate":
+				reactivateUser(row._id).then(() => {
+					toast.success("Kullanıcı tekrar aktif edildi!")
+					refetchData()
+				}).catch((e) => toast.error(e?.message || "Kullanıcı onaylanamadı"))
+				break
+			case "approve":
+				approveUser(row._id).then(() => {
+					toast.success("Kullanıcı onaylandı!")
+					refetchData()
+				}).catch((e) => toast.error(e?.message || "Kullanıcı onaylanamadı"))
+				break
+			case "reject":
+				rejectUser(row._id).then(() => {
+					toast.success("Kullanıcı reddedildi!")
+					refetchData()
+				}).catch((e) => toast.error(e?.message || "Kullanıcı onaylanamadı"))
+				break
+			case "update":
+				// Handle update action if needed
+				toast.info("Güncelleme işlemi henüz desteklenmiyor")
+				refetchData()
+				break
+			case "view":
+				// Handle view action if needed
+				toast.info("Detay görüntüleme henüz desteklenmiyor")
+				break
+			case "sendEmail":
+				// Handle send email action if needed
+				toast.info("E-posta gönderme henüz desteklenmiyor")
+				break
+			default:
+				toast.error("Bilinmeyen işlem")
+				break
 		}
-		function handleReject(e: any) {
-			rejectUser(e.detail._id).then(() => toast.success("Kullanıcı reddedildi!"))
-		}
-		function handleReactivate(e: any) {
-			reactivateUser(e.detail._id).then(() => toast.success("Kullanıcı tekrar inceleniyor!"))
-		}
-		window.addEventListener("admin:approve", handleApprove)
-		window.addEventListener("admin:reject", handleReject)
-		window.addEventListener("admin:reactivate", handleReactivate)
-		return () => {
-			window.removeEventListener("admin:approve", handleApprove)
-			window.removeEventListener("admin:reject", handleReject)
-			window.removeEventListener("admin:reactivate", handleReactivate)
-		}
-	}, [])
+	}
+
+
 
 	return (
 		<main className={styles.adminUsersMain}>
@@ -72,6 +108,8 @@ export default function AdminUsersPage() {
 						initialSortField="createdAt"
 						initialSortOrder="desc"
 						searchPlaceholder="Ad, soyad veya e-posta ile ara"
+						onAction={handleUserAction}
+						refresh={refresh}
 					>
 						<div className={styles.usersFilters}>
 							<label>
@@ -96,6 +134,8 @@ export default function AdminUsersPage() {
 						initialSortField="createdAt"
 						initialSortOrder="desc"
 						searchPlaceholder="İsim, e-posta ile ara"
+						onAction={handleUserAction}
+						refresh={refresh}
 					/>
 				)}
 				{tab === "rejected" && (
@@ -108,6 +148,8 @@ export default function AdminUsersPage() {
 						initialSortField="approvalDate"
 						initialSortOrder="desc"
 						searchPlaceholder="İsim, e-posta ile ara"
+						onAction={handleUserAction}
+						refresh={refresh}
 					/>
 				)}
 			</div>

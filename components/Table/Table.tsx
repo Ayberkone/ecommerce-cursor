@@ -6,7 +6,7 @@ import { ChevronDown, ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, Chev
 export type Column<T> = {
 	header: React.ReactNode | string
 	accessor: keyof T | ((row: T) => React.ReactNode)
-	cell?: (value: any, row: T) => React.ReactNode
+	cell?: (value: any, row: T, triggerAction?: any) => React.ReactNode
 	className?: string
 	sortKey?: string  // used for API sortField
 }
@@ -22,6 +22,8 @@ export type TableProps<T> = {
 	initialSortField?: string
 	initialSortOrder?: "asc" | "desc"
 	searchPlaceholder?: string
+	onAction?: (action: string, row: T) => void
+	refresh?: boolean // prop to trigger data refresh
 	children?: React.ReactNode
 }
 
@@ -38,6 +40,8 @@ export function Table<T>({
 	initialSortField = "createdAt",
 	initialSortOrder = "desc",
 	searchPlaceholder = "Ara...",
+	onAction,
+	refresh,
 	children
 }: TableProps<T>) {
 	const [data, setData] = useState<T[]>([])
@@ -51,7 +55,6 @@ export function Table<T>({
 	const [loading, setLoading] = useState(true)
 
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-
 
 	// Fetch data
 	const fetchData = useCallback(() => {
@@ -67,7 +70,7 @@ export function Table<T>({
 
 	useEffect(() => {
 		fetchData()
-	}, [fetchData])
+	}, [fetchData, refresh])
 
 	// Sorting
 	function handleSort(col: Column<T>) {
@@ -158,7 +161,9 @@ export function Table<T>({
 									else value = row[col.accessor]
 									return (
 										<td key={colIdx} className={col.className}>
-											{col.cell ? col.cell(value, row) : value}
+											{col.cell
+												? col.cell(value, row, (action: string) => onAction?.(action, row))
+												: value}
 										</td>
 									)
 								})}

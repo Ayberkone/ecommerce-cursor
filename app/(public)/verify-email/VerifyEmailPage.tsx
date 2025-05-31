@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import styles from './VerifyEmail.module.scss'
 import { CheckCircle, XCircle } from 'lucide-react'
+import { api } from "@/utils/api"
 
 export default function VerifyEmailPage() {
 	const router = useRouter()
@@ -19,9 +20,12 @@ export default function VerifyEmailPage() {
 			setMessage('Doğrulama bağlantısı hatalı.')
 			return
 		}
-		// Call backend to verify token
-		fetch(`/api/auth/verify-email/${token}`)
-			.then(async res => {
+		async function verifyEmail() {
+			// Call backend to verify token
+			await api(`/api/auth/verify-email?token=${token}`, {
+				method: 'GET',
+				showLoader: true
+			}).then(async res => {
 				const data = await res.json()
 				if (res.ok) {
 					setStatus('success')
@@ -30,13 +34,12 @@ export default function VerifyEmailPage() {
 					setStatus('error')
 					setMessage(data.message || 'Bir hata oluştu.')
 				}
-			})
-			.catch(() => {
+			}).catch(() => {
 				setStatus('error')
 				setMessage('Sunucuya ulaşılamadı.')
 			})
-		// No dependencies: only runs on mount
-		// eslint-disable-next-line
+		}
+		verifyEmail()
 	}, [])
 
 	return (
