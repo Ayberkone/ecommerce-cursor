@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useCallback, useRef } from "react"
+// components/Table/Table.tsx
+
+import React, { useEffect, useState, useCallback, useRef, useMemo } from "react"
 import styles from "./Table.module.scss"
 import { api } from "@/utils/api"
 import { ChevronDown, ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react"
@@ -106,6 +108,15 @@ export function Table<T>({
 	// Pagination controls
 	const totalPages = Math.ceil(count / limit)
 
+	const funtionsDisabled = useMemo(() => !data || data.length === 0, [data])
+
+	const checkFunctionsDisabled = (func: any) => {
+		if (funtionsDisabled) {
+			return
+		}
+		return func()
+	}
+
 	return (
 		<div className={`${styles.tableWrap} ${className || ""}`}>
 			{/* Search and limit selector */}
@@ -115,8 +126,9 @@ export function Table<T>({
 					type="text"
 					placeholder={searchPlaceholder}
 					value={search}
-					onChange={handleSearch}
+					onChange={funtionsDisabled ? handleSearch : undefined}
 					className={styles.searchInput}
+					disabled={funtionsDisabled}
 				/>
 			</div>
 			<table className={styles.table}>
@@ -126,7 +138,7 @@ export function Table<T>({
 							<th
 								key={i}
 								className={col.className}
-								onClick={() => col.sortKey && handleSort(col)}
+								onClick={() => !funtionsDisabled && col.sortKey && handleSort(col)}
 								style={col.sortKey ? { cursor: "pointer" } : {}}
 							>
 								{col.header}
@@ -174,10 +186,10 @@ export function Table<T>({
 			</table>
 			{/* Pagination */}
 			<div className={styles.pagination}>
-				<button className="btn btn-small" disabled={page === 1} onClick={() => setPage(1)}>
+				<button className="btn btn-small" disabled={page === 1} onClick={() => checkFunctionsDisabled(setPage(1))}>
 					<ChevronFirst size={18} />
 				</button>
-				<button className="btn btn-small" disabled={page === 1} onClick={() => setPage(p => Math.max(1, p - 1))}>
+				<button className="btn btn-small" disabled={page === 1} onClick={() => checkFunctionsDisabled(setPage(p => Math.max(1, p - 1)))}>
 					<ChevronLeft size={18} />
 				</button>
 				<input
@@ -185,7 +197,9 @@ export function Table<T>({
 					min={1}
 					max={totalPages || 1}
 					value={page}
+					disabled={funtionsDisabled}
 					onChange={e => {
+						if (funtionsDisabled) return
 						let val = Number(e.target.value)
 						if (isNaN(val)) val = 1
 						val = Math.max(1, Math.min(totalPages || 1, val))
@@ -194,15 +208,17 @@ export function Table<T>({
 					style={{ width: 30, textAlign: "center", marginRight: 8 }}
 				/>
 				<span> / {totalPages || 1}</span>
-				<button className="btn btn-small" disabled={page === totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))}>
+				<button className="btn btn-small" disabled={page === totalPages} onClick={() => checkFunctionsDisabled(setPage(p => Math.min(totalPages, p + 1)))}>
 					<ChevronRight size={18} />
 				</button>
-				<button className="btn btn-small" disabled={page === totalPages} onClick={() => setPage(totalPages)}>
+				<button className="btn btn-small" disabled={page === totalPages} onClick={() => checkFunctionsDisabled(setPage(totalPages))}>
 					<ChevronLast size={18} />
 				</button>
 				<select
 					value={limit}
+					disabled={funtionsDisabled}
 					onChange={e => {
+						if (funtionsDisabled) return
 						setLimit(Number(e.target.value))
 						setPage(1)
 					}}

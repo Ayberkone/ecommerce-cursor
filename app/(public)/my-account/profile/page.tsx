@@ -8,6 +8,8 @@ import styles from './ProfilePage.module.scss'
 import { api } from "@/utils/api"
 import { toast } from "sonner"
 import { isPhoneValid } from "@/utils/functions"
+import Modal from "@/components/Modal/Modal"
+import DeleteAccountSection from "@/components/DeleteAccount/DeleteAccount"
 
 type ProfileForm = {
   firstName: string
@@ -30,6 +32,7 @@ export default function ProfilePage() {
   const { user, refreshUser } = useAuth() as { user: ProfileForm | null; refreshUser?: () => void }
   const [initialValues, setInitialValues] = useState<ProfileForm | null>(null)
   const [saved, setSaved] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -120,6 +123,18 @@ export default function ProfilePage() {
           )
         }}
       </Formik>
+      <div className={styles.form}>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => setShowDeleteModal(true)}
+        >
+          Hesabı Sil
+        </button>
+      </div>
+      <Modal open={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
+        <DeleteAccountSection />
+      </Modal>
     </div>
   )
 }
