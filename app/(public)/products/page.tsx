@@ -57,7 +57,7 @@ const ProductsPage = () => {
       setError(null)
       try {
         // Call the exportable function
-        const fetchedProducts = await fetchProducts(category, debouncedQuery)
+        const fetchedProducts = await fetchProducts(category, debouncedQuery, true)
         setProducts(fetchedProducts)
       } catch (err: any) {
         setError(err.message || 'Error fetching products')

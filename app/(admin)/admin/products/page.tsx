@@ -1,48 +1,64 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useRouter } from 'next/navigation'
+import { Table, Column } from "@/components/Table/Table"
 import { Product } from "@/types/Product"
-import { api } from "@/utils/api"
-import { toast } from 'sonner'
-import { usePathname, useRouter } from 'next/navigation'
-// import styles from "./ProductsPage.module.scss"
-import ProductTable from "@/components/ProductTable/ProductTable"
 import { deleteProduct } from "@/utils/admin/adminApi"
+import { toast } from 'sonner'
 
 export default function ProductsPage() {
 	const router = useRouter()
-	const [products, setProducts] = useState<Product[]>([])
-	const [count, setCount] = useState(0)
-	const [loading, setLoading] = useState(true)
 
-	useEffect(() => {
-		setLoading(true)
-		api<{ products: Product[]; count: number }>("/api/admin/products", { showLoader: true })
-			.then((data) => {
-				setProducts(data?.products)
-				setCount(data?.count)
-			})
-			.catch(() => toast.error('Ürünler alınamadı'))
-			.finally(() => setLoading(false))
-	}, [])
+	// Table column definitions
+	const columns: Column<Product>[] = [
+		{ header: "Ad", accessor: (p: Product) => p.name, sortKey: "name" },
+		{ header: "Kategori", accessor: (p: Product) => p.category?.name || "-", sortKey: "category" },
+		{ header: "Fiyat", accessor: (p: Product) => p.price?.regular ? `${p.price.regular}₺` : "-", sortKey: "price.regular" },
+		{ header: "Stok", accessor: (p: Product) => p.stockQuantity, sortKey: "stockQuantity" },
+		{
+			header: "İşlemler",
+			accessor: (p: Product) => p._id,
+			cell: (_id: string, p: Product, triggerAction) => (
+				<>
+					<button className="btn btn-small btn-outline" onClick={() => triggerAction("edit", p)}>Düzenle</button>
+					<button className="btn btn-small btn-danger" onClick={() => triggerAction("delete", p)}>Sil</button>
+				</>
+			),
+			className: "actions"
+		}
+	]
 
-	const handleAdd = () => router.push('/admin/products/new')
-
-	const handleEdit = (product: Product) => router.push('/admin/products/' + product._id)
-
-	const handleDelete = async (id: string) => {
-		if (!confirm("Silmek istediğinize emin misiniz?")) return
-		await deleteProduct(id)
-		setProducts(products => products.filter(p => p._id !== id))
+	// Handle edit and delete actions
+	const handleAction = async (action: string, product: Product) => {
+		if (action === "edit") {
+			router.push(`/admin/products/${product._id}`)
+		}
+		if (action === "delete") {
+			if (!confirm("Silmek istediğinize emin misiniz?")) return
+			try {
+				await deleteProduct(product._id)
+				toast.success("Ürün silindi.")
+				// Optionally: trigger Table refresh using a state variable
+			} catch (e: any) {
+				toast.error("Ürün silinemedi: " + (e?.message || ""))
+			}
+		}
 	}
 
 	return (
-		<>
-			{/* <div className={styles.page}> */}
+		<div>
 			<h1>Ürünler</h1>
-			<button className="btn btn-primary" onClick={handleAdd}>+ Yeni Ürün</button>
-			{/* <button className={styles.addBtn} onClick={handleAdd}>+ Yeni Ürün</button> */}
-			<ProductTable products={products} count={count} onEditAction={handleEdit} onDeleteAction={handleDelete} loading={loading} />
-		</>
+			<button className="btn btn-primary" onClick={() => router.push('/admin/products/new')}>+ Yeni Ürün</button>
+			<Table<Product>
+				endpoint="/api/admin/products"
+				columns={columns}
+				rowKey={p => p._id}
+				noDataMessage="Hiç ürün yok."
+				initialSortField="createdAt"
+				initialSortOrder="desc"
+				searchPlaceholder="Ürün adı ile ara"
+				onAction={handleAction}
+			/>
+		</div>
 	)
 }

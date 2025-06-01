@@ -1,183 +1,194 @@
-@use "@/styles/variables" as *;
-
 .section {
-  margin: 0 0 3rem 0;
+  width: 100%;
+  background: var(--white);
+  padding: 0;
 }
 
 .alan {
-  background: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  min-height: 450px;
   border-radius: 1.7rem;
-  padding: 2rem 1.4rem;
-  margin-top: 2rem;
-  @include mobile {
-    padding: 1.1rem 12px;
+  background: white;
+}
+
+.typeBtns {
+  background: none;
+  justify-items: right;
+  gap: 18px;
+  display: grid;
+
+  button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    padding-right: 1rem;
+    transition: filter 0.12s;
+    border-radius: 2rem 0 0 2rem;
+    filter: blur(0.5);
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    transition: background 0.18s, box-shadow 0.18s;
+
+    .turadi {
+      // transition: background 0.18s, box-shadow 0.18s;
+    }
+
+    &:hover {
+      filter: blur(0);
+      background: var(--gray-100);
+
+      .turadi {
+        // transition: background 0.18s, box-shadow 0.18s;
+      }
+    }
+    &.active {
+      filter: blur(0);
+      background: var(--gray-200);
+
+      .turadi {
+        // transition: background 0.18s, box-shadow 0.18s;
+        color: var(--secondary);
+      }
+    }
   }
+}
+
+.slideArea {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+  background: var(--gray-200);
+  border-radius: 0 1.7rem 1.7rem 0;
+  position: relative;
+
+  .swiper {
+    width: 100%;
+    min-width: 0;
+    padding: 0 36px; // add padding for nav arrows
+  }
+}
+
+.turadi {
+  margin-left: 0.8em;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .brandRow {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 1.5rem;
+  margin: 0 0 2rem 0;
 }
+
 .brandLogo {
-  width: 190px;
-  height: auto;
+  box-shadow: 0 2px 12px 0 rgba(35, 83, 155, 0.06);
 }
+
 .brandFamily {
-  font-weight: 800;
-  font-size: 2.2rem;
-  color: var(--primary);
+  font-weight: 700;
+  font-size: 2.3rem;
+  letter-spacing: 2px;
+  color: var(--primary-800);
 }
-.brandProductsTitle {
-  color: var(--primary);
-  font-size: 1.18rem;
-  margin-bottom: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 1.3px;
-}
-.typeBtns {
-  display: flex;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.4rem;
-  align-items: center;
-}
-.typeBtn {
-  background: #fff;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 1.1rem;
-  padding: 0 0.5rem;
-  transition: background 0.13s, border 0.13s;
-  cursor: pointer;
-  outline: none;
 
-  &.pembe {
-    background: #ffe6f3;
-  }
-  &.mavi {
-    background: #e6f0ff;
-  }
-  &.sari {
-    background: #fffbe6;
-  }
-  &.yesil {
-    background: #e7ffe6;
-  }
-
-  &:hover,
-  &.active {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-  }
-}
-.uruntur {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-radius: 0.8rem;
-  padding: 0.15rem 0.6rem;
-}
-.icon img {
-  width: 32px;
-  height: 32px;
-}
-.turadi {
-  font-weight: 600;
-  font-size: 0.8rem;
-  span {
-    display: block;
-    color: #888;
-    font-size: 12px;
-    margin-bottom: -2px;
-  }
-}
 .showAllBtn {
   margin-left: auto;
-  background: var(--primary);
-  color: #fff;
-  padding: 0.6rem 1.4rem;
-  border-radius: 1.2rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background 0.13s;
-  &:hover {
-    background: var(--secondary);
-  }
-}
-.slideArea {
-  margin-top: 1.7rem;
-  position: relative;
-  padding: 0 3rem;
-}
-.productCard {
-  background: #f9fafd;
-  border-radius: 1.2rem;
-  box-shadow: 0 1px 6px rgba(34, 45, 59, 0.05);
-  padding: 1.1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-width: 240px;
-  min-height: 370px;
-  @include mobile {
-    min-height: 310px;
-  }
-}
-.productImg img {
-  width: 100%;
-  border-radius: 1rem;
-  margin: 12px 0;
-  object-fit: contain;
-  height: 130px;
-  background: #fff;
-}
-.productInfo {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-  align-items: flex-end;
-}
-.left {
-  flex: 2;
-}
-.productName {
+  font-size: 1.3rem;
+  background: var(--gray-50);
+  border-radius: 18px;
+  padding: 8px 24px;
   font-weight: 600;
-  font-size: 1.03rem;
-  color: var(--dark);
+  color: var(--primary-700);
+  border: none;
+  cursor: pointer;
   text-decoration: none;
-  margin-bottom: 0.35rem;
-  display: block;
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--primary-100);
+  }
 }
-.commentsRow {
+
+.swiper {
+  width: 100%;
+  max-width: 1180px;
+  height: 100%;
+  background-color: white;
+  border-radius: 2rem;
+}
+
+.brandGalleryPrev,
+.brandGalleryNext {
+  position: absolute;
+  top: 50%;
+  z-index: 12;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  font-size: 0.95rem;
-}
-.stars {
-  color: #faad14;
-  font-size: 1.12rem;
-}
-.commentCount {
-  color: #888;
-}
-.right {
-  text-align: right;
-}
-.price {
-  font-weight: 700;
-  color: var(--primary);
-  font-size: 1.09rem;
+  justify-content: center;
+  transform: translateY(-50%);
+  transition: background 0.15s;
+  svg {
+    color: var(--primary-500);
+  }
+
+  &:hover {
+    background: var(--primary-100);
+  }
 }
 .brandGalleryPrev {
-  left: -8px;
-  border: none;
-  background: transparent;
+  left: 10px;
 }
 .brandGalleryNext {
-  right: -8px;
-  border: none;
-  background: transparent;
+  right: 10px;
+}
+.productImageWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%; // 4:3 aspect ratio (adjust as needed)
+  max-height: 75%; // Limiting max height to prevent image dominance
+  overflow: hidden; // Ensure image stays within bounds
+  display: flex; // To center image if it's smaller
+  justify-content: center;
+  align-items: center;
+  background: var(--gray-50); // Light background for image wrapper
+}
+
+.productImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; // Ensure image fits without cropping
+  border-radius: 1.2rem; // Keep border-radius
+  box-shadow: none; // Remove inner image shadow, container has it
+}
+.productInfo {
+  padding: 1rem 0;
+}
+
+.productName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-800);
+}
+.productPrice {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary-600);
 }

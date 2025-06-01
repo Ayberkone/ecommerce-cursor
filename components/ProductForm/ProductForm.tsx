@@ -36,6 +36,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 		brand: '',
 		photoUrls: [],
 		documentUrl: '',
+		collections: [],
 	}
 
 	const [formValues, setFormValues] = useState<ProductFormValues>(initialValues)

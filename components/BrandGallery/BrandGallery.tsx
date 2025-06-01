@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+import { EffectCards } from 'swiper/modules'
 import 'swiper/css'
-import 'swiper/css/navigation'
+import 'swiper/css/effect-cards'
 import styles from './BrandGallery.module.scss'
 import Image from "next/image"
 import Link from "next/link"
 import { fetchCategories } from "@/utils/admin/adminApi"
 import { fetchProducts } from "@/utils/products"
 import { Category, Product } from "@/types/Product"
+import { CategoryIcon } from "../CategoryIcon/CategoryIcon"
 
 const brandLogo = '/img/FarmalinkLogo.png'
 
@@ -23,7 +24,7 @@ export default function BrandGallery() {
 
   const filtered = selectedType === 'all'
     ? products
-    : products.filter((p: Product) => p?.category?.name === selectedType)
+    : products.filter((p: Product) => p?.category?._id === selectedType)
 
   useEffect(() => {
     async function load() {
@@ -33,6 +34,7 @@ export default function BrandGallery() {
           fetchProducts()
         ])
         setCategories(cats)
+        setSelectedType(cats.length > 0 ? cats[0]._id : 'all')
         setProducts(products)
       } finally {
         setLoading(false)
@@ -47,69 +49,75 @@ export default function BrandGallery() {
   return (
     <section id="markaalan" className={styles.section}>
       <div className="container">
+        <div className={styles.brandRow}>
+          {/* <Image
+            src={brandLogo}
+            alt="Farmalink"
+            title="Farmalink logo"
+            width={260}
+            height={76}
+            className={styles.brandLogo}
+          />
+          <span className={styles.brandFamily}>AİLESİ</span> */}
+          <span className={styles.brandFamily}>ÜRÜNLERİMİZ</span>
+          <Link href="/products" className={styles.showAllBtn}>
+            Tümünü Göster
+          </Link>
+        </div>
         <div className={styles.alan}>
-          <div className={styles.brandRow}>
-            <Image
-              src={brandLogo}
-              alt="Farmalink"
-              title="Farmalink logo"
-              width={76}
-              height={76}
-              className={styles.brandLogo}
-            />
-            <span className={styles.brandFamily}>AİLESİ</span>
-            <Link href="/products" className={styles.showAllBtn}>
-              Tümünü Göster
-            </Link>
-          </div>
           <div className={styles.typeBtns}>
-            {categories.map((t: Category) => (
+            {categories.map((cat) => (
               <button
-                key={t._id}
-                onClick={() => setSelectedType(t._id)}
+                key={cat._id}
+                onClick={() => setSelectedType(cat._id)}
+                className={selectedType === cat._id ? styles.active : ""}
                 type="button"
               >
-                <div className={styles.uruntur}>
-                  <div className={styles.icon}>
-                  </div>
-                  <div className={styles.turadi}>
-                    {t._id !== 'all' && <span>Form</span>}
-                    {t.name}
-                  </div>
+                <div className={styles.turadi}>
+                  {cat.name}
                 </div>
+                <CategoryIcon name={cat.name} selected={selectedType === cat._id} />
               </button>
             ))}
           </div>
-          {filtered?.length > 0 && (
-            <div className={styles.slideArea}>
+          <div className={styles.slideArea}>
+            {filtered?.length > 0 && (
               <Swiper
-                modules={[Navigation]}
                 loop
-                slidesPerView={1}
+                slidesPerView="auto"
+                effect={'cards'}
+                grabCursor={true}
+                modules={[EffectCards]}
                 spaceBetween={18}
                 className={styles.swiper}
-                navigation={{
-                  nextEl: '.brandGalleryNext',
-                  prevEl: '.brandGalleryPrev'
-                }}
-                breakpoints={{
-                  600: { slidesPerView: 2 },
-                  900: { slidesPerView: 3 },
-                  1200: { slidesPerView: 3 }
-                }}
               >
                 {filtered.map((prod: Product) => (
                   <SwiperSlide key={prod._id}>
                     <div className={styles.productCard}>
-
+                      <Link href={`/products/${prod._id}`} className={styles.productLink}>
+                        <div className={styles.productImageWrapper}>
+                          <Image
+                            src={prod.photoUrls?.[0] || '/img/placeholder.png'}
+                            alt={prod.name}
+                            fill
+                            objectFit="cover"
+                            priority
+                            className={styles.productImage}
+                          />
+                        </div>
+                        <div className={styles.productInfo}>
+                          <div className={styles.productName}>{prod.name}</div>
+                          {prod.price && (
+                            <div className={styles.productPrice}>{prod.price.regular} ₺</div>
+                          )}
+                        </div>
+                      </Link>
                     </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <button className={`${styles.brandGalleryPrev} swiper-button-prev`} tabIndex={0} aria-label="Prev" />
-              <button className={`${styles.brandGalleryNext} swiper-button-next`} tabIndex={0} aria-label="Next" />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>

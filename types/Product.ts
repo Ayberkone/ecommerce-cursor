@@ -12,7 +12,7 @@ export type ProductDescription = {
 }
 
 export type Product = {
-  _id?: string // mongo id, can be string
+  _id: string // mongo id, can be string
   name: string
   seoTitle?: string
   description: ProductDescription
@@ -24,7 +24,8 @@ export type Product = {
   taxRate?: number
   stockQuantity: number
   barcode?: string
-  category?: Category // changed from string to Category
+  category?: Category
+  collections?: Collection[]
   brand?: Brand
   photoUrls?: ProductPhoto[]
   documentUrl?: string
@@ -45,12 +46,18 @@ export interface ProductFormValues {
   stockQuantity: number
   barcode: string
   category: string
+  collections: string[]
   brand: string
   photoUrls: ProductPhoto[]
   documentUrl: string
 }
 
 export interface Category {
+  _id: string
+  name: string
+}
+
+export interface Collection {
   _id: string
   name: string
 }
