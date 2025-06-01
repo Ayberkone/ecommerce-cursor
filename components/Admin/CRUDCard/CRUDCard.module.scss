@@ -1,56 +1,395 @@
+@use "@/styles/variables" as *; // Assuming this imports your :root variables
+
+/* --- Card Container --- */
 .card {
-  border-radius: 1rem;
-  margin-bottom: 2rem;
-  background: #fff;
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: var(--space-xl);
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid var(--gray-100);
 }
+
+/* --- Card Header --- */
 .cardHeader {
-  padding: 1rem 1.5rem;
-  font-size: 1.3rem;
-  font-weight: 700;
-  background: var(--gray-50);
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--gray-50);
   cursor: pointer;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 1px solid var(--gray-100);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--gray-100);
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--primary-700);
+  }
+
+  svg {
+    color: var(--primary-500);
+    transition: transform 0.2s ease;
+    transform: rotate(0deg);
+  }
+
+  &.expanded svg {
+    transform: rotate(90deg);
+  }
+
+  .addBtn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--primary-500);
+    color: var(--white);
+    border: none;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      background-color: var(--primary-700);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    svg {
+      color: var(--white);
+    }
+  }
 }
+
+/* --- Card Content --- */
 .cardContent {
-  padding: 1rem 1.5rem;
+  padding: var(--space-lg);
+  background-color: var(--white);
+  animation: fadeIn 0.3s ease-out;
 }
-.addForm {
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Form Styles (for Modal) --- */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+.inputWrap {
+  label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    margin-bottom: var(--space-xs);
+    display: block; // Ensures label takes full width
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-md);
+    font-size: var(--font-size-base);
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box; // Ensures padding doesn't increase total width
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-500);
+      box-shadow: 0 0 0 2px rgba(var(--primary-500), 0.2);
+    }
+
+    &::placeholder {
+      color: var(--gray-500);
+    }
+
+    &:disabled {
+      background-color: var(--gray-100);
+      cursor: not-allowed;
+      color: var(--gray-500);
+    }
+  }
+
+  textarea {
+    resize: vertical; // Allow vertical resizing
+  }
+}
+
+.error {
+  color: var(--danger);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-xs);
+  padding-left: var(--space-sm);
+}
+
+/* --- Image Uploader Section --- */
+.imageUploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+
+  & > strong {
+    font-size: var(--font-size-base);
+    color: var(--text);
+    margin-bottom: var(--space-sm);
+  }
+}
+
+.imagePreviewContainer {
+  position: relative;
+  margin-top: var(--space-sm);
+  display: inline-block;
+
+  > div {
+    float: left;
+    position: relative;
+  }
+}
+
+.imagePreview {
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--gray-200);
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.removeImageBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--danger);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px;
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 1rem;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: var(--danger-600); // Use the darker danger for hover
+    transform: scale(1.05);
+  }
+
+  svg {
+    stroke: var(--white);
+  }
 }
+
+/* --- Modal Action Buttons --- */
+.modalActions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+
+  button {
+    flex: 1;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:first-child {
+      background-color: var(--primary-500);
+      color: var(--white);
+      border: 1px solid var(--primary-500);
+
+      &:hover {
+        background-color: var(--primary-700);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      &:disabled {
+        background-color: var(--gray-300);
+        border-color: var(--gray-300);
+        cursor: not-allowed;
+      }
+    }
+
+    &:last-child {
+      background-color: var(--gray-200);
+      color: var(--text);
+      border: 1px solid var(--gray-200);
+
+      &:hover {
+        background-color: var(--gray-300);
+      }
+    }
+  }
+}
+
+/* --- Table Styles --- */
 .tableWrap {
   overflow-x: auto;
+  margin-top: var(--space-md);
 }
+
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
-  th,
-  td {
-    padding: 0.5rem 0.8rem;
-    text-align: left;
-    border-bottom: 1px solid #ececec;
+  font-size: var(--font-size-base);
+  color: var(--text);
+
+  thead {
+    background-color: var(--gray-100);
+    th {
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 2px solid var(--gray-200);
+    }
   }
-  th {
-    background: var(--gray-100);
-    font-weight: 600;
+
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--gray-100);
+      &:nth-child(even) {
+        background-color: var(--gray-50);
+      }
+      &:hover {
+        background-color: var(--gray-100);
+        transition: background-color 0.15s ease;
+      }
+    }
+
+    td {
+      padding: var(--space-sm) var(--space-md);
+      vertical-align: middle;
+    }
   }
-  tr:last-child td {
-    border-bottom: none;
-  }
+
   .actions {
-    white-space: nowrap;
     display: flex;
-    align-items: center;
-    max-width: 140px;
+    gap: var(--space-sm);
+    justify-content: flex-end;
+    padding-right: var(--space-sm);
+
     button {
-      margin-right: 0.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-xs);
+      border-radius: var(--border-radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+
+      &.editBtn {
+        background-color: var(--primary-100);
+        color: var(--primary-700);
+        &:hover {
+          background-color: var(--primary-200);
+        }
+      }
+
+      &.deleteBtn {
+        background-color: var(--danger);
+        color: var(--white);
+        &:hover {
+          background-color: var(--danger-600); // Use the darker danger for hover
+        }
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+/* --- Message states (Loading, No Data) --- */
+.loadingMessage,
+.noDataMessage {
+  text-align: center;
+  padding: var(--space-lg);
+  font-size: var(--font-size-lg);
+  color: var(--muted);
+}
+
+.errorMessage {
+  color: var(--danger);
+}
+
+/* --- Responsive Adjustments --- */
+@include mobile {
+  .cardHeader {
+    padding: var(--space-sm) var(--space-md);
+    flex-direction: column; // Stack elements vertically on small screens
+    align-items: flex-start;
+    gap: var(--space-sm);
+
+    span {
+      margin-bottom: var(--space-xs);
+    }
+
+    .addBtn {
+      width: 100%; // Make add button full width
+      justify-content: center;
+    }
+  }
+
+  .cardContent {
+    padding: var(--space-md);
+  }
+
+  .table {
+    // For smaller screens, improve table readability
+    font-size: var(--font-size-sm);
+
+    thead th {
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    tbody td {
+      padding: var(--space-xs) var(--space-sm);
+    }
+  }
+
+  .modalForm {
+    padding: var(--space-sm);
+  }
+
+  .modalActions {
+    flex-direction: column; // Stack modal buttons vertically
+    button {
+      width: 100%;
     }
   }
 }

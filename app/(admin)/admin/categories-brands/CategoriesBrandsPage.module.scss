@@ -1,13 +1,12 @@
 .root {
   padding: 2rem;
-  min-width: 1200px;
+  min-width: 900px;
   margin: 0 auto;
 }
 
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 .card {
