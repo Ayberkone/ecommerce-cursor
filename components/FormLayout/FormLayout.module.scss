@@ -1,0 +1,140 @@
+// components/FormLayout.module.scss
+@use "@/styles/variables" as *;
+
+.formWrapper {
+  background: var(--gray)-50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include mobile {
+    padding: 20px 0;
+    min-height: auto;
+  }
+}
+
+.formContainer {
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(30, 40, 70, 0.09);
+  padding: 36px 40px 28px 40px;
+  max-width: 390px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // add default gap between all fields/buttons
+
+    // Style inputs, textarea, select universally
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    textarea,
+    select {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 7px;
+      padding: 10px 13px;
+      font-size: 1rem;
+      transition: border 0.2s;
+      color: var(--gray-800);
+      outline: none;
+
+      &:focus {
+        border: 1.5px solid var(--primary-400);
+        background: var(--white);
+      }
+
+      &::placeholder {
+        color: var(--gray-400);
+        font-size: 0.98rem;
+      }
+    }
+
+    label {
+      font-weight: 500;
+      color: var(--primary-900);
+      margin-bottom: 6px;
+    }
+  }
+
+  @include mobile {
+    padding: 18px 6vw 16px 6vw;
+    max-width: 100vw;
+    border-radius: 12px;
+  }
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+
+  .icon {
+    font-size: 3rem;
+    color: var(--primary-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary)-50;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+  }
+
+  b {
+    font-size: 1.28rem;
+    color: var(--primary)-800;
+    letter-spacing: 0.01em;
+  }
+}
+
+.formCheck {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 0.97rem;
+  color: var(--gray-600);
+
+  .checkbox {
+    margin-top: 3px;
+    accent-color: var(--primary-500);
+    width: 1.12em;
+    height: 1.12em;
+  }
+
+  label {
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.25;
+  }
+  .underline {
+    color: var(--primary-600);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.18s;
+
+    &:hover,
+    &:focus {
+      color: var(--primary)-800;
+    }
+  }
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.93em;
+  margin-top: 5px;
+  margin-bottom: -10px;
+  min-height: 19px;
+}

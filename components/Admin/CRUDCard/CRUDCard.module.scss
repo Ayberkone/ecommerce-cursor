@@ -1,0 +1,56 @@
+.card {
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  background: #fff;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.cardHeader {
+  padding: 1rem 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: var(--gray-50);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.cardContent {
+  padding: 1rem 1.5rem;
+}
+.addForm {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+.tableWrap {
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  th,
+  td {
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+  }
+  th {
+    background: var(--gray-100);
+    font-weight: 600;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  .actions {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    max-width: 140px;
+    button {
+      margin-right: 0.4em;
+    }
+  }
+}
