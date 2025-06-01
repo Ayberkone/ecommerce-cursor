@@ -1,5 +1,6 @@
 // components/Admin/AdminPendingUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
+import { CheckCheck, Eye, Trash } from "lucide-react"
 
 const USER_TYPE_LABELS: Record<string, string> = {
   pharmacy: "Eczane",
@@ -7,7 +8,8 @@ const USER_TYPE_LABELS: Record<string, string> = {
 }
 
 export const pendingUserColumns: Column<any>[] = [
-  { header: "İsim", accessor: "name", sortKey: "name" },
+  { header: "Ad", accessor: "firstName", sortKey: "firstName" },
+  { header: "Soyad", accessor: "lastName", sortKey: "lastName" },
   { header: "E-posta", accessor: "email", sortKey: "email" },
   { header: "Telefon", accessor: "phone" },
   {
@@ -24,15 +26,30 @@ export const pendingUserColumns: Column<any>[] = [
     header: "İşlem",
     accessor: () => "", // No data, just actions
     className: "actions",
-    cell: (_: any, row: any) => (
-      <div style={{ display: "flex", gap: 8 }}>
-        <button className="btn btn-primary btn-small" onClick={() => window.dispatchEvent(new CustomEvent("admin:approve", { detail: row }))}>
-          Onayla
+    cell: (value, row, triggerAction) => (
+      <>
+        <button
+          onClick={() => triggerAction("approve", row)}
+          className="btn btn-success"
+          title="Onayla"
+        >
+          <CheckCheck size={16} />
         </button>
-        <button className="btn btn-danger btn-small" onClick={() => window.dispatchEvent(new CustomEvent("admin:reject", { detail: row }))}>
-          Reddet
+        <button
+          onClick={() => triggerAction("view", row)}
+          className="btn btn-primary"
+          title="İncele"
+        >
+          <Eye size={16} />
         </button>
-      </div>
+        <button
+          onClick={() => triggerAction("reject", row)}
+          className="btn btn-danger"
+          title="Reddet"
+        >
+          <Trash size={16} />
+        </button>
+      </>
     )
   }
 ]

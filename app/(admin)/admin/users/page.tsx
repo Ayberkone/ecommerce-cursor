@@ -9,6 +9,7 @@ import { userColumns } from "@/components/Admin/User/Columns/AdminUserTableColum
 import { pendingUserColumns } from "@/components/Admin/User/Columns/AdminPendingUserTableColumns"
 import { rejectedUserColumns } from "@/components/Admin/User/Columns/AdminRejectedUserTableColumns"
 import Tabs from "@/components/Tabs/Tabs"
+import Modal from "@/components/Modal/Modal"
 
 const USER_TYPES = [
 	{ key: "", label: "Tümü" },
@@ -19,15 +20,17 @@ const USER_TYPES = [
 ]
 
 const TABS = [
-	{ key: 'users', label: 'Tüm Kullanıcılar' },
 	{ key: 'pending', label: 'Onay Bekleyenler' },
-	{ key: 'rejected', label: 'Reddedilenler' },
+	{ key: 'users', label: 'Tüm Kullanıcılar' },
+	{ key: 'rejected', label: 'Reddedilenler' }
 ] as const
 
 export default function AdminUsersPage() {
-	const [tab, setTab] = useState<'users' | 'pending' | 'rejected'>('users')
+	const [tab, setTab] = useState<'users' | 'pending' | 'rejected'>('pending')
 	const [userTypeFilter, setUserTypeFilter] = useState("")
 	const [refresh, setRefresh] = useState(false)
+	const [viewModalOpen, setViewModalOpen] = useState(false)
+	const [selectedUser, setSelectedUser] = useState<any>(null)
 
 	function refetchData() {
 		setRefresh(r => !r) // Toggle refresh state to trigger re-fetch
@@ -70,8 +73,8 @@ export default function AdminUsersPage() {
 				refetchData()
 				break
 			case "view":
-				// Handle view action if needed
-				toast.info("Detay görüntüleme henüz desteklenmiyor")
+				setSelectedUser(row)
+				setViewModalOpen(true)
 				break
 			case "sendEmail":
 				// Handle send email action if needed
@@ -82,8 +85,6 @@ export default function AdminUsersPage() {
 				break
 		}
 	}
-
-
 
 	return (
 		<main className={styles.adminUsersMain}>
@@ -97,6 +98,20 @@ export default function AdminUsersPage() {
 				/>
 			</div>
 			<div className={styles.tabPanel}>
+				{tab === "pending" && (
+					<Table
+						endpoint="/api/admin/users/pending-users"
+						columns={pendingUserColumns}
+						rowKey={u => u._id}
+						className={styles.usersTable}
+						noDataMessage="Onay bekleyen kullanıcı yok"
+						initialSortField="createdAt"
+						initialSortOrder="desc"
+						searchPlaceholder="İsim, e-posta ile ara"
+						onAction={handleUserAction}
+						refresh={refresh}
+					/>
+				)}
 				{tab === "users" && (
 					<Table
 						endpoint="/api/admin/users"
@@ -123,21 +138,6 @@ export default function AdminUsersPage() {
 						</div>
 					</Table>
 				)}
-
-				{tab === "pending" && (
-					<Table
-						endpoint="/api/admin/users/pending-users"
-						columns={pendingUserColumns}
-						rowKey={u => u._id}
-						className={styles.usersTable}
-						noDataMessage="Onay bekleyen kullanıcı yok"
-						initialSortField="createdAt"
-						initialSortOrder="desc"
-						searchPlaceholder="İsim, e-posta ile ara"
-						onAction={handleUserAction}
-						refresh={refresh}
-					/>
-				)}
 				{tab === "rejected" && (
 					<Table
 						endpoint="/api/admin/users/rejected-users"
@@ -153,6 +153,32 @@ export default function AdminUsersPage() {
 					/>
 				)}
 			</div>
+			{viewModalOpen && selectedUser && (
+				<Modal open={viewModalOpen} onClose={() => setViewModalOpen(false)}>
+					<div style={{ minWidth: 320 }}>
+						<h2>Kullanıcı Detayları</h2>
+						<table className={styles.detailsTable}>
+							<tbody>
+								{Object.entries(selectedUser)
+									.filter(([key]) => key !== "password" && key !== "__v")
+									.map(([key, value]) => (
+										<tr key={key}>
+											<td>{key}</td>
+											<td>
+												{typeof value === "boolean"
+													? value ? "Evet" : "Hayır"
+													: value && typeof value === "object"
+														? JSON.stringify(value, null, 2)
+														: String(value)}
+											</td>
+										</tr>
+									))}
+							</tbody>
+						</table>
+						<button style={{ marginTop: 16 }} className="btn" onClick={() => setViewModalOpen(false)}>Kapat</button>
+					</div>
+				</Modal>
+			)}
 		</main>
 	)
 }
