@@ -6,9 +6,10 @@ interface ProductAddEditPageProps {
 	params: { id: string }
 }
 
-export default function ProductAddEditPage({ params }: ProductAddEditPageProps) {
+export default async function ProductAddEditPage({ params }: ProductAddEditPageProps) {
 	// You can fetch summary data here using server components/queries
+	const resolvedParams = await params
 	return (
-		<ProductForm params={{ id: params.id }} />
+		<ProductForm params={{ id: resolvedParams.id }} />
 	)
 }

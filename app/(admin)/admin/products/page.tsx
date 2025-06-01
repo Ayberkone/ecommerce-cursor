@@ -5,6 +5,7 @@ import { Table, Column } from "@/components/Table/Table"
 import { Product } from "@/types/Product"
 import { deleteProduct } from "@/utils/admin/adminApi"
 import { toast } from 'sonner'
+import { RefreshCcw, Trash } from "lucide-react"
 
 export default function ProductsPage() {
 	const router = useRouter()
@@ -20,8 +21,8 @@ export default function ProductsPage() {
 			accessor: (p: Product) => p._id,
 			cell: (_id: string, p: Product, triggerAction) => (
 				<>
-					<button className="btn btn-small btn-outline" onClick={() => triggerAction("edit", p)}>Düzenle</button>
-					<button className="btn btn-small btn-danger" onClick={() => triggerAction("delete", p)}>Sil</button>
+					<button className="btn btn-small btn-outline" onClick={() => triggerAction("edit", p)} title="Düzenle"><RefreshCcw size={16} /></button>
+					<button className="btn btn-small btn-danger" onClick={() => triggerAction("delete", p)} title="Sil"><Trash size={16} /></button>
 				</>
 			),
 			className: "actions"
@@ -58,6 +59,7 @@ export default function ProductsPage() {
 				initialSortOrder="desc"
 				searchPlaceholder="Ürün adı ile ara"
 				onAction={handleAction}
+				responseDataKey="products"
 			/>
 		</div>
 	)

@@ -28,11 +28,6 @@
   }
 }
 
-.actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
 .detailBtn {
   padding: 0.35rem 0.9rem;
   background: #0366d6;
@@ -69,4 +64,46 @@
 .noData {
   text-align: center;
   color: var(--muted, #888);
+}
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  padding-right: var(--space-sm);
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs);
+    border-radius: var(--border-radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &.editBtn {
+      background-color: var(--primary-100);
+      color: var(--primary-700);
+      &:hover {
+        background-color: var(--primary-200);
+      }
+    }
+
+    &.deleteBtn {
+      background-color: var(--danger);
+      color: var(--white);
+      &:hover {
+        background-color: var(--danger-600); // Use the darker danger for hover
+      }
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }

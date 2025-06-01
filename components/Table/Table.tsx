@@ -25,7 +25,8 @@ export type TableProps<T> = {
 	initialSortOrder?: "asc" | "desc"
 	searchPlaceholder?: string
 	onAction?: (action: string, row: T) => void
-	refresh?: boolean // prop to trigger data refresh
+	refresh?: boolean
+	responseDataKey?: string // if API returns data in a nested key, e.g. { products: [...] }, set this to "products"
 	children?: React.ReactNode
 }
 
@@ -44,6 +45,7 @@ export function Table<T>({
 	searchPlaceholder = "Ara...",
 	onAction,
 	refresh,
+	responseDataKey,
 	children
 }: TableProps<T>) {
 	const [data, setData] = useState<T[]>([])
@@ -65,10 +67,10 @@ export function Table<T>({
 			`${endpoint}?page=${page}&limit=${limit}&search=${encodeURIComponent(debouncedSearchTerm)}&sortField=${sortField}&sortOrder=${sortOrder}${params ? `&${params}` : ""}`,
 		).then(res => {
 			// If API returns users or data array (be flexible)
-			setData((res.data || res.users || []) as T[])
+			setData(responseDataKey ? (res as Record<string, any>)[responseDataKey] as T[] : (res.data || res.users || []) as T[])
 			setCount(res.count || 0)
 		}).finally(() => setLoading(false))
-	}, [endpoint, params, page, limit, debouncedSearchTerm, sortField, sortOrder])
+	}, [endpoint, params, page, limit, debouncedSearchTerm, sortField, sortOrder, responseDataKey])
 
 	useEffect(() => {
 		fetchData()
@@ -114,7 +116,7 @@ export function Table<T>({
 		if (funtionsDisabled) {
 			return
 		}
-		return func()
+		return func
 	}
 
 	return (
@@ -126,9 +128,8 @@ export function Table<T>({
 					type="text"
 					placeholder={searchPlaceholder}
 					value={search}
-					onChange={funtionsDisabled ? handleSearch : undefined}
+					onChange={handleSearch}
 					className={styles.searchInput}
-					disabled={funtionsDisabled}
 				/>
 			</div>
 			<table className={styles.table}>
@@ -172,7 +173,7 @@ export function Table<T>({
 									if (typeof col.accessor === "function") value = col.accessor(row)
 									else value = row[col.accessor]
 									return (
-										<td key={colIdx} className={col.className}>
+										<td key={colIdx} className={col.className + (col.className ? ` ${styles[col.className]}` : "")}>
 											{col.cell
 												? col.cell(value, row, (action: string) => onAction?.(action, row))
 												: value}

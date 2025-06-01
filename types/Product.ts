@@ -1,3 +1,4 @@
+// types/Product.ts
 export type ProductPhoto = string // Just store Cloudinary URLs
 
 export type ProductPrice = {

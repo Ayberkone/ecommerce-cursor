@@ -1,6 +1,6 @@
 // /components/Admin/AdminUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
-import { Trash } from 'lucide-react'
+import { Trash, CheckCheck } from 'lucide-react'
 
 const USER_TYPE_LABELS: Record<string, string> = {
   regular: "Normal",
@@ -30,8 +30,20 @@ export const userColumns: Column<any>[] = [
     className: "actions",
     cell: (value, row, triggerAction) => (
       <>
-        <button onClick={() => triggerAction("delete", row)} className="btn btn-danger">Sil</button>
-        <button onClick={() => triggerAction("approve", row)} className="btn btn-success">Onayla</button>
+        <button
+          onClick={() => triggerAction("approve", row)}
+          className="btn btn-success"
+          title="Onayla"
+        >
+          <CheckCheck size={16} />
+        </button>
+        <button
+          onClick={() => triggerAction("delete", row)}
+          className="btn btn-danger"
+          title="Sil"
+        >
+          <Trash size={16} />
+        </button>
       </>
     )
   }

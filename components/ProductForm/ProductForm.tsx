@@ -2,24 +2,25 @@
 
 import { useFormik } from 'formik'
 import { productSchema } from '@/utils/productValidation'
-import { ProductFormValues, Category, Brand } from '@/types/Product'
+import { ProductFormValues, Category, Brand, Collection } from '@/types/Product'
 import { useEffect, useState } from 'react'
 import ImageUploader from '@/components/ImageUploader/ImageUploader'
 import styles from './ProductForm.module.scss'
 import { api } from '@/utils/api'
 import { useRouter } from 'next/navigation'
 import Image from "next/image"
-import { fetchBrands, fetchCategories, fetchProduct } from "@/utils/admin/adminApi"
+import { fetchBrands, fetchCategories, fetchProduct, fetchCollections } from "@/utils/admin/adminApi"
+import Select from 'react-select'
 
 export default function ProductForm({ params }: { params: { id?: string } }) {
 	const router = useRouter()
 	const [categories, setCategories] = useState<Category[]>([])
+	const [collections, setCollections] = useState<Collection[]>([])
 	const [brands, setBrands] = useState<Brand[]>([])
 	const [loading, setLoading] = useState(true)
 	const [submitting, setSubmitting] = useState(false)
 	const [editMode, setEditMode] = useState(false)
 
-	// Default initial values
 	const initialValues: ProductFormValues = {
 		name: '',
 		seoTitle: '',
@@ -41,20 +42,37 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 
 	const [formValues, setFormValues] = useState<ProductFormValues>(initialValues)
 
-	// Fetch categories/brands and product if editing
 	useEffect(() => {
 		async function load() {
 			try {
-				const [cats, brs, product] = await Promise.all([
+				const [cats, brs, colls, product] = await Promise.all([
 					fetchCategories(),
 					fetchBrands(),
+					fetchCollections(),
 					params.id && params.id !== 'new' ? fetchProduct(params.id as string) : Promise.resolve(null)
 				])
 				setCategories(cats)
 				setBrands(brs)
+				setCollections(colls)
 				if (product) {
 					setEditMode(true)
-					setFormValues(product)
+					setFormValues({
+						...product,
+						category: typeof product.category === "object" && product.category !== null && "_id" in product.category
+							? (product.category as { _id: string })._id
+							: product.category,
+						brand: typeof product.brand === "object" && product.brand !== null && "_id" in product.brand
+							? (product.brand as { _id: string })._id
+							: product.brand,
+						collections: Array.isArray(product.collections)
+							? product.collections.map(c =>
+								typeof c === "object" && c !== null && "_id" in c
+									? (c as { _id: string })._id
+									: c
+							)
+							: [],
+						keywords: Array.isArray(product.keywords) ? product.keywords.join(", ") : (product.keywords || ""),
+					})
 				}
 			} finally {
 				setLoading(false)
@@ -68,6 +86,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 		initialValues: formValues,
 		validationSchema: productSchema,
 		onSubmit: async values => {
+			console.log('🚀 ~ ProductForm.tsx:103 ~ ProductForm ~ values:', values)
 			setSubmitting(true)
 			const _valuesToSubmit = {
 				...values,
@@ -76,6 +95,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 					.map(k => k.trim())
 					.filter(Boolean)
 			}
+			console.log('🚀 ~ ProductForm.tsx:103 ~ ProductForm ~ editMode:', editMode)
 			try {
 				if (editMode) {
 					await api(`/api/admin/products/${params.id}`, {
@@ -90,7 +110,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 						showLoader: true
 					})
 				}
-				router.push('/api/admin/products')
+				router.push('/admin/products')
 			} catch (e: any) {
 				alert(e.message || 'Hata oluştu!')
 			} finally {
@@ -107,6 +127,15 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 	}
 
 	if (loading) return <div>Yükleniyor...</div>
+
+	const collectionOptions = collections.map(coll => ({
+		value: coll._id,
+		label: coll.name
+	}));
+
+	const selectedCollectionOptions = formik.values.collections.map(collId =>
+		collectionOptions.find(option => option.value === collId)
+	).filter(Boolean); // Filter out any undefined if an ID doesn't match an option
 
 	return (
 		<form className={styles.productForm} onSubmit={formik.handleSubmit}>
@@ -187,6 +216,26 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 				</label>
 			</div>
 			<div className={styles.sectionRow}>
+				<label htmlFor="collections">
+					Koleksiyonlar
+					<Select
+						id="collections"
+						name="collections"
+						options={collectionOptions}
+						value={selectedCollectionOptions}
+						isMulti
+						onChange={(newValue) => {
+							const values = newValue ? newValue.map(item => item?.value) : []
+							formik.setFieldValue('collections', values)
+						}}
+						onBlur={() => formik.setFieldTouched('collections', true)}
+						classNamePrefix="react-select"
+						className={formik.errors.collections && formik.touched.collections ? styles.errorSelect : styles.customSelect}
+					/>
+					{formik.touched.collections && formik.errors.collections && <div className={styles.err}>{formik.errors.collections as string}</div>}
+				</label>
+			</div>
+			<div className={styles.sectionRow}>
 				<label>
 					Kategori*
 					<select name="category" value={formik.values.category} onChange={formik.handleChange} onBlur={formik.handleBlur}>
@@ -218,27 +267,30 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 			<div className={styles.section}>
 				<strong>Fotoğraflar*</strong>
 				<ImageUploader onUploadAction={handleUploadPhoto} />
-				<div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 8 }}>
+				<div className={styles.imagePreviewGrid}>
 					{formik.values.photoUrls.map(url =>
-						<div key={url} style={{ position: 'relative' }}>
+						<div key={url} className={styles.imagePreviewItem}>
 							<Image
 								src={url}
 								alt="Ürün fotoğrafı"
 								width={110}
 								height={110}
-								style={{ borderRadius: 8, border: '1px solid #ddd', objectFit: 'cover' }}
 							/>
-							<button type="button" onClick={() => removePhoto(url)} style={{
-								position: 'absolute', top: 2, right: 2, background: '#fff', border: 'none', borderRadius: '50%', cursor: 'pointer'
-							}}>✕</button>
+							<button type="button" onClick={() => removePhoto(url)} className={styles.removeImageBtn}>✕</button>
 						</div>
 					)}
 				</div>
 				{formik.touched.photoUrls && typeof formik.errors.photoUrls === 'string' && <div className={styles.err}>{formik.errors.photoUrls}</div>}
 			</div>
-			<div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
-				<button type="submit" disabled={submitting}>{editMode ? 'Güncelle' : 'Ekle'}</button>
-				<button type="button" onClick={() => router.push('/admin/products')}>Vazgeç</button>
+			<div className={styles.formActions}>
+				<button type="button" className="btn btn-outline btn-large" onClick={() => router.push('/admin/products')}>Vazgeç</button>
+				<button
+					type="submit"
+					className="btn btn-primary btn-large"
+					disabled={submitting || !formik.isValid || formik.isSubmitting}
+				>
+					{editMode ? 'Güncelle' : 'Ekle'}
+				</button>
 			</div>
 		</form>
 	)

@@ -1,5 +1,5 @@
 // utils/adminApi.ts
-import { Brand, Category, ProductFormValues } from "@/types/Product"
+import { Brand, Category, Collection, ProductFormValues } from "@/types/Product"
 import { api } from "../api"
 
 export async function fetchPendingUsers() {
@@ -36,6 +36,10 @@ export async function fetchLatestOrders() {
 
 export async function fetchCategories() {
   return api<Category[]>("/api/categories")
+}
+
+export async function fetchCollections() {
+  return api<Collection[]>("/api/collections")
 }
 
 export async function fetchBrands() {

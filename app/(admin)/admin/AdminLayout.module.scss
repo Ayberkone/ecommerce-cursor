@@ -13,6 +13,7 @@
   background: var(--white);
   box-shadow: -2px 0 8px 0 rgba(30, 48, 100, 0.06);
   transition: background 0.2s;
+  min-width: 1000px;
 
   h1 {
     font-size: 1.8rem;

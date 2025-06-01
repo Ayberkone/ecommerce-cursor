@@ -130,11 +130,20 @@
   }
 }
 
+.btn-success {
+  background: var(--success);
+  color: var(--white);
+  &:hover {
+    background: var(--success-600);
+    color: var(--white);
+  }
+}
+
 .btn-danger {
   background: var(--danger);
   color: var(--white);
   &:hover {
-    background: var(--danger-600, #dc2626);
+    background: var(--danger-600);
     color: var(--white);
   }
 }
