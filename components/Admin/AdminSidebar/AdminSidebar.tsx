@@ -8,9 +8,9 @@ import { Menu, LogOut, Box, User, ShoppingBag, Settings, SwatchBook } from 'luci
 import { useAuth } from '@/context/AuthContext/AuthContext'
 
 const adminMenu = [
-	{ key: 'dashboard', label: 'Panel', href: '/admin', icon: Box },
-	{ key: 'products', label: 'Ürünler', href: '/admin/products', icon: ShoppingBag },
+	// { key: 'dashboard', label: 'Panel', href: '/admin', icon: Box },
 	{ key: 'orders', label: 'Siparişler', href: '/admin/orders', icon: Box },
+	{ key: 'products', label: 'Ürünler', href: '/admin/products', icon: ShoppingBag },
 	{ key: 'users', label: 'Kullanıcılar', href: '/admin/users', icon: User },
 	{ key: 'samples', label: 'N.Talepleri', href: '/admin/samples', icon: SwatchBook },
 	{ key: 'rest', label: 'Diğer', href: '/admin/categories-brands', icon: User },

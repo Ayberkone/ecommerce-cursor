@@ -35,7 +35,6 @@ export type Product = {
 }
 
 export interface ProductFormValues {
-  _id: string
   name: string
   seoTitle: string
   description: { normal: string; mini: string }

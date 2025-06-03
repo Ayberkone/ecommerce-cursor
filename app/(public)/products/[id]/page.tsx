@@ -4,7 +4,7 @@ import { notFound, useRouter } from 'next/navigation'
 import { CartItem, useCart } from '@/components/CartContext'
 import { toast } from 'sonner'
 import styles from './ProductDetail.module.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, use } from 'react';
 import ReviewList from "@/components/ReviewList/ReviewList"
 import PhotoGallery from "@/components/PhotoGallery/PhotoGallery"
 import Image from "next/image"
@@ -17,7 +17,8 @@ const productTabs = [
   { key: 'usage', label: 'Kullanım Şekli' }
 ]
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
+export default function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
+  const params = use(props.params);
   const { addToCart } = useCart()
   const { user } = useAuth()
   const router = useRouter()

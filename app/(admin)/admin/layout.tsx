@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { getUserFromCookies } from "@/utils/authServer"
 import AdminSidebar from "@/components/Admin/AdminSidebar/AdminSidebar"
 import Providers from "@/components/Providers/Providers"
+import AdminNotificationBell from "@/components/Admin/AdminNotificationBell/AdminNotificationBell"
 import styles from "./AdminLayout.module.scss"
 import '@/styles/globals.scss'
 
@@ -16,6 +17,7 @@ export default async function AdminRootLayout({ children }: { children: ReactNod
 			<body>
 				<Providers>
 					<div className={styles.adminLayout}>
+						<AdminNotificationBell />
 						<AdminSidebar />
 						<main className={styles.adminMain}>{children}</main>
 					</div>
