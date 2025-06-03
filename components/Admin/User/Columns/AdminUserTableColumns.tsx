@@ -1,6 +1,6 @@
 // /components/Admin/AdminUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
-import { Trash, CheckCheck } from 'lucide-react'
+import { Trash, CheckCheck, X, Check } from 'lucide-react'
 
 const USER_TYPE_LABELS: Record<string, string> = {
   regular: "Normal",
@@ -12,7 +12,29 @@ const USER_TYPE_LABELS: Record<string, string> = {
 export const userColumns: Column<any>[] = [
   { header: "Ad", accessor: "firstName", sortKey: "firstName" },
   { header: "Soyad", accessor: "lastName", sortKey: "lastName" },
-  { header: "E-mail", accessor: "email", sortKey: "email" },
+  {
+    header: "E-posta", accessor: "email", sortKey: "email",
+    cell: (value, row, triggerAction) => (
+      <span
+        id={value}
+        title={row?.emailVerified ? "E-posta doğrulandı" : "E-posta doğrulanmadı"}
+        style={{ cursor: "help", display: "inline-flex", alignItems: "center", gap: 4 }}
+        tabIndex={0}
+        aria-label={row?.emailVerified ? "E-posta doğrulandı" : "E-posta doğrulanmadı"}
+        onFocus={e => e.currentTarget.setAttribute("data-show-tooltip", "true")}
+        onBlur={e => e.currentTarget.removeAttribute("data-show-tooltip")}
+        onMouseEnter={e => e.currentTarget.setAttribute("data-show-tooltip", "true")}
+        onMouseLeave={e => e.currentTarget.removeAttribute("data-show-tooltip")}
+      >
+        {value}
+        {row?.emailVerified ? (
+          <Check size={16} className="btn-success" style={{ marginLeft: 4 }} />
+        ) : (
+          <X size={16} className="btn-danger" style={{ marginLeft: 4 }} />
+        )}
+      </span>
+    )
+  },
   { header: "Telefon", accessor: "phone" },
   {
     header: "Tür",

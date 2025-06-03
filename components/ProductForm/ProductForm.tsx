@@ -2,7 +2,7 @@
 
 import { useFormik } from 'formik'
 import { productSchema } from '@/utils/productValidation'
-import { ProductFormValues, Category, Brand, Collection } from '@/types/Product'
+import { ProductFormValues, Category, Brand, Collection, Product } from '@/types/Product'
 import { useEffect, useState } from 'react'
 import ImageUploader from '@/components/ImageUploader/ImageUploader'
 import styles from './ProductForm.module.scss'
@@ -12,7 +12,27 @@ import Image from "next/image"
 import { fetchBrands, fetchCategories, fetchProduct, fetchCollections } from "@/utils/admin/adminApi"
 import Select from 'react-select'
 
-export default function ProductForm({ params }: { params: { id?: string } }) {
+const initialValues: ProductFormValues = {
+	_id: '',
+	name: '',
+	seoTitle: '',
+	description: { normal: '', mini: '' },
+	proDescription: { normal: '', mini: '' },
+	keywords: '',
+	videoLink: '',
+	price: { regular: 0, pro: 0, storage: 0 },
+	isTaxIncluded: true,
+	taxRate: 10,
+	stockQuantity: 1000,
+	barcode: '',
+	category: '',
+	brand: '',
+	photoUrls: [],
+	documentUrl: '',
+	collections: [],
+}
+
+export default function ProductForm({ product }: { product: Product }) {
 	const router = useRouter()
 	const [categories, setCategories] = useState<Category[]>([])
 	const [collections, setCollections] = useState<Collection[]>([])
@@ -21,65 +41,71 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 	const [submitting, setSubmitting] = useState(false)
 	const [editMode, setEditMode] = useState(false)
 
-	const initialValues: ProductFormValues = {
-		name: '',
-		seoTitle: '',
-		description: { normal: '', mini: '' },
-		proDescription: { normal: '', mini: '' },
-		keywords: '',
-		videoLink: '',
-		price: { regular: 0, pro: 0, storage: 0 },
-		isTaxIncluded: true,
-		taxRate: 10,
-		stockQuantity: 1000,
-		barcode: '',
-		category: '',
-		brand: '',
-		photoUrls: [],
-		documentUrl: '',
-		collections: [],
-	}
-
 	const [formValues, setFormValues] = useState<ProductFormValues>(initialValues)
 
 	useEffect(() => {
 		async function load() {
 			try {
-				const [cats, brs, colls, product] = await Promise.all([
+				const [cats, brs, colls] = await Promise.all([
 					fetchCategories(),
 					fetchBrands(),
 					fetchCollections(),
-					params.id && params.id !== 'new' ? fetchProduct(params.id as string) : Promise.resolve(null)
 				])
 				setCategories(cats)
 				setBrands(brs)
 				setCollections(colls)
-				if (product) {
-					setEditMode(true)
-					setFormValues({
-						...product,
-						category: typeof product.category === "object" && product.category !== null && "_id" in product.category
-							? (product.category as { _id: string })._id
-							: product.category,
-						brand: typeof product.brand === "object" && product.brand !== null && "_id" in product.brand
-							? (product.brand as { _id: string })._id
-							: product.brand,
-						collections: Array.isArray(product.collections)
-							? product.collections.map(c =>
-								typeof c === "object" && c !== null && "_id" in c
-									? (c as { _id: string })._id
-									: c
-							)
-							: [],
-						keywords: Array.isArray(product.keywords) ? product.keywords.join(", ") : (product.keywords || ""),
-					})
-				}
 			} finally {
 				setLoading(false)
 			}
 		}
 		load()
-	}, [params.id])
+	}, [])
+
+	useEffect(() => {
+		if (product) {
+			setEditMode(true)
+			setFormValues({
+				_id: product._id,
+				name: product.name,
+				seoTitle: product.seoTitle ?? "",
+				description: {
+					normal: product.description?.normal ?? "",
+					mini: product.description?.mini ?? ""
+				},
+				proDescription: {
+					normal: product.proDescription?.normal ?? "",
+					mini: product.proDescription?.mini ?? ""
+				},
+				// *** This is the KEY: join the array ***
+				keywords: Array.isArray(product.keywords) ? product.keywords.join(", ") : (product.keywords || ""),
+				videoLink: product.videoLink ?? "",
+				price: {
+					regular: product.price?.regular ?? 0,
+					pro: product.price?.pro ?? 0,
+					storage: product.price?.storage ?? 0,
+				},
+				isTaxIncluded: typeof product.isTaxIncluded === "boolean" ? product.isTaxIncluded : true,
+				taxRate: typeof product.taxRate === "number" ? product.taxRate : 10,
+				stockQuantity: typeof product.stockQuantity === "number" ? product.stockQuantity : 1000,
+				barcode: product.barcode ?? "",
+				category: typeof product.category === "object" && product.category !== null && "_id" in product.category
+					? product.category._id
+					: (product.category ?? ""),
+				brand: typeof product.brand === "object" && product.brand !== null && "_id" in product.brand
+					? product.brand._id
+					: (product.brand ?? ""),
+				collections: Array.isArray(product.collections)
+					? product.collections.map(c =>
+						typeof c === "object" && c !== null && "_id" in c
+							? c._id
+							: c
+					)
+					: [],
+				photoUrls: Array.isArray(product.photoUrls) ? product.photoUrls : [],
+				documentUrl: product.documentUrl ?? "",
+			})
+		}
+	}, [product])
 
 	const formik = useFormik({
 		enableReinitialize: true,
@@ -98,7 +124,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 			console.log('🚀 ~ ProductForm.tsx:103 ~ ProductForm ~ editMode:', editMode)
 			try {
 				if (editMode) {
-					await api(`/api/admin/products/${params.id}`, {
+					await api(`/api/admin/products/${product._id}`, {
 						method: 'PUT',
 						body: JSON.stringify(_valuesToSubmit),
 						showLoader: true

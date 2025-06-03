@@ -9,7 +9,17 @@ import { normalizeTurkish } from "./functions"
  * @param query Optional search query to filter products by.
  * @returns A promise that resolves to an array of Product objects.
  */
-export async function fetchProducts(category?: string, collections?: string[], query?: string, showLoader: boolean = false): Promise<Product[]> {
+export async function fetchProducts({
+  category,
+  collections,
+  query,
+  showLoader = false
+}: {
+  category?: string
+  collections?: string[]
+  query?: string
+  showLoader?: boolean
+}): Promise<Product[]> {
   const params = new URLSearchParams()
   if (category) {
     params.append("category", category)

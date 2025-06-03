@@ -26,6 +26,10 @@
   tr:hover {
     background: #f5f7fa;
   }
+
+  tbody tr:nth-child(even) {
+    background: #f0f4f8;
+  }
 }
 
 .detailBtn {

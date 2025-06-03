@@ -31,7 +31,7 @@ export default function BrandGallery() {
       try {
         const [cats, products] = await Promise.all([
           fetchCategories(),
-          fetchProducts()
+          fetchProducts({})
         ])
         setCategories(cats)
         setSelectedType(cats.length > 0 ? cats[0]._id : 'all')
