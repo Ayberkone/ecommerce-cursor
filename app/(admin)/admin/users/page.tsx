@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import styles from "./AdminUsersPage.module.scss"
 import { Table } from "@/components/Table/Table"
 import { toast } from "sonner"
@@ -10,6 +10,7 @@ import { pendingUserColumns } from "@/components/Admin/User/Columns/AdminPending
 import { rejectedUserColumns } from "@/components/Admin/User/Columns/AdminRejectedUserTableColumns"
 import Tabs from "@/components/Tabs/Tabs"
 import Modal from "@/components/Modal/Modal"
+import RejectionModal from "@/components/Admin/RejectionModal/RejectionModal"
 
 const USER_TYPES = [
 	{ key: "", label: "Tümü" },
@@ -31,10 +32,22 @@ export default function AdminUsersPage() {
 	const [refresh, setRefresh] = useState(false)
 	const [viewModalOpen, setViewModalOpen] = useState(false)
 	const [selectedUser, setSelectedUser] = useState<any>(null)
+	const [rejectModalOpen, setRejectModalOpen] = useState(false)
+	const [rejectLoading, setRejectLoading] = useState(false)
 
-	function refetchData() {
+	const refetchData = useCallback(() => {
 		setRefresh(r => !r) // Toggle refresh state to trigger re-fetch
-	}
+	}, [])
+
+	const handleRejectUser = useCallback((note: string) => {
+		rejectUser(selectedUser._id, note)
+			.then(() => {
+				toast.success("Kullanıcı reddedildi!")
+				refetchData()
+				setRejectModalOpen(false)
+			})
+			.catch((e) => toast.error(e?.message || "Kullanıcı onaylanamadı"))
+	}, [selectedUser?._id, refetchData])
 
 	function handleUserAction(action: string, row: any) {
 		switch (action) {
@@ -44,7 +57,6 @@ export default function AdminUsersPage() {
 						.then(() => {
 							toast.success("Kullanıcı silindi!")
 							refetchData()
-							// Trigger data refresh - easiest: use a refetch function or change a state to trigger useEffect
 						})
 						.catch(() => toast.error("Kullanıcı silinemedi"))
 				}
@@ -62,10 +74,8 @@ export default function AdminUsersPage() {
 				}).catch((e) => toast.error(e?.message || "Kullanıcı onaylanamadı"))
 				break
 			case "reject":
-				rejectUser(row._id).then(() => {
-					toast.success("Kullanıcı reddedildi!")
-					refetchData()
-				}).catch((e) => toast.error(e?.message || "Kullanıcı onaylanamadı"))
+				setSelectedUser(row)
+				setRejectModalOpen(true)
 				break
 			case "update":
 				// Handle update action if needed
@@ -178,6 +188,14 @@ export default function AdminUsersPage() {
 						<button style={{ marginTop: 16 }} className="btn" onClick={() => setViewModalOpen(false)}>Kapat</button>
 					</div>
 				</Modal>
+			)}
+			{rejectModalOpen && selectedUser && (
+				<RejectionModal
+					open={rejectModalOpen}
+					onClose={() => setRejectModalOpen(false)}
+					onConfirm={handleRejectUser}
+					loading={rejectLoading}
+				/>
 			)}
 		</main>
 	)

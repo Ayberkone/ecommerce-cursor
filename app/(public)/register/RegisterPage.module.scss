@@ -72,7 +72,7 @@
     background: var(--gray)-50;
     border: 1px solid var(--gray-200);
     border-radius: 7px;
-    padding: 10px 13px;
+    padding: 10px 1rem;
     font-size: 1rem;
     transition: border 0.2s;
     color: var(--gray-800);
@@ -87,6 +87,10 @@
       color: var(--gray-400);
       font-size: 0.98rem;
     }
+  }
+
+  .pswInput {
+    padding-right: 2.5rem !important; // Space for the toggle button
   }
 }
 

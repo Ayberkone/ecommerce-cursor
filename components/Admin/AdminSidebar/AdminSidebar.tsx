@@ -21,9 +21,11 @@ export default function AdminSidebar() {
 	const { logout } = useAuth()
 	const pathname = usePathname()
 	const router = useRouter()
+	const [isMounted, setIsMounted] = useState(false)
 	const [drawerOpen, setDrawerOpen] = useState(false) // Default to open for SSR
 
 	useEffect(() => {
+		setIsMounted(true)
 		if (typeof window !== 'undefined') {
 			const savedState = localStorage.getItem('adminSidebarOpen')
 			if (savedState !== null) {
@@ -77,7 +79,13 @@ export default function AdminSidebar() {
 					>
 						<Menu size={28} />
 					</button>
-					<div className={styles.adminHeader}>Admin Panel</div>
+					<div
+						className={styles.adminHeader}
+						style={{ cursor: isMounted ? 'pointer' : 'default' }}
+						onClick={() => router.push('/admin')}
+					>
+						Admin Panel
+					</div>
 					{adminMenu.map(item => (
 						<Link
 							key={item.key}

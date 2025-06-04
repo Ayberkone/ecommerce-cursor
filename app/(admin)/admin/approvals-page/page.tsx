@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import styles from './ApprovalsPage.module.scss'
-import { fetchPendingUsers, approveUser, rejectUser } from '@/utils/admin/adminApi'
+import { fetchPendingUsers, approveUser, rejectUser } from '@/utils/admin/usersApi'
 import { toast } from 'sonner'
 import RejectionModal from "@/components/Admin/RejectionModal/RejectionModal"
 

@@ -64,7 +64,7 @@ export default function RegularRegisterForm() {
   } = useForm<RegisterFormValues>({
     resolver: yupResolver(schema) as any,
     mode: 'onChange',
-    reValidateMode: 'onChange',
+    reValidateMode: 'onChange'
   })
 
   const onSubmit = async (data: RegisterFormValues) => {
@@ -96,11 +96,11 @@ export default function RegularRegisterForm() {
       setShowContract(false)
       setShowPassword(false)
       setShowPassword2(false)
+      reset()
     }
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-    // Reset form and scroll to top after submission
   }
 
   return (
@@ -147,7 +147,7 @@ export default function RegularRegisterForm() {
           <div className={styles.passwordWrapper}>
             <input
               {...register('password')}
-              className={styles.input}
+              className={styles.input + ' ' + styles.pswInput}
               placeholder="Şifre*"
               type={showPassword ? 'text' : 'password'}
               autoComplete="new-password"
@@ -171,7 +171,7 @@ export default function RegularRegisterForm() {
           <div className={styles.passwordWrapper}>
             <input
               {...register('password2')}
-              className={styles.input}
+              className={styles.input + ' ' + styles.pswInput}
               placeholder="Şifre Tekrar*"
               type={showPassword2 ? 'text' : 'password'}
               autoComplete="new-password"

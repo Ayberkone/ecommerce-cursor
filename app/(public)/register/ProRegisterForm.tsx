@@ -66,7 +66,6 @@ export default function ProRegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [showPassword2, setShowPassword2] = useState(false)
   const [showContract, setShowContract] = useState(false)
-  const [success, setSuccess] = useState(false)
   const {
     register,
     handleSubmit,
@@ -76,6 +75,7 @@ export default function ProRegisterForm() {
   } = useForm<ProRegisterForm>({
     resolver: yupResolver(schema) as any,
     mode: 'onChange',
+    reValidateMode: 'onChange'
   })
 
   const watchTitle = watch('title')
@@ -169,7 +169,7 @@ export default function ProRegisterForm() {
         <div className={styles.formGroup} style={{ position: 'relative' }}>
           <input
             {...register('password')}
-            className={styles.input}
+            className={styles.input + ' ' + styles.pswInput}
             placeholder="Şifre*"
             type={showPassword ? 'text' : 'password'}
             autoComplete="new-password"
@@ -188,7 +188,7 @@ export default function ProRegisterForm() {
         <div className={styles.formGroup} style={{ position: 'relative' }}>
           <input
             {...register('password2')}
-            className={styles.input}
+            className={styles.input + ' ' + styles.pswInput}
             placeholder="Şifre Tekrar*"
             type={showPassword2 ? 'text' : 'password'}
             autoComplete="new-password"
@@ -293,19 +293,6 @@ export default function ProRegisterForm() {
         >
           {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
         </button>
-        <AnimatePresence>
-          {success && (
-            <motion.div
-              className={styles.successMsg}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.35, type: 'spring' }}
-            >
-              Kayıt başarılı! Giriş yapabilirsiniz.
-            </motion.div>
-          )}
-        </AnimatePresence>
       </form>
     </div>
   )

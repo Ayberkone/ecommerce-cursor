@@ -1,5 +1,6 @@
 // components/Admin/AdminRejectedUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
+import { Eye, SquareActivity } from "lucide-react"
 
 export const rejectedUserColumns: Column<any>[] = [
   { header: "İsim", accessor: "name", sortKey: "name" },
@@ -15,10 +16,23 @@ export const rejectedUserColumns: Column<any>[] = [
     header: "İşlem",
     accessor: () => "",
     className: "actions",
-    cell: (_: any, row: any) => (
-      <button className="btn btn-primary btn-small" onClick={() => window.dispatchEvent(new CustomEvent("admin:reactivate", { detail: row }))}>
-        Tekrar İncele
-      </button>
+    cell: (_: any, row: any, triggerAction) => (
+      <>
+        <button
+          className="btn btn-success btn-small"
+          onClick={() => triggerAction("reactivate", row)}
+          title="Tekrar Aktif Et"
+        >
+          <SquareActivity size={16} />
+        </button>
+        <button
+          className="btn btn-primary btn-small"
+          onClick={() => triggerAction("view", row)}
+          title="İncele"
+        >
+          <Eye size={16} />
+        </button>
+      </>
     )
   }
 ]

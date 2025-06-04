@@ -12,7 +12,6 @@ interface Props {
 export default function RejectionModal({ open, onClose, onConfirm, loading }: Props) {
   const [note, setNote] = useState('')
 
-  // Optional: Reset note on open/close
   useEffect(() => {
     if (!open) setNote('')
   }, [open])
@@ -32,7 +31,7 @@ export default function RejectionModal({ open, onClose, onConfirm, loading }: Pr
           <button onClick={onClose} className={styles.cancelBtn} disabled={loading}>İptal</button>
           <button
             onClick={() => onConfirm(note)}
-            className={styles.confirmBtn}
+            className="btn btn-danger"
             disabled={loading || !note.trim()}
           >
             {loading ? 'Reddediliyor…' : 'Reddet'}
