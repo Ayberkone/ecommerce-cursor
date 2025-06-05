@@ -40,14 +40,14 @@
     display: flex;
     flex-direction: column;
     label {
-      font-size: 0.97rem;
+      font-size: 1.4rem;
       color: var(--muted, #6c757d);
       font-weight: 500;
       margin-bottom: 0.3rem;
     }
     input,
     span {
-      font-size: 1.1rem;
+      font-size: 1.8rem;
       padding: 0.55rem 0.9rem;
       border: 1px solid #e7e7e7;
       border-radius: 0.8rem;
@@ -81,12 +81,12 @@
     flex-direction: column;
     margin-bottom: 0.6rem;
     label {
-      font-size: 0.97rem;
+      font-size: 1.4rem;
       color: var(--muted, #6c757d);
       margin-bottom: 0.2rem;
     }
     span {
-      font-size: 1.13rem;
+      font-size: 1.6rem;
       font-weight: 500;
       color: var(--primary);
       background: #f3faff;
@@ -116,7 +116,7 @@
       background: #f4f8fc;
     }
     td {
-      font-size: 1.04rem;
+      font-size: 1.6rem;
       color: var(--text);
       border-bottom: 1px solid #f2f2f2;
     }

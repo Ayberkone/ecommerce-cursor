@@ -41,7 +41,7 @@
     background: var(--primary)-50;
     color: var(--primary-700);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1.6rem;
   }
 
   tbody tr:last-child td {
@@ -92,10 +92,10 @@
   .approvalsTable th,
   .approvalsTable td {
     padding: 12px 0.5rem;
-    font-size: 0.98rem;
+    font-size: 1.4rem;
   }
   .approvalsTable {
-    font-size: 0.96rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -130,7 +130,7 @@
       color: var(--primary-700);
       display: inline-block;
       min-width: 120px;
-      font-size: 0.98em;
+      font-size: 1.4em;
     }
   }
 }

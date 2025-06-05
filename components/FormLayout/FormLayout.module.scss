@@ -55,7 +55,7 @@
 
       &::placeholder {
         color: var(--gray-400);
-        font-size: 0.98rem;
+        font-size: 1.4rem;
       }
     }
 
@@ -92,7 +92,7 @@
   }
 
   b {
-    font-size: 1.28rem;
+    font-size: 2rem;
     color: var(--primary)-800;
     letter-spacing: 0.01em;
   }
@@ -103,7 +103,7 @@
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 14px;
-  font-size: 0.97rem;
+  font-size: 1.4rem;
   color: var(--gray-600);
 
   .checkbox {
@@ -133,7 +133,7 @@
 
 .error {
   color: var(--danger);
-  font-size: 0.93em;
+  font-size: 1.4em;
   margin-top: 5px;
   margin-bottom: -10px;
   min-height: 19px;

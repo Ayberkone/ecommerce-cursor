@@ -13,7 +13,7 @@
   cursor: pointer;
   @include lt-sm {
     padding: 1rem;
-    font-size: 0.95rem;
+    font-size: 1.4rem;
   }
 }
 .image {
@@ -30,7 +30,7 @@
 }
 .title {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.8rem;
   margin-bottom: 0.25rem;
   color: var(--primary-600);
   height: 4rem;
@@ -52,7 +52,7 @@
 .price {
   color: var(--primary);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.9rem;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@
 .specialLabel {
   background: var(--secondary);
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 1.4rem;
   border-radius: 0.5rem;
   padding: 0.1rem 0.5rem;
   margin-left: 0.4rem;

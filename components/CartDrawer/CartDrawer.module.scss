@@ -47,7 +47,7 @@
 .empty {
   margin-top: 2.4rem;
   color: #6b7280;
-  font-size: 1.12rem;
+  font-size: 1.6rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -79,7 +79,7 @@
   flex: 1 1 auto;
 }
 .itemName {
-  font-size: 1.07rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #222;
   margin-bottom: 0.11rem;
@@ -101,7 +101,7 @@
   border: 1px solid #e4e4e7;
   background: #fff;
   border-radius: 50%;
-  font-size: 1.25rem;
+  font-size: 2rem;
   color: #666;
   cursor: pointer;
   transition: background 0.13s;
@@ -115,7 +115,7 @@
 }
 .qty {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.8rem;
 }
 .removeBtn {
   background: none;
@@ -133,7 +133,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.18rem;
+  font-size: 1.7rem;
   font-weight: 700;
   margin-bottom: 0.65rem;
 }

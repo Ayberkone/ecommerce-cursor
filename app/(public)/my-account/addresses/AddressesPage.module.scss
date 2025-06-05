@@ -13,7 +13,7 @@
   margin-bottom: 1.5rem;
 
   @include lt-md {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 }
 .addressesWrap {
@@ -34,7 +34,7 @@
   }
 }
 .defaultStar {
-  font-size: 0.97rem;
+  font-size: 1.4rem;
   color: #43bfa3;
   display: flex;
   align-items: center;
@@ -42,7 +42,7 @@
   margin-left: 0.5rem;
 }
 .addressTitle {
-  font-size: 1.12rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--primary);
   margin-bottom: 0.35rem;
