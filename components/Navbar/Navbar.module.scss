@@ -52,7 +52,7 @@
 .navLink {
   color: var(--primary);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.6rem;
   text-decoration: none;
   padding: 8px 0;
   transition: color 0.18s;
@@ -125,7 +125,7 @@
   border-radius: 7px;
   font-weight: 500;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.6rem;
   transition: background 0.18s, color 0.18s;
   &:hover,
   &:focus {
@@ -232,7 +232,7 @@
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.6rem;
   text-decoration: none;
   margin-left: 0.5rem;
   transition: background 0.18s;
