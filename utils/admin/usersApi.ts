@@ -38,3 +38,27 @@ export async function deleteUser(id: string) {
     showLoader: true
   })
 }
+
+// Disable a user (set status to "disabled")
+export async function disableUser(id: string) {
+  return await api(`/api/admin/users/${id}/disable`, {
+    method: "POST",
+    showLoader: true
+  })
+}
+
+// Enable a user (set status to "active")
+export async function enableUser(id: string) {
+  return await api(`/api/admin/users/${id}/enable`, {
+    method: "POST",
+    showLoader: true
+  })
+}
+
+// Ban a user (set status to "banned")
+export async function banUser(id: string) {
+  return await api(`/api/admin/users/${id}/ban`, {
+    method: "POST",
+    showLoader: true
+  })
+}

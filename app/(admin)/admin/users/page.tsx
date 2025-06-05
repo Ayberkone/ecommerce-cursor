@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react"
 import styles from "./AdminUsersPage.module.scss"
 import { Table } from "@/components/Table/Table"
 import { toast } from "sonner"
-import { approveUser, rejectUser, reactivateUser, deleteUser } from "@/utils/admin/usersApi"
+import { approveUser, rejectUser, reactivateUser, deleteUser, disableUser, enableUser, banUser } from "@/utils/admin/usersApi"
 import { userColumns } from "@/components/Admin/User/Columns/AdminUserTableColumns"
 import { pendingUserColumns } from "@/components/Admin/User/Columns/AdminPendingUserTableColumns"
 import { rejectedUserColumns } from "@/components/Admin/User/Columns/AdminRejectedUserTableColumns"
@@ -81,6 +81,30 @@ export default function AdminUsersPage() {
 				// Handle update action if needed
 				toast.info("Güncelleme işlemi henüz desteklenmiyor")
 				refetchData()
+				break
+			case "disable":
+				disableUser(row._id)
+					.then(() => {
+						toast.success("Kullanıcı devre dışı bırakıldı!")
+						refetchData()
+					})
+					.catch((e) => toast.error(e?.message || "Kullanıcı devre dışı bırakılamadı"))
+				break
+			case "enable":
+				enableUser(row._id)
+					.then(() => {
+						toast.success("Kullanıcı tekrar etkinleştirildi!")
+						refetchData()
+					})
+					.catch((e) => toast.error(e?.message || "Kullanıcı etkinleştirilemedi"))
+				break
+			case "ban":
+				banUser(row._id)
+					.then(() => {
+						toast.success("Kullanıcı yasaklandı!")
+						refetchData()
+					})
+					.catch((e) => toast.error(e?.message || "Kullanıcı yasaklanamadı"))
 				break
 			case "view":
 				setSelectedUser(row)
