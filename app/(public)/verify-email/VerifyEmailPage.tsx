@@ -9,12 +9,12 @@ import { api } from "@/utils/api"
 export default function VerifyEmailPage() {
 	const router = useRouter()
 	const searchParams = useSearchParams()
+	const token = searchParams.get('token')
 	const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
 	const [message, setMessage] = useState('Doğrulanıyor...')
 
 	useEffect(() => {
 		// Use .get() only ONCE at mount
-		const token = searchParams.get('token')
 		if (!token) {
 			setStatus('error')
 			setMessage('Doğrulama bağlantısı hatalı.')
@@ -40,7 +40,7 @@ export default function VerifyEmailPage() {
 			})
 		}
 		verifyEmail()
-	}, [])
+	}, [token])
 
 	return (
 		<div className={styles.verifyWrapper}>

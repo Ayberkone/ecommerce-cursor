@@ -1,5 +1,6 @@
 // PhotoGallery.module.scss
-@use "../../../styles/base/base.variables" as *;
+@use "../../styles/base/base.variables" as *;
+@use "../../styles/base/base.breakpoints" as *;
 
 // Layout for gallery and thumbnails
 .resimler {

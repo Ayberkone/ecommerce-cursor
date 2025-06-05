@@ -1,4 +1,6 @@
-@use "../../../styles/base/base.variables" as *;
+@use "../../../../styles/base/base.variables" as *;
+@use "../../../../styles/base/base.breakpoints" as *;
+@use "../../../../styles/base/base.typography" as *;
 
 .blogDetailSection {
   padding: $navbar-height 2.5rem;

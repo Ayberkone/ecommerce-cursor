@@ -18,7 +18,7 @@ const productTabs = [
 ]
 
 export default function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
-  const params = use(props.params);
+  const params = use(props.params)
   const { addToCart } = useCart()
   const { user } = useAuth()
   const router = useRouter()

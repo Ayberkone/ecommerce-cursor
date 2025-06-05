@@ -1,3 +1,5 @@
+@use "../../styles/base/base.breakpoints" as *;
+@use "../../styles/base/base.variables" as *;
 .backdrop {
   position: fixed;
   inset: 0;
@@ -17,7 +19,7 @@
   box-shadow: -8px 0 22px #23315c14;
   display: flex;
   flex-direction: column;
-  @media (max-width: 600px) {
+  @include lt-md {
     width: 99vw;
     padding: 1.1rem 0.5rem;
   }

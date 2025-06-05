@@ -1,6 +1,7 @@
 // ApprovalsPage.module.scss
 
-@use "../../../styles/base/base.variables" as *;
+@use "../../../../styles/base/base.variables" as *;
+@use "../../../../styles/base/base.breakpoints" as *;
 
 .approvalsMain {
   padding: 2rem 0;

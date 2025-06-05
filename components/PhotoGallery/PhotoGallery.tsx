@@ -29,7 +29,7 @@ export default function PhotoGallery({ images }: PhotoGalleryProps) {
       mainSwiperRef.current.update()
       mainSwiperRef.current.slideTo(activeIndex)
     }
-  }, [thumbsSwiper])
+  }, [thumbsSwiper, activeIndex])
 
   if (!images || images.length === 0) {
     return (

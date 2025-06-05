@@ -1,5 +1,6 @@
 // components/FormLayout.module.scss
-@use "../../../styles/base/base.variables" as *;
+@use "../../styles/base/base.variables" as *;
+@use "../../styles/base/base.breakpoints" as *;
 
 .formWrapper {
   background: var(--gray)-50;

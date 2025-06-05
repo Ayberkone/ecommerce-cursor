@@ -1,4 +1,6 @@
 @use "../../../styles/base/base.variables" as *;
+@use "../../../styles/base/base.typography" as *;
+@use "../../../styles/base/base.breakpoints" as *;
 
 .faqSection {
   max-width: 720px;
@@ -101,10 +103,6 @@
   transition: max-height 0.3s ease-in-out;
 }
 
-.accordionItem.active .accordionPanel {
-  // Will be set via inline style for animation.
-}
-
 .accordionBody {
   padding: $space-sm $space-md;
   color: var(--gray-800);
@@ -113,7 +111,7 @@
   border-radius: 0 0 1rem 1rem;
 }
 
-@media (max-width: 600px) {
+@include lt-md {
   .faqSection {
     padding: $space-md $space-xs;
   }

@@ -2,14 +2,13 @@
 
 import ProductForm from "@/components/ProductForm/ProductForm"
 
-interface ProductAddEditPageProps {
-	params: { id: string }
-}
 
-export default async function ProductAddEditPage({ params }: ProductAddEditPageProps) {
-	// You can fetch summary data here using server components/queries
-	const resolvedParams = await params
+type pParams = Promise<{ id: string }>
+
+export default async function ProductAddEditPage(props: { params: pParams }) {
+	const { id } = await props.params
+
 	return (
-		<ProductForm params={{ id: resolvedParams.id }} />
+		<ProductForm params={{ id }} />
 	)
 }
