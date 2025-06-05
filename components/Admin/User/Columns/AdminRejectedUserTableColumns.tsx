@@ -3,7 +3,8 @@ import { Column } from "@/components/Table/Table"
 import { Eye, SquareActivity } from "lucide-react"
 
 export const rejectedUserColumns: Column<any>[] = [
-  { header: "İsim", accessor: "name", sortKey: "name" },
+  { header: "Ad", accessor: "firstName", sortKey: "firstName" },
+  { header: "Soyad", accessor: "lastName", sortKey: "lastName" },
   { header: "E-posta", accessor: "email", sortKey: "email" },
   { header: "Telefon", accessor: "phone" },
   { header: "Reddetme Notu", accessor: "adminNote" },

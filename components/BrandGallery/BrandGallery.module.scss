@@ -17,7 +17,8 @@
 .typeBtns {
   background: none;
   justify-items: right;
-  gap: 18px;
+  gap: 2rem;
+  padding: 1rem 0;
   display: grid;
 
   button {
@@ -25,11 +26,9 @@
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 0;
-    padding-right: 1rem;
+    padding: 1rem 1rem 1rem 0;
     transition: filter 0.12s;
     border-radius: 2rem 0 0 2rem;
-    filter: blur(0.5);
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -39,8 +38,11 @@
       // transition: background 0.18s, box-shadow 0.18s;
     }
 
+    .categoryIcon {
+      filter: drop-shadow(5px 5px 0px var(--gray-400));
+    }
+
     &:hover {
-      filter: blur(0);
       background: var(--gray-100);
 
       .turadi {
@@ -48,12 +50,15 @@
       }
     }
     &.active {
-      filter: blur(0);
-      background: var(--gray-200);
+      background: var(--primary-200);
 
       .turadi {
         // transition: background 0.18s, box-shadow 0.18s;
         color: var(--secondary);
+      }
+
+      .categoryIcon {
+        filter: none;
       }
     }
   }
@@ -66,7 +71,7 @@
   align-items: center;
   justify-content: flex-start;
   padding: 2rem;
-  background: var(--gray-200);
+  background: var(--primary-200);
   border-radius: 0 1.7rem 1.7rem 0;
   position: relative;
 

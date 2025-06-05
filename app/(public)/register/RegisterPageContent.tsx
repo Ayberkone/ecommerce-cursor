@@ -40,7 +40,6 @@ export default function RegisterPageContent() {
         activeTabKey={activeTab} // Pass the currently active tab key
         onTabChangeAction={(key: string) => handleTabSwitch(key as 'regular' | 'pro')} // Cast key to correct type
         ariaLabel="Kayıt türü seçimi" // Optional ARIA label for accessibility
-        buttonStyle={{ fontSize: '1.5rem' }} // Make buttons full width
       />
       {/* Render appropriate form */}
       {activeTab === 'regular' ? <RegularRegisterForm /> : <ProRegisterForm />}

@@ -44,7 +44,7 @@
   --gray-800: #{$gray-800};
 
   --text: var(--dark);
-  --muted: var(--gray-700);
+  --muted: var(--gray);
 
   --font-size-base: 1.6rem;
   --font-body: "Inter", Arial, sans-serif;
@@ -102,6 +102,10 @@ main {
   padding: $navbar-height 0;
 }
 
+.navbar-padding {
+  padding-top: $navbar-height;
+}
+
 *,
 *:before,
 *:after {
@@ -125,7 +129,7 @@ html {
   height: 100vh;
 
   body {
-    background: $primary;
+    background: $white;
     color: $dark;
     font-size: $font-size-body-text;
     font-family: $font-body;

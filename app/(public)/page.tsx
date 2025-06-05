@@ -1,5 +1,3 @@
-'use client'
-
 import BrandGallery from "@/components/BrandGallery/BrandGallery"
 import HomeSlider from "@/components/HomeSlider/HomeSlider"
 import ProductCard from '@/components/ProductCard/ProductCard'

@@ -1,6 +1,6 @@
 // /components/Admin/AdminUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
-import { Trash, CheckCheck, X, Check } from 'lucide-react'
+import { Trash, CheckCheck, X, Check, Eye } from 'lucide-react'
 
 const USER_TYPE_LABELS: Record<string, string> = {
   regular: "Normal",
@@ -15,23 +15,15 @@ export const userColumns: Column<any>[] = [
   {
     header: "E-posta", accessor: "email", sortKey: "email",
     cell: (value, row, triggerAction) => (
-      <span
-        id={value}
-        title={row?.emailVerified ? "E-posta doğrulandı" : "E-posta doğrulanmadı"}
-        style={{ cursor: "help", display: "inline-flex", alignItems: "center", gap: 4 }}
-        tabIndex={0}
-        aria-label={row?.emailVerified ? "E-posta doğrulandı" : "E-posta doğrulanmadı"}
-        onFocus={e => e.currentTarget.setAttribute("data-show-tooltip", "true")}
-        onBlur={e => e.currentTarget.removeAttribute("data-show-tooltip")}
-        onMouseEnter={e => e.currentTarget.setAttribute("data-show-tooltip", "true")}
-        onMouseLeave={e => e.currentTarget.removeAttribute("data-show-tooltip")}
-      >
-        {value}
+      <span className="df-aic">
         {row?.emailVerified ? (
           <Check size={16} className="btn-success" style={{ marginLeft: 4 }} />
         ) : (
           <X size={16} className="btn-danger" style={{ marginLeft: 4 }} />
         )}
+        <span className="ml-8">
+          {value}
+        </span>
       </span>
     )
   },
@@ -61,54 +53,26 @@ export const userColumns: Column<any>[] = [
       }
     },
     sortKey: "status",
-    cell: (value, row, triggerAction) => {
-      // Status badge
-      let badge;
-      switch (row.status) {
-        case "banned":
-          badge = <span className="badge badge-danger">Yasaklı</span>
-          break
-        case "disabled":
-          badge = <span className="badge badge-secondary">Pasif</span>
-          break
-        case "active":
-          badge = <span className="badge badge-success">Aktif</span>
-          break
-        default:
-          badge = <span className="badge badge-warning">Bilinmiyor</span>
-      }
-
-      // Dropdown for status actions
-      return (
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {badge}
-          <select
-            style={{ marginLeft: 8 }}
-            aria-label="Durum değiştir"
-            defaultValue=""
-            onChange={e => {
-              const action = e.target.value
-              if (!action) return
-              if (action === "disable") triggerAction("disable", row)
-              if (action === "enable") triggerAction("enable", row)
-              if (action === "ban") triggerAction("ban", row)
-              e.target.value = ""
-            }}
-          >
-            <option value="" disabled>Durum Değiştir</option>
-            {row.status === "active" && (
-              <option value="disable">Devre Dışı Bırak</option>
-            )}
-            {row.status === "disabled" && (
-              <option value="enable">Etkinleştir</option>
-            )}
-            {row.status !== "banned" && (
-              <option value="ban">Yasakla</option>
-            )}
-          </select>
-        </div>
-      )
-    }
+    cell: (value, row, triggerAction) => (
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <select
+          style={{ minWidth: 120 }}
+          aria-label="Durum değiştir"
+          value={row.status}
+          onChange={e => {
+            const action = e.target.value
+            if (!action || action === row.status) return
+            if (action === "disabled") triggerAction("disable", row)
+            if (action === "active") triggerAction("enable", row)
+            if (action === "banned") triggerAction("ban", row)
+          }}
+        >
+          <option value="active">Aktif</option>
+          <option value="disabled">Pasif</option>
+          <option value="banned">Yasaklı</option>
+        </select>
+      </div>
+    )
   },
   {
     header: "İşlemler",
@@ -116,6 +80,13 @@ export const userColumns: Column<any>[] = [
     className: "actions",
     cell: (value, row, triggerAction) => (
       <>
+        <button
+          className="btn btn-primary btn-small"
+          onClick={() => triggerAction("view", row)}
+          title="İncele"
+        >
+          <Eye size={16} />
+        </button>
         <button
           onClick={() => triggerAction("delete", row)}
           className="btn btn-danger"

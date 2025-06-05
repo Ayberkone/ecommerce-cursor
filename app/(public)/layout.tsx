@@ -19,6 +19,7 @@ export default async function PublicRootLayout({ children }: { children: React.R
       <body>
         <Providers>
           <Navbar />
+          <div className="navbar-padding" />
           {children}
           <Footer />
         </Providers>

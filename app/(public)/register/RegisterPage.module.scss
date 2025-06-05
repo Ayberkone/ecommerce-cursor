@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ($navbar-height * 2) 0;
+  padding: ($navbar-height) 0;
 
   @include lt-sm {
     padding: 20px 0;

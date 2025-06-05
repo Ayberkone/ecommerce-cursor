@@ -1,5 +1,4 @@
 // app/register/page.tsx
-'use client'
 
 import { Suspense } from 'react'
 import RegisterPageContent from "./RegisterPageContent"

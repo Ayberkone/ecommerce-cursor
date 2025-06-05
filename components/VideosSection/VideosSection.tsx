@@ -46,7 +46,7 @@ export default function VideosSection() {
   const [modal, setModal] = useState<MediaModalState>({ open: false })
 
   return (
-    <section id="videolar" className={styles.section}>
+    <>
       <div className="container">
         <div className={styles.alan}>
           <div className={styles.headerRow}>
@@ -84,6 +84,6 @@ export default function VideosSection() {
         </div>
       </div>
       <MediaModal modal={modal} setModal={setModal} />
-    </section>
+    </>
   )
 }

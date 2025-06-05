@@ -9,17 +9,19 @@
 
 .adminMain {
   flex: 1;
-  padding: 2rem 2.5rem;
+  padding: 2rem 5rem;
   background: var(--white);
   box-shadow: -2px 0 8px 0 rgba(30, 48, 100, 0.06);
   transition: background 0.2s;
   min-width: 1000px;
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 3rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
     color: var(--primary);
+    background: var(--primary-50);
+    padding: 1rem 0;
   }
 }
 

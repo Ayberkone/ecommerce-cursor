@@ -50,15 +50,15 @@ export default function BrandGallery() {
     <section id="markaalan" className={styles.section}>
       <div className="container">
         <div className={styles.brandRow}>
-          {/* <Image
+          <Image
             src={brandLogo}
             alt="Farmalink"
             title="Farmalink logo"
-            width={260}
+            width={300}
             height={76}
             className={styles.brandLogo}
           />
-          <span className={styles.brandFamily}>AİLESİ</span> */}
+          <span className={styles.brandFamily}>AİLESİ</span>
           <span className={styles.brandFamily}>ÜRÜNLERİMİZ</span>
           <Link href="/products" className={styles.showAllBtn}>
             Tümünü Göster
@@ -76,7 +76,7 @@ export default function BrandGallery() {
                 <div className={styles.turadi}>
                   {cat.name}
                 </div>
-                <CategoryIcon name={cat.name} selected={selectedType === cat._id} />
+                <CategoryIcon className={styles.categoryIcon} name={cat.name} selected={selectedType === cat._id} />
               </button>
             ))}
           </div>
