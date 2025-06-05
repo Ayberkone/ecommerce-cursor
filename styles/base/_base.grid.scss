@@ -1,0 +1,79 @@
+// Mixins for gap classes
+@mixin gap($size) {
+  gap: $size * 1px;
+}
+
+$gap-values: 0 2 4 6 8 10 12 14 16 18 20 22 24 32 36 40;
+
+@each $value in $gap-values {
+  .gap-#{$value} {
+    @include gap($value);
+  }
+}
+
+// Mixins for grid classes
+@mixin grid($columns) {
+  display: grid;
+  grid-template-columns: repeat(#{$columns}, 1fr);
+}
+
+@mixin column-span($span) {
+  grid-column: span #{$span};
+}
+
+@mixin row-span($span) {
+  grid-row: span #{$span};
+}
+
+@mixin column-start($start) {
+  grid-column-start: $start;
+}
+
+@mixin column-end($start) {
+  grid-column-end: $start;
+}
+
+@mixin grid-column-start-point($start, $span) {
+  .column-start-#{$start}.column-#{$span} {
+    grid-column: #{$start} / span #{$span};
+  }
+}
+@mixin grid-column-end-point($end, $span) {
+  .column-end-#{$end}.column-#{$span} {
+    grid-column: span #{$span} / #{$end};
+  }
+}
+
+$grid-columns: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16;
+
+@each $columns in $grid-columns {
+  .grid-#{$columns}-col {
+    @include grid($columns);
+  }
+}
+
+@for $i from 1 through 16 {
+  .column-#{$i} {
+    @include column-span($i);
+  }
+  .column-start-#{$i} {
+    @include column-start($i);
+  }
+  .column-end-#{$i} {
+    @include column-end($i);
+  }
+  .row-#{$i} {
+    @include row-span($i);
+  }
+}
+
+@for $point from 1 through 10 {
+  @for $span from 1 through 10 {
+    @include grid-column-start-point($point, $span);
+    @include grid-column-end-point($point + 1, $span);
+  }
+}
+
+.align-center {
+  align-items: center;
+}

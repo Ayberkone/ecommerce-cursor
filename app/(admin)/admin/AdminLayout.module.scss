@@ -1,5 +1,5 @@
 /* AdminLayout.module.scss */
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.breakpoints" as *;
 
 .adminLayout {
   display: flex;
@@ -23,7 +23,7 @@
   }
 }
 
-@include tablet {
+@include lt-md {
   .adminLayout {
     flex-direction: column;
   }

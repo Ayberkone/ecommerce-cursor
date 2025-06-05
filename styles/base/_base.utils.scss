@@ -1,0 +1,134 @@
+.w-100 {
+  width: 100% !important;
+}
+
+.w-50 {
+  width: 50% !important;
+}
+
+.gap-1 {
+  gap: 8px;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.w-30 {
+  width: 30% !important;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
+.w-25 {
+  width: 25% !important;
+}
+
+.w-10 {
+  width: 10% !important;
+}
+
+.w-20 {
+  width: 20% !important;
+}
+
+.w-60 {
+  width: 60% !important;
+}
+
+.w-70 {
+  width: 70% !important;
+}
+
+.w-75 {
+  width: 75% !important;
+}
+
+.w-80 {
+  width: 80% !important;
+}
+
+.w-90 {
+  width: 90% !important;
+}
+
+@media (min-width: 720px) {
+  .w-md-40 {
+    width: 40% !important;
+  }
+  .w-md-60 {
+    width: 60% !important;
+  }
+}
+
+.min-height-100vh {
+  min-height: 100vh;
+}
+
+.max-height-100 {
+  max-height: 100%;
+}
+
+.max-width-100 {
+  max-width: 100%;
+}
+
+.h-0 {
+  height: 0 !important;
+}
+
+.h-auto {
+  height: auto !important;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.visibility-visible {
+  visibility: visible;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+.user-select-none {
+  user-select: none;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.overflow-inherit {
+  overflow: inherit !important;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll !important;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll !important;
+}
+
+.overflow-scroll {
+  overflow: scroll !important;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.bg-transpartent {
+  background: transparent !important;
+}

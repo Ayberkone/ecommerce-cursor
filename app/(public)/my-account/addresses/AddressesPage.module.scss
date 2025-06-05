@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .pageHeader {
   display: flex;
@@ -11,7 +11,7 @@
   color: var(--primary);
   margin-bottom: 1.5rem;
 
-  @include tablet {
+  @include lt-md {
     font-size: 1.3rem;
   }
 }

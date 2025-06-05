@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .card {
   background: #fff;
@@ -10,7 +10,7 @@
   align-items: center;
   transition: box-shadow 0.2s, transform 0.2s;
   cursor: pointer;
-  @include mobile {
+  @include lt-sm {
     padding: 1rem;
     font-size: 0.95rem;
   }
@@ -22,7 +22,7 @@
   border-radius: 0.75rem;
   margin-bottom: 1rem;
   overflow: hidden;
-  @include mobile {
+  @include lt-sm {
     width: 90px;
     height: 90px;
   }

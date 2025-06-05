@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *; // Assuming this imports your :root variables
+@use "../../../styles/base/base.variables" as *; // Assuming this imports your :root variables
 
 /* --- Card Container --- */
 .card {
@@ -348,7 +348,7 @@
 }
 
 /* --- Responsive Adjustments --- */
-@include mobile {
+@include lt-sm {
   .cardHeader {
     padding: var(--space-sm) var(--space-md);
     flex-direction: column; // Stack elements vertically on small screens

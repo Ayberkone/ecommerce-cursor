@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .blogsSection {
   padding: 3rem 0;
@@ -18,11 +18,11 @@
   gap: 2.4rem;
   grid-template-columns: 1fr 1fr 1fr; // Mobile: 1 column
 
-  @include mobile {
+  @include lt-sm {
     grid-template-columns: 1fr 1fr; // Desktop/tablet: 2 columns
   }
 
-  @include desktop {
+  @include lt-lg {
     grid-template-columns: 1fr 1fr 1fr; // Desktop/tablet: 2 columns
   }
 }

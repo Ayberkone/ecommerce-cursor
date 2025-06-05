@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .list {
   display: flex;
@@ -37,7 +37,7 @@
   margin-left: auto;
   color: #888;
   font-size: 0.9rem;
-  @include mobile {
+  @include lt-sm {
     margin-left: 0;
   }
 }

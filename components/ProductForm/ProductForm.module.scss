@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .productForm {
   background: #fff;
@@ -8,7 +8,7 @@
   max-width: 720px;
   margin: 2rem auto;
 
-  @include mobile {
+  @include lt-sm {
     padding: var(--space-md);
     gap: var(--space-md);
   }
@@ -56,7 +56,7 @@
       flex: 1;
     }
 
-    @include mobile {
+    @include lt-sm {
       grid-template-columns: 1fr;
       gap: var(--space-md);
     }

@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 @use "@/styles/variables/formControls" as *;
 
 .main {
@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 2rem 1rem;
 
-  @include tablet {
+  @include lt-md {
     padding-top: 0;
   }
 }

@@ -1,10 +1,10 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .offersMain {
   padding: 2rem 0;
   background: var(--gray)-50;
   min-height: 100vh;
-  @include tablet {
+  @include lt-md {
     padding-top: 0;
   }
 }
@@ -15,7 +15,7 @@
   margin-bottom: 2.5rem;
   font-weight: 600;
 
-  @include tablet {
+  @include lt-md {
     font-size: 1.3rem;
   }
 }

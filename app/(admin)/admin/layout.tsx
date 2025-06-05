@@ -5,8 +5,8 @@ import { getUserFromCookies } from "@/utils/authServer"
 import AdminSidebar from "@/components/Admin/AdminSidebar/AdminSidebar"
 import Providers from "@/components/Providers/Providers"
 import AdminNotificationBell from "@/components/Admin/AdminNotificationBell/AdminNotificationBell"
-import styles from "./AdminLayout.module.scss"
 import '@/styles/globals.scss'
+import styles from "./AdminLayout.module.scss"
 
 export default async function AdminRootLayout({ children }: { children: ReactNode }) {
 	const user = await getUserFromCookies()

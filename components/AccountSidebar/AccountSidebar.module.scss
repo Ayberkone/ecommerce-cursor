@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .menu {
   min-width: 230px;
@@ -11,7 +11,7 @@
   box-shadow: 0 4px 18px 0 rgba(39, 70, 120, 0.09);
   z-index: 10;
 
-  @include tablet {
+  @include lt-md {
     flex-direction: row;
     min-width: unset;
     width: 100%;
@@ -24,7 +24,7 @@
   }
 
   // Mobile: fixed drawer (hidden by default)
-  @include mobile {
+  @include lt-sm {
     position: fixed;
     top: 0;
     left: 0;
@@ -46,7 +46,7 @@
 
 .hamburger {
   display: none;
-  @include mobile {
+  @include lt-sm {
     display: block;
     position: fixed;
     left: 1rem;
@@ -87,7 +87,7 @@
     background: var(--primary);
     color: #fff;
   }
-  @include tablet {
+  @include lt-md {
     white-space: pre;
   }
 }
@@ -104,7 +104,7 @@
 
 .overlay {
   display: none;
-  @include mobile {
+  @include lt-sm {
     display: block;
     position: fixed;
     inset: 0;

@@ -1,4 +1,4 @@
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
 
 .detailWrap {
   max-width: 960px;
@@ -7,7 +7,7 @@
   border-radius: 1.5rem;
   box-shadow: 0 2px 16px #00335a10;
   padding: 2.5rem 2rem 2rem;
-  @include tablet {
+  @include lt-md {
     padding: 1.2rem 12px;
     border-radius: 1rem;
   }
@@ -25,12 +25,12 @@
   gap: 1.2rem 2rem;
   margin-bottom: 1.5rem;
 
-  @include tablet {
+  @include lt-md {
     grid-template-columns: 1fr 1fr;
     gap: 1rem 1rem;
   }
 
-  @include mobile {
+  @include lt-sm {
     grid-template-columns: 1fr;
     gap: 0.8rem 0;
   }
@@ -53,17 +53,17 @@
       background: #f7fafd;
       color: var(--text);
       font-weight: 600;
-      @include mobile {
+      @include lt-sm {
         padding: 0.45rem 0.65rem;
       }
     }
   }
   .addressCol {
     grid-column: 1 / span 4;
-    @include tablet {
+    @include lt-md {
       grid-column: 1 / span 2;
     }
-    @include mobile {
+    @include lt-sm {
       grid-column: 1 / span 1;
     }
   }

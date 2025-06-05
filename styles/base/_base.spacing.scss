@@ -1,0 +1,102 @@
+@use "sass:list";
+
+@mixin generate($prefix, $property) {
+  $sizes: (0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 28, 32, 36, 40, 42, 48, 54, 60, 64, 72, 80, 96, 100);
+  $spacing: 1px;
+
+  @each $size in $sizes {
+    .#{$prefix}-#{$size} {
+      #{$property}: $spacing * $size !important;
+    }
+  }
+}
+
+$rules: (
+  (p, padding),
+  (m, margin),
+  (mt, margin-top),
+  (mr, margin-right),
+  (mb, margin-bottom),
+  (ml, margin-left),
+  (pl, padding-left),
+  (pt, padding-top),
+  (pb, padding-bottom),
+  (pr, padding-right)
+);
+
+@each $item in $rules {
+  @include generate(nth($item, 1), nth($item, 2));
+}
+
+// Generate axis
+
+@mixin generateAxis($prefix, $property1, $property2) {
+  $sizes: (0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 32, 36, 40, 48, 54, 60, 64, 72, 80, 96, 100);
+  $spacing: 1px;
+
+  @each $size in $sizes {
+    .#{$prefix}-#{$size} {
+      #{$property1}: $spacing * $size !important;
+      #{$property2}: $spacing * $size !important;
+    }
+  }
+}
+
+$rules: ((px, padding-left, padding-right), (py, padding-top, padding-bottom), (mx, margin-left, margin-right), (my, margin-top, margin-bottom));
+
+@each $item in $rules {
+  @include generateAxis(list.nth($item, 1), list.nth($item, 2), list.nth($item, 3));
+}
+
+// End of Generate axis
+
+.m-auto {
+  margin: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.mb-auto {
+  margin-bottom: auto;
+}
+
+.w-min {
+  width: min-content;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.r-auto {
+  right: auto !important;
+}
+
+.t-auto {
+  top: auto !important;
+}
+
+.va-top {
+  vertical-align: top;
+}
+
+$z-dropdown: 1000 !default;
+$z-modal: 1200 !default;

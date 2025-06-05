@@ -1,5 +1,6 @@
 // AdminSidebar.module.scss
-@use "@/styles/variables" as *;
+@use "../../../styles/base/base.variables" as *;
+@use "../../../styles/base/base.breakpoints" as *;
 
 .menu {
   display: flex;
@@ -20,7 +21,7 @@
     transform: translateX(0);
   }
 
-  @include mobile {
+  @include lt-sm {
     transform: translateX(-100%);
   }
 }

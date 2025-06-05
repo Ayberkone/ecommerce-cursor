@@ -1,4 +1,6 @@
-@use "@/styles/variables" as *;
+@use "../../styles/base/base.variables" as *;
+@use "../../styles/base/base.breakpoints" as *;
+@use "../../styles/base/base.font" as *;
 
 .navbar {
   position: fixed;
@@ -13,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
 
-  @include mobile {
+  @include lt-sm {
     padding: 0 1rem;
   }
 }
@@ -21,7 +23,7 @@
 .brand {
   padding-left: 3rem;
 
-  @include mobile {
+  @include lt-sm {
     padding-left: 1rem;
   }
 }
@@ -32,7 +34,7 @@
   height: 40px;
   display: flex;
   align-items: center;
-  @include mobile {
+  @include lt-sm {
     width: 110px;
     height: 32px;
   }
@@ -42,7 +44,7 @@
   display: flex;
   gap: 2rem;
 
-  @include tablet {
+  @include lt-md {
     display: none;
   }
 }
@@ -162,7 +164,7 @@
     color: var(--primary-700);
   }
 
-  @include tablet {
+  @include lt-md {
     display: flex;
   }
 }
@@ -176,7 +178,7 @@
 .mobileDrawer {
   display: none;
 
-  @include tablet {
+  @include lt-md {
     display: block;
     position: fixed;
     top: 0;
@@ -198,7 +200,7 @@
 }
 
 .mobileOverlay {
-  @include tablet {
+  @include lt-md {
     display: block;
     position: fixed;
     inset: 0;
@@ -218,7 +220,7 @@
 }
 // Hide on tablet and below
 .desktopOnly {
-  @include tablet {
+  @include lt-md {
     display: none !important;
   }
 }

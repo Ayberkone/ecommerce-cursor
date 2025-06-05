@@ -1,0 +1,74 @@
+// COLOR VARIABLES
+$primary: #23539b;
+$primary-50: #eff5fb;
+$primary-100: #dde8f6;
+$primary-200: #bad1ee;
+$primary-300: #86afe2;
+$primary-400: #477dd0;
+$primary-500: #23539b;
+$primary-600: #1c4480;
+$primary-700: #153463;
+$primary-800: #112850;
+$primary-900: #0c1b33;
+
+$secondary: #43bfa3;
+$accent: #ffd166;
+$white: #fafafc;
+$dark: #222d3b;
+$success: #059669;
+$success-600: #057d57;
+$danger: #d32f2f;
+$danger-600: #811b1b;
+$gray: #6c6c6c;
+$gray-50: #fafbfc;
+$gray-100: #f4f4f7;
+$gray-200: #ececec;
+$gray-400: #b5b8bb;
+$gray-700: #46494c;
+$gray-800: #282c31;
+
+$color-map: (
+  "primary": $primary,
+  "primary-50": $primary-50,
+  "primary-100": $primary-100,
+  "primary-200": $primary-200,
+  "primary-300": $primary-300,
+  "primary-400": $primary-400,
+  "primary-500": $primary-500,
+  "primary-600": $primary-600,
+  "primary-700": $primary-700,
+  "primary-800": $primary-800,
+  "primary-900": $primary-900,
+  "secondary": $secondary,
+  "accent": $accent,
+  "white": $white,
+  "dark": $dark,
+  "success": $success,
+  "success-600": $success-600,
+  "danger": $danger,
+  "danger-600": $danger-600,
+  "gray": $gray,
+  "gray-50": $gray-50,
+  "gray-100": $gray-100,
+  "gray-200": $gray-200,
+  "gray-400": $gray-400,
+  "gray-700": $gray-700,
+  "gray-800": $gray-800
+);
+
+@function color-var($name) {
+  @return map-get($color-map, $name);
+}
+
+@mixin generate-color-classes {
+  @each $name, $value in $color-map {
+    .color-#{$name} {
+      color: #{$value} !important;
+    }
+    .bg-color-#{$name} {
+      background-color: #{$value} !important;
+    }
+  }
+}
+
+@include generate-color-classes;
