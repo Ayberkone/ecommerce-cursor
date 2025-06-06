@@ -121,7 +121,7 @@ export default function AdminUsersPage() {
 	}
 
 	return (
-		<main className={styles.adminUsersMain}>
+		<>
 			<h1>Kullanıcı Yönetimi</h1>
 			<div className={styles.tabs}>
 				<Tabs
@@ -221,6 +221,6 @@ export default function AdminUsersPage() {
 					loading={rejectLoading}
 				/>
 			)}
-		</main>
+		</>
 	)
 }

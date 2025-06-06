@@ -5,7 +5,7 @@
 .card {
   background-color: var(--white);
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px var(--gray-400);
   margin-bottom: var(--space-xl);
   overflow: hidden;
   transition: all 0.3s ease-in-out;
@@ -36,6 +36,7 @@
     align-items: center;
     gap: var(--space-sm);
     color: var(--primary-700);
+    font-size: 2.4rem;
   }
 
   svg {

@@ -6,20 +6,18 @@ import { useState } from "react"
 import { Table, Column } from "@/components/Table/Table"
 import { markAllNotificationsRead, markNotificationRead } from "@/utils/admin/notifsApi"
 import { toast } from "sonner"
-
-type AdminNotification = {
-	_id: string
-	type: string
-	title?: string
-	message: string
-	createdAt: string
-	read: boolean
-}
+import { AdminNotification, notificationTypeLabels } from "@/types/AdminNotification"
+import { BookCheck, Eye } from "lucide-react"
+import Modal from "@/components/Modal/Modal"
+import styles from "./AdminNotifications.module.scss"
 
 const notificationColumns: Column<AdminNotification>[] = [
-	{ header: "Tip", accessor: "type" },
-	{ header: "Başlık", accessor: "title" },
-	{ header: "Mesaj", accessor: "message" },
+	{
+		header: "Tip",
+		accessor: "type",
+		cell: (type) => notificationTypeLabels[type] || type
+	},
+	{ header: "Mesaj", accessor: "message", className: "column-ellipsis" },
 	{
 		header: "Tarih",
 		accessor: (row) => new Date(row.createdAt).toLocaleString(),
@@ -36,26 +34,49 @@ const notificationColumns: Column<AdminNotification>[] = [
 	{
 		header: "İşlem",
 		accessor: (row) => row._id,
+		className: "actions",
 		cell: (_id, row, triggerAction) =>
-			!row.read ? (
+			<>
+				{!row.read ? (
+					<button
+						className="btn btn-success btn-small"
+						onClick={() => triggerAction("markRead", row)}
+						title="Okundu Yap"
+					>
+						<BookCheck size={16} />
+					</button>
+				) : null}
 				<button
-					style={{ fontSize: 12, padding: "4px 8px" }}
-					onClick={() => triggerAction("markRead", row)}
+					className="btn btn-primary btn-small"
+					onClick={() => triggerAction("view", row)}
+					title="İncele"
 				>
-					Okundu Yap
+					<Eye size={16} />
 				</button>
-			) : null
+			</>
 	}
 ]
 
 export default function AdminNotificationsPage() {
 	const [refresh, setRefresh] = useState(false)
+	const [viewModalOpen, setViewModalOpen] = useState(false)
+	const [selectedNotif, setSelectedNotif] = useState<any>(null)
+
 
 	const handleAction = async (action: string, row: AdminNotification) => {
-		if (action === "markRead") {
-			await markNotificationRead(row._id)
-			toast.success("Bildirim okundu olarak işaretlendi.")
-			setRefresh(r => !r)
+		switch (action) {
+			case "view":
+				setSelectedNotif(row)
+				setViewModalOpen(true)
+				break
+			case "markRead":
+				await markNotificationRead(row._id)
+				toast.success("Bildirim okundu olarak işaretlendi.")
+				setRefresh(r => !r)
+				break
+			default:
+				toast.error("Bilinmeyen işlem")
+				break
 		}
 	}
 
@@ -66,10 +87,10 @@ export default function AdminNotificationsPage() {
 	}
 
 	return (
-		<main>
+		<>
 			<h1>Bildirimler</h1>
-			<div style={{ marginBottom: 12 }}>
-				<button onClick={handleMarkAllRead}>Tümünü Okundu Olarak İşaretle</button>
+			<div>
+				<button onClick={handleMarkAllRead} className="btn btn-primary">Tümünü Okundu Olarak İşaretle</button>
 			</div>
 			<Table<AdminNotification>
 				endpoint="/api/admin/notifications"
@@ -83,6 +104,32 @@ export default function AdminNotificationsPage() {
 				refresh={refresh}
 				responseDataKey="notifications"
 			/>
-		</main>
+			{viewModalOpen && selectedNotif && (
+				<Modal open={viewModalOpen} onClose={() => setViewModalOpen(false)}>
+					<div style={{ minWidth: 320 }}>
+						<h2>Bildirim Detayları</h2>
+						<table className={styles.detailsTable}>
+							<tbody>
+								{Object.entries(selectedNotif)
+									.filter(([key]) => key !== "password" && key !== "__v")
+									.map(([key, value]) => (
+										<tr key={key}>
+											<td>{key}</td>
+											<td>
+												{typeof value === "boolean"
+													? value ? "Evet" : "Hayır"
+													: value && typeof value === "object"
+														? JSON.stringify(value, null, 2)
+														: String(value)}
+											</td>
+										</tr>
+									))}
+							</tbody>
+						</table>
+						<button style={{ marginTop: 16 }} className="btn" onClick={() => setViewModalOpen(false)}>Kapat</button>
+					</div>
+				</Modal>
+			)}
+		</>
 	)
 }

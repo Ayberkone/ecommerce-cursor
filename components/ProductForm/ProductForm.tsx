@@ -150,11 +150,11 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 	const collectionOptions = collections.map(coll => ({
 		value: coll._id,
 		label: coll.name
-	}));
+	}))
 
 	const selectedCollectionOptions = formik.values.collections.map(collId =>
 		collectionOptions.find(option => option.value === collId)
-	).filter(Boolean); // Filter out any undefined if an ID doesn't match an option
+	).filter(Boolean) // Filter out any undefined if an ID doesn't match an option
 
 	return (
 		<form className={styles.productForm} onSubmit={formik.handleSubmit}>
@@ -205,12 +205,12 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 					{formik.touched.videoLink && formik.errors.videoLink && <div className={styles.err}>{formik.errors.videoLink}</div>}
 				</label>
 			</div>
-			<div className={styles.sectionRow}>
+			<div className="df-row gap-14">
 				<label>Fiyat (Normal)* <input name="price.regular" type="number" value={formik.values.price.regular} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 				<label>Fiyat (Pro)* <input name="price.pro" type="number" value={formik.values.price.pro} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 				<label>Fiyat (Depo)* <input name="price.storage" type="number" value={formik.values.price.storage} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 			</div>
-			<div className={styles.sectionRow}>
+			<div className="df-row gap-14 align-center">
 				<label>
 					KDV Oranı*
 					<input name="taxRate" type="number" value={formik.values.taxRate} onChange={formik.handleChange} onBlur={formik.handleBlur} />
@@ -249,7 +249,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 						}}
 						onBlur={() => formik.setFieldTouched('collections', true)}
 						classNamePrefix="react-select"
-						className={formik.errors.collections && formik.touched.collections ? styles.errorSelect : styles.customSelect}
+						className={formik.errors.collections && formik.touched.collections ? styles.errorSelect : styles.customSelect + " custom-select"}
 					/>
 					{formik.touched.collections && formik.errors.collections && <div className={styles.err}>{formik.errors.collections as string}</div>}
 				</label>

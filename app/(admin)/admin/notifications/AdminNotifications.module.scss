@@ -1,0 +1,21 @@
+.detailsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base); // Assuming you have font-size variable
+  color: var(--text); // Assuming you have text color variable
+
+  tr {
+    &:nth-child(odd) {
+      background-color: var(--white); // Your default row background
+    }
+    &:nth-child(even) {
+      background-color: var(--gray-200); // A lighter shade for the zebra stripe
+    }
+  }
+
+  td {
+    padding: 6px 8px;
+    word-break: break-all; // Maintain word breaking
+    border: 1px solid var(--gray-100); // Add subtle borders for better separation if desired
+  }
+}

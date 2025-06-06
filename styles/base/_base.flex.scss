@@ -35,6 +35,16 @@
   align-items: center;
 }
 
+.df-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.df-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-row {
   flex-flow: row wrap;
 }
