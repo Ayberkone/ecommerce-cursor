@@ -91,9 +91,9 @@ export default function ProRegisterForm() {
         duration: Infinity,
         position: 'top-center',
         icon: <Glasses size={24} />,
-        description: 'Kayıt işlemi başarıyla tamamlandı ve hesabınız onay sürecinde. Hesabınız onaylandığında sizlere mail gönderilecek.',
+        description: 'Kayıt işlemi başarıyla tamamlandı ve hesabınız onay sürecinde. Mailinizi aktifleştirme işleminden sonra, hesabınız onaylandığında sizlere  tekrar mail gönderilecek.',
         action: {
-          label: 'Anladım',
+          label: 'Anladım.',
           onClick: () => {
             toast.dismiss(successToastId)
           }

@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import Link from 'next/link'
 import Image from "next/image"
 import { usePathname } from 'next/navigation'
-import { ShoppingCart, Menu, X, UserSquare2 } from 'lucide-react'
+import { ShoppingCart, Menu, X, UserSquare2, SquareMenu } from 'lucide-react'
 import styles from './Navbar.module.scss'
 import { useCart } from '@/components/CartContext'
 import CartDrawer from '@/components/CartDrawer/CartDrawer'
@@ -17,6 +17,15 @@ export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { user } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [insideDropdown, setCursorInsideDropdown] = useState(false)
+
+  const handleCloseDropdown = useCallback(() => {
+    if (insideDropdown) {
+      setDropdownOpen(false)
+      setCursorInsideDropdown(false)
+    }
+  }, [insideDropdown])
 
   return (
     <>
@@ -40,33 +49,50 @@ export default function Navbar() {
             Ürünler
           </Link>
           <Link
-            href="/about-us"
-            className={`${styles.navLink} ${pathname === '/about-us' ? styles.active : ''}`}
-          >
-            Hakkımızda
-          </Link>
-          <Link
             href="/offers"
             className={`${styles.navLink} ${pathname === '/offers' ? styles.active : ''}`}
           >
             Kampanyalar
           </Link>
-          <Link
-            href="/faq"
-            className={`${styles.navLink} ${pathname === '/faq' ? styles.active : ''}`}
+          <div
+            className={styles.dropdown}
+            onMouseEnter={() => setDropdownOpen(true)}
           >
-            S.S.S.
-          </Link>
-          <Link
-            href="/blog"
-            className={`${styles.navLink} ${pathname.startsWith('/blog') ? styles.active : ''}`}
-          >
-            Blog
-          </Link>
-          <Link
-            href="/media"
-            className={`${styles.navLink} ${pathname === '/media' ? styles.active : ''}`}
-          >Medya</Link>
+            <SquareMenu className={styles.dropdownIcon} color="#23539B" size={32} onClick={() => setDropdownOpen((prev) => !prev)} />
+            {/* Dropdown menu */}
+            {dropdownOpen && (
+              <div
+                className={styles.dropdownMenu}
+                onMouseEnter={() => setCursorInsideDropdown(true)}
+                onMouseLeave={() => handleCloseDropdown()}
+              >
+                <Link
+                  href="/about-us"
+                  className={`${styles.navLink} ${pathname === '/about-us' ? styles.active : ''}`}
+                >
+                  Hakkımızda
+                </Link>
+                <Link
+                  href="/faq"
+                  className={`${styles.navLink} ${pathname === '/faq' ? styles.active : ''}`}
+                >
+                  S.S.S.
+                </Link>
+                <Link
+                  href="/blog"
+                  className={`${styles.navLink} ${pathname.startsWith('/blog') ? styles.active : ''}`}
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/media"
+                  className={`${styles.navLink} ${pathname === '/media' ? styles.active : ''}`}
+                >
+                  Medya
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
         <div className={styles.actions}>
           <button
@@ -105,6 +131,9 @@ export default function Navbar() {
               </Link>
               <Link href="/register" className={`${styles.register} ${styles.desktopOnly} ${pathname === '/register' ? styles.active : ''}`}>
                 Kayıt Ol
+              </Link>
+              <Link href="/register?type=pro" className={`${styles.register} ${styles.registerPro} ${styles.desktopOnly} ${pathname === '/register?type=pro' ? styles.active : ''}`}>
+                Sağlık Profesyonelleri Başvuru
               </Link>
             </>
           )}
@@ -205,6 +234,13 @@ export default function Navbar() {
                 className={`${styles.login} ${pathname === '/register' ? styles.active : ''}`}
                 onClick={() => setMobileOpen(false)}
               >Kayıt Ol</Link>
+              <Link
+                href="/register?type=pro"
+                className={`${styles.register} ${styles.registerPro} ${pathname === '/register?type=pro' ? styles.active : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >
+                Sağlık Profesyonelleri Başvuru
+              </Link>
             </>
           )}
         </nav>

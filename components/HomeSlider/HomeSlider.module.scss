@@ -1,9 +1,6 @@
 @use "../../styles/base/base.variables" as *;
 @use "../../styles/base/base.breakpoints" as *;
 
-.sliderWrap {
-  padding-top: $navbar-height;
-}
 .swiper {
   width: 100%;
   height: 100%;

@@ -33,11 +33,11 @@ const LoginPage = () => {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.title}>Sign In</h1>
+      <h1 className={styles.title}>Giriş Yap</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           className={styles.input}
-          placeholder="Username"
+          placeholder="Kullanıcı Adı"
           value={username}
           onChange={e => setUsername(e.target.value)}
           autoComplete="username"
@@ -62,11 +62,11 @@ const LoginPage = () => {
           </button>
         </div>
         {error && <div className={styles.error}>{error}</div>}
-        <button className={styles.button} type="submit">Login</button>
+        <button className={styles.button} type="submit">Giriş Yap</button>
       </form>
       <div className={styles.bottom}>
-        Don’t have an account?{' '}
-        <Link href="/register" className={styles.link}>Register</Link>
+        Hesabın yok mu?{' '}
+        <Link href="/register" className={styles.link}>Kayıt Ol</Link>
       </div>
     </main>
   )

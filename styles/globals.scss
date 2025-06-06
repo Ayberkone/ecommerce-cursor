@@ -100,6 +100,13 @@
 
 main {
   padding: $navbar-height 0;
+
+  &.home-page {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 8rem;
+  }
 }
 
 .navbar-padding {

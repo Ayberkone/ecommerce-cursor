@@ -1,6 +1,9 @@
+@use "../../styles/base/base.colors" as *;
+@use "../../styles/base/base.breakpoints" as *;
+
 .footer {
-  background: #f7f8fa;
-  color: #1d2939;
+  background: $gray-100;
+  color: $dark;
   font-size: 1.6rem;
   margin-top: 10rem;
   padding: 3rem 0 1rem 0;
@@ -46,12 +49,12 @@
       margin-top: 0.5rem;
     }
     .link {
-      color: #23539b;
+      color: $primary;
       text-decoration: none;
       font-size: 1.4rem;
       margin-bottom: 0.17rem;
       &:hover {
-        color: #477dd0;
+        color: $primary-400;
       }
     }
   }
@@ -61,7 +64,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  color: #1d2939;
+  color: $dark;
   font-size: 1.4rem;
   text-decoration: none;
   line-height: 1.4;
@@ -92,7 +95,7 @@
 
 .professionalApply {
   display: block;
-  background: #eff5fb;
+  background: $primary-50;
   border-radius: 12px;
   padding: 1.1rem 1.1rem 0.9rem;
   text-decoration: none;
@@ -101,18 +104,18 @@
     display: flex;
     align-items: center;
     font-weight: 600;
-    color: #23539b;
+    color: $primary;
     gap: 12px;
     margin-bottom: 0.2rem;
     font-size: 1.6rem;
   }
   .professionalText {
-    color: #222d3b;
+    color: $dark;
     font-size: 1.4rem;
     margin-bottom: 0.22rem;
   }
   .professionalAction {
-    color: #43bfa3;
+    color: $secondary;
     font-weight: 700;
     font-size: 1.4rem;
     margin-top: 0.28rem;
@@ -135,8 +138,8 @@
   }
   .notice {
     font-size: 1.4rem;
-    color: #222d3b;
-    background: #fafbfc;
+    color: $dark;
+    background: $gray-50;
     padding: 1rem;
     border-radius: 8px;
   }
@@ -146,16 +149,16 @@
   .copy {
     text-align: center;
     font-size: 1.4rem;
-    color: #9aa4b2;
+    color: $gray-400;
     margin-top: 1rem;
     a {
-      color: #23539b;
+      color: $primary;
       text-decoration: underline;
     }
   }
 }
 
-@media (max-width: 900px) {
+@include lt-md {
   .top,
   .colWide {
     flex-direction: column;
