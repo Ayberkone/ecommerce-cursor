@@ -14,6 +14,9 @@ import { fetchProductById, fetchReviewsByProductId } from "@/utils/products"
 import { ArrowLeft } from "lucide-react"
 import DOMPurify from 'dompurify'
 import { CategoryIcon } from "@/components/CategoryIcon/CategoryIcon"
+import { ReviewForm } from "@/components/ReviewForm/ReviewForm"
+import { addReview, updateReview, deleteReview } from "@/utils/reviewsApi"
+import Link from "next/link"
 
 const productTabs = [
   { key: 'description', label: 'Açıklama' },
@@ -31,6 +34,9 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
   const [reviews, setReviews] = useState<Review[]>([])
   const [quantity, setQuantity] = useState(1)
   const [tab, setTab] = useState<'description' | 'usage'>('description')
+  const [canReview, setCanReview] = useState(false)
+  const [myReview, setMyReview] = useState<Review | null>(null)
+  const [reviewLoading, setReviewLoading] = useState(true)
 
   // Fetch product data
   useEffect(() => {
@@ -62,6 +68,28 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
       getReviews()
     }
   }, [product?._id])
+
+  useEffect(() => {
+    if (!user || !product?._id) {
+      setCanReview(false)
+      setMyReview(null)
+      setReviewLoading(false)
+      return
+    }
+    setReviewLoading(true)
+    // Check if already reviewed
+    const existingReview = reviews.find(r => r.user === user.id)
+    setMyReview(existingReview || null)
+    // If not reviewed, check order history
+    if (!existingReview) {
+      // Optional: if you have an endpoint to check order history, use it.
+      // Or handle on submit by error.
+      setCanReview(true) // Allow attempt, backend will enforce real permission
+    } else {
+      setCanReview(false)
+    }
+    setReviewLoading(false)
+  }, [user, product?._id, reviews])
 
   if (loading) return <div>Yükleniyor...</div>
   if (error || !product) return notFound()
@@ -175,6 +203,84 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
       {/* REVIEWS */}
       <section className={styles.reviewsSection}>
         <h2 className={styles.sectionTitle}>Kullanıcı Yorumları</h2>
+        {/* REVIEW FORM OR STATUS */}
+        <section style={{ marginBottom: 24 }}>
+          {reviewLoading ? (
+            <div>Yükleniyor…</div>
+          ) : !user ? (
+            <div className="text-muted">Yorum yazmak için <Link className="link" href="/login">giriş</Link> yapmalısınız.</div>
+          ) : myReview ? (
+            <div>
+              <div className="text-success" style={{ marginBottom: 6 }}>Yorumunuz kaydedildi.</div>
+              <ReviewForm
+                initialRating={myReview.rating}
+                initialComment={myReview.comment}
+                loading={reviewLoading}
+                onSubmit={async (rating, comment) => {
+                  setReviewLoading(true)
+                  try {
+                    await updateReview(myReview.id, { rating, comment })
+                    // Refresh reviews
+                    const updated = await fetchReviewsByProductId(product._id)
+                    setReviews(updated)
+                    toast.success("Yorum güncellendi.")
+                  } catch (e: any) {
+                    toast.error(e?.message || "Yorum güncellenemedi")
+                  } finally {
+                    setReviewLoading(false)
+                  }
+                }}
+              />
+              <button
+                className="btn btn-danger"
+                style={{ marginTop: 8 }}
+                disabled={reviewLoading}
+                onClick={async () => {
+                  if (!window.confirm("Yorumu silmek istediğinize emin misiniz?")) return
+                  setReviewLoading(true)
+                  try {
+                    await deleteReview(myReview.id)
+                    setMyReview(null)
+                    setReviews(await fetchReviewsByProductId(product._id))
+                    toast.success("Yorum silindi.")
+                  } catch (e: any) {
+                    toast.error(e?.message || "Yorum silinemedi")
+                  } finally {
+                    setReviewLoading(false)
+                  }
+                }}
+              >Yorumu Sil</button>
+            </div>
+          ) : canReview ? (
+            <ReviewForm
+              loading={reviewLoading}
+              onSubmit={async (rating, comment) => {
+                setReviewLoading(true)
+                try {
+                  await addReview({ productId: product._id, rating, comment })
+                  setReviews(await fetchReviewsByProductId(product._id))
+                  toast.success("Yorum eklendi.")
+                } catch (e: any) {
+                  if (e.message?.includes("satın aldığınız")) {
+                    toast.error("Yalnızca satın aldığınız ürünlere yorum yapabilirsiniz.")
+                  } else if (e.message?.includes("yorum yaptınız")) {
+                    toast.error("Bu ürüne daha önce yorum yaptınız.")
+                  } else {
+                    toast.error(e?.message || "Yorum eklenemedi")
+                  }
+                } finally {
+                  setReviewLoading(false)
+                }
+              }}
+            />
+          ) : (
+            <div className="text-muted">
+              {user
+                ? "Yalnızca satın aldığınız ürünlere yorum yazabilirsiniz."
+                : <>Yorum yazmak için <button className="link" onClick={() => router.push('/login')}>giriş yapmalısınız</button>.</>}
+            </div>
+          )}
+        </section>
         <ReviewList reviews={reviews} />
       </section>
     </main>

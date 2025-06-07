@@ -74,7 +74,7 @@ export interface Brand {
 }
 
 export type Review = {
-  id: number
+  id: string
   user: string
   rating: number
   comment: string

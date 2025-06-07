@@ -1,15 +1,8 @@
 'use client'
 
+import { Review } from "@/types/Product"
 import styles from './ReviewList.module.scss'
 import { Star } from 'lucide-react'
-
-type Review = {
-  id: number
-  user: string
-  rating: number
-  comment: string
-  date: string
-}
 
 type Props = {
   reviews: Review[]
