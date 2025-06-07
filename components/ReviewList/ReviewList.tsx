@@ -17,7 +17,7 @@ type Props = {
 
 const ReviewList = ({ reviews }: Props) => {
   if (!reviews?.length) {
-    return <div className={styles.empty}>No reviews yet.</div>
+    return <div className={styles.empty}>Henüz yorum yok.</div>
   }
   return (
     <div className={styles.list}>

@@ -105,7 +105,7 @@ main {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    gap: 8rem;
+    gap: 10rem;
   }
 }
 
@@ -140,7 +140,6 @@ html {
     color: $dark;
     font-size: $font-size-body-text;
     font-family: $font-body;
-    line-height: $line-height;
     font-style: normal;
     word-break: break-word;
     scrollbar-gutter: stable both-edges;

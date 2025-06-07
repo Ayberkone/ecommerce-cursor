@@ -34,7 +34,7 @@ const ProductCard = ({ product }: Props) => {
   const imageUrl = product.photoUrls?.[0] || '/placeholder.png'
 
   // If you have product detail page route, generate URL here
-  const detailUrl = `/products/${product._id}`
+  const detailUrl = `/products/${product.slug || product._id}`
 
   const handleAdd = (e: React.MouseEvent) => {
     e.preventDefault() // prevent navigating to detail when clicking "Sepete Ekle"

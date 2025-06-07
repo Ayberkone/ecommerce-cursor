@@ -14,13 +14,16 @@ export type ProductDescription = {
 
 export type Product = {
   _id: string // mongo id, can be string
+  slug: string
   name: string
   seoTitle?: string
   description: ProductDescription
   proDescription?: ProductDescription
+  usage?: string // Usage instructions, optional
   keywords?: string[]
   videoLink?: string
   price: ProductPrice
+  calculatedPrice?: number // Calculated price based on user type
   isTaxIncluded?: boolean
   taxRate?: number
   stockQuantity: number
@@ -36,9 +39,11 @@ export type Product = {
 
 export interface ProductFormValues {
   name: string
+  slug: string
   seoTitle: string
   description: { normal: string; mini: string }
   proDescription: { normal: string; mini: string }
+  usage?: string
   keywords: string
   videoLink: string
   price: { regular: number; pro: number; storage: number }

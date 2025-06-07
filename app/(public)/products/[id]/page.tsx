@@ -11,6 +11,9 @@ import Image from "next/image"
 import type { Product, Review } from '@/types/Product'
 import { useAuth } from "@/context/AuthContext/AuthContext"
 import { fetchProductById, fetchReviewsByProductId } from "@/utils/products"
+import { ArrowLeft } from "lucide-react"
+import DOMPurify from 'dompurify'
+import { CategoryIcon } from "@/components/CategoryIcon/CategoryIcon"
 
 const productTabs = [
   { key: 'description', label: 'Açıklama' },
@@ -47,16 +50,18 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
   }, [params.id])
 
   useEffect(() => {
-    const getReviews = async () => {
-      try {
-        const fetchedReviews = await fetchReviewsByProductId(params.id)
-        setReviews(fetchedReviews)
-      } catch (err) {
-        setReviews([])
+    if (product?._id) {
+      const getReviews = async () => {
+        try {
+          const fetchedReviews = await fetchReviewsByProductId(product._id)
+          setReviews(fetchedReviews)
+        } catch (err) {
+          setReviews([])
+        }
       }
+      getReviews()
     }
-    getReviews()
-  }, [params.id])
+  }, [product?._id])
 
   if (loading) return <div>Yükleniyor...</div>
   if (error || !product) return notFound()
@@ -75,54 +80,53 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
   }
 
   // Example tab contents (customize as needed)
-  const description = (
-    <div>
-      <p>{product?.description?.normal || "-"}</p>
-      {product?.keywords && (
-        <ul>
-          {product.keywords.map((k, i) => <li key={i}>{k}</li>)}
-        </ul>
-      )}
-    </div>
-  )
+  const description = <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product?.description?.normal) || "-" }} />
   const usage = (
-    <div>
-      <p>{product?.description?.mini || "Kullanım talimatı yakında eklenecek."}</p>
-    </div>
+    <div dangerouslySetInnerHTML={{ __html: product?.usage ? DOMPurify.sanitize(product?.usage) : "Kullanım talimatı yakında eklenecek." }} />
   )
 
   return (
     <main className={styles.main}>
       {/* Go back button */}
       <button
-        className={styles.goBackBtn} // Add this class to your SCSS for styling
+        className="btn btn-secondary mb-4"
         onClick={() => router.push('/products')}
         aria-label="Ürünlere Geri Dön"
       >
-        Ürünlere Git
+        <ArrowLeft size={24} />
+        Ürünlere Dön
       </button>
       <div className={styles.productDetailContainer}>
         <PhotoGallery images={product.photoUrls || []} />
         <div className={styles.productSummary}>
           <h1 className={styles.productName}>{product.name || '-'}</h1>
-          <div className={styles.price}>
-            <span className={styles.priceValue}>₺{product.price?.regular?.toFixed(2) || '-'}</span>
-          </div>
           <div className={styles.productShortInfo}>
-            <span className={styles.formInfo}>
-              <div className={styles.icon}>
-                <Image
-                  src="/img/category-icons/jel.png"
-                  alt="jel"
-                  width={32}
-                  height={32}
-                  className={styles.brandLogo}
-                />
-              </div>
-              <span className="flex-col">
-                <b>Form</b> <span>{product?.category?.name}</span>
+            {product?.category && (
+              <span className={styles.formInfo}>
+                <b>Form</b>
+                <div className={styles.turadi}>
+                  <div
+                    style={{
+                      color:
+                        product?.category?.name === "Jel"
+                          ? "#43bfa3"
+                          : product?.category?.name === "Gargara"
+                            ? "#ae9bed"
+                            : product?.category?.name === "Sprey"
+                              ? "#52b9fe"
+                              : product?.category?.name === "Şırınga"
+                                ? "#dac87d"
+                                : product?.category?.name === "Diş ve Diş Eti Macunu"
+                                  ? "#23539b"
+                                  : undefined,
+                    }}
+                  >
+                    {product?.category?.name}
+                  </div>
+                  <CategoryIcon className={styles.categoryIcon} name={product?.category?.name} />
+                </div>
               </span>
-            </span>
+            )}
             <span>{product?.proDescription?.mini || product?.description?.mini || '-'}</span>
           </div>
           <div className={styles.counterRow}>
@@ -142,6 +146,9 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
               >+</button>
             </div>
             <button className={styles.addCartBtn} onClick={handleAdd}>Sepete Ekle</button>
+            <div className={styles.price}>
+              <span className={styles.priceValue}>₺{product.calculatedPrice?.toFixed(2) || '-'}</span>
+            </div>
           </div>
         </div>
       </div>

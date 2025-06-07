@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import Image from "next/image"
 import { fetchBrands, fetchCategories, fetchProduct, fetchCollections } from "@/utils/admin/adminApi"
 import Select from 'react-select'
+import Editor from 'react-simple-wysiwyg'
 
 export default function ProductForm({ params }: { params: { id?: string } }) {
 	const router = useRouter()
@@ -23,9 +24,11 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 
 	const initialValues: ProductFormValues = {
 		name: '',
+		slug: '',
 		seoTitle: '',
 		description: { normal: '', mini: '' },
 		proDescription: { normal: '', mini: '' },
+		usage: '',
 		keywords: '',
 		videoLink: '',
 		price: { regular: 0, pro: 0, storage: 0 },
@@ -59,6 +62,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 					setFormValues({
 						...product,
 						seoTitle: product.seoTitle ?? '',
+						slug: product.slug ?? '',
 						description: {
 							normal: product.description?.normal ?? '',
 							mini: product.description?.mini ?? ''
@@ -67,6 +71,7 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 							normal: product.proDescription?.normal ?? '',
 							mini: product.proDescription?.mini ?? ''
 						},
+						usage: product.usage || '',
 						keywords: Array.isArray(product.keywords) ? product.keywords.join(", ") : (product.keywords || ""),
 						category: typeof product.category === "object" && product.category !== null && "_id" in product.category
 							? (product.category as { _id: string })._id
@@ -164,6 +169,10 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 				{formik.touched.name && formik.errors.name && <div className={styles.err}>{formik.errors.name}</div>}
 			</div>
 			<div className={styles.sectionRow}>
+				<label>Kodu*<input name="slug" value={formik.values.slug} onChange={formik.handleChange} onBlur={formik.handleBlur} className={formik.errors.slug && formik.touched.slug ? styles.errorInput : ''} /></label>
+				{formik.touched.slug && formik.errors.slug && <div className={styles.err}>{formik.errors.slug}</div>}
+			</div>
+			<div className={styles.sectionRow}>
 				<label>SEO Başlığı*<input name="seoTitle" value={formik.values.seoTitle} onChange={formik.handleChange} onBlur={formik.handleBlur} className={formik.errors.seoTitle && formik.touched.seoTitle ? styles.errorInput : ''} /></label>
 				{formik.touched.seoTitle && formik.errors.seoTitle && <div className={styles.err}>{formik.errors.seoTitle}</div>}
 			</div>
@@ -175,7 +184,15 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 			</div>
 			<div className={styles.sectionRow}>
 				<div>
-					<label>Açıklama*<textarea rows={20} name="description.normal" value={formik.values.description.normal} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
+					<label>
+						Açıklama*
+						<Editor
+							value={formik.values.description.normal}
+							onChange={e => formik.setFieldValue('description.normal', e.target.value)}
+							onBlur={() => formik.setFieldTouched('description.normal', true)}
+							style={{ minHeight: '200px' }}
+						/>
+					</label>
 					{formik.touched.description?.normal && formik.errors.description?.normal && <div className={styles.err}>{formik.errors.description.normal}</div>}
 				</div>
 			</div>
@@ -187,8 +204,22 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 			</div>
 			<div className={styles.sectionRow}>
 				<div>
-					<label>Pro Açıklama*<textarea rows={20} name="proDescription.normal" value={formik.values.proDescription.normal} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
+					<label>
+						Pro Açıklama*
+						<Editor
+							value={formik.values.proDescription.normal}
+							onChange={e => formik.setFieldValue('proDescription.normal', e.target.value)}
+							onBlur={() => formik.setFieldTouched('proDescription.normal', true)}
+							style={{ minHeight: '200px' }}
+						/>
+					</label>
 					{formik.touched.proDescription?.normal && formik.errors.proDescription?.normal && <div className={styles.err}>{formik.errors.proDescription.normal}</div>}
+				</div>
+			</div>
+			<div className={styles.sectionRow}>
+				<div>
+					<label>Kullanım Şekli<input name="usage" value={formik.values.usage} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
+					{formik.touched.usage && formik.errors.usage && <div className={styles.err}>{formik.errors.usage}</div>}
 				</div>
 			</div>
 			<div className={styles.sectionRow}>
