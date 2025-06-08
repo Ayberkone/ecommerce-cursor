@@ -1,8 +1,6 @@
 'use client'
 
 import styles from './Offers.module.scss'
-import { bundles } from '@/content/bundles'
-import { GalleryProduct, products } from "@/lib/products"
 import { useCart } from '@/components/CartContext'
 import { motion } from 'framer-motion'
 import { useMemo } from "react"
@@ -12,19 +10,19 @@ import Image from 'next/image'
 export default function OffersPage() {
   const { addToCart } = useCart()
 
-  const bundlesWithProducts = useMemo(() =>
-    bundles.map(bundle => ({
-      ...bundle,
-      products: bundle.productIds
-        .map(id => products.find(p => p.id === id))
-        .filter(Boolean) as GalleryProduct[]
-    })), [])
+  // const bundlesWithProducts = useMemo(() =>
+  //   bundles.map(bundle => ({
+  //     ...bundle,
+  //     products: bundle.productIds
+  //       .map(id => products.find(p => p.id === id))
+  //       .filter(Boolean) as GalleryProduct[]
+  //   })), [])
 
   return (
     <main className={styles.offersMain}>
       <h1 className={styles.title}>Kampanyalı Paketler</h1>
       <div className={styles.bundleGrid}>
-        {bundlesWithProducts.map(bundle => (
+        {/* {bundlesWithProducts.map(bundle => (
           <motion.div
             className={styles.bundleCard}
             key={bundle.id}
@@ -81,7 +79,7 @@ export default function OffersPage() {
               </button>
             </div>
           </motion.div>
-        ))}
+        ))} */}
       </div>
     </main>
   )

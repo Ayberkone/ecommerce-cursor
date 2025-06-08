@@ -119,7 +119,7 @@ const ProductsPage = () => {
           <div className="d-flex w-100">
             <span className={styles.productCount}>{products?.length > 0 ? products?.length + ' Ürün Bulundu' : 'Ürün Bulunamadı'}</span>
           </div>
-          <div>{collectionDescription}</div>
+          <div className="ml-16">{collectionDescription}</div>
           <div className={styles.productGrid}>
             {loading ? (
               <ProductCardSkeletonList />
