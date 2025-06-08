@@ -2,7 +2,7 @@
 
 import { useCart } from '@/components/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BrushCleaning } from "lucide-react"
+import { BrushCleaning, MinusCircleIcon, PlusCircleIcon } from "lucide-react"
 import styles from './CartDrawer.module.scss'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
@@ -97,18 +97,19 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 													<div className={styles.itemName}>{item.name}</div>
 													<div className={styles.itemPrice}>{item.price}₺</div>
 													<div className={styles.qtyRow}>
-														<button
+														<MinusCircleIcon
+															size={20}
 															className={styles.qtyBtn}
 															onClick={() => updateQuantity(item.id, item.quantity - 1)}
-															disabled={item.quantity <= 1}
 															aria-label="Azalt"
-														>-</button>
+														/>
 														<span className={styles.qty}>{item.quantity}</span>
-														<button
+														<PlusCircleIcon
+															size={20}
 															className={styles.qtyBtn}
 															onClick={() => updateQuantity(item.id, item.quantity + 1)}
 															aria-label="Artır"
-														>+</button>
+														/>
 													</div>
 												</div>
 												<button

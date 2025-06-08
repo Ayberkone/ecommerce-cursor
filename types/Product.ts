@@ -61,16 +61,19 @@ export interface ProductFormValues {
 export interface Category {
   _id: string
   name: string
+  description?: string
 }
 
 export interface Collection {
   _id: string
   name: string
+  description?: string
 }
 
 export interface Brand {
   _id: string
   name: string
+  description?: string
 }
 
 export type Review = {

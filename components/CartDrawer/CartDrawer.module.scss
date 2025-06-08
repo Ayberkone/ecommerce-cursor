@@ -1,9 +1,10 @@
 @use "../../styles/base/base.breakpoints" as *;
 @use "../../styles/base/base.variables" as *;
+@use "../../styles/base/base.colors" as *;
 .backdrop {
   position: fixed;
   inset: 0;
-  background: #111a;
+  background: rgba($dark, 0.66); // Assuming #111a is a transparent dark
   z-index: 1010;
 }
 .drawer {
@@ -13,10 +14,10 @@
   bottom: 0;
   width: 410px;
   max-width: 96vw;
-  background: #fff;
+  background: $white;
   z-index: 1020;
   padding: 2.2rem 1.7rem 1.1rem 1.7rem;
-  box-shadow: -8px 0 22px #23315c14;
+  box-shadow: -8px 0 22px rgba($primary-800, 0.08); // #23315c14
   display: flex;
   flex-direction: column;
   @include lt-md {
@@ -32,21 +33,21 @@
   border: none;
   font-size: 2.3rem;
   cursor: pointer;
-  color: #999;
+  color: $gray; // #999
   z-index: 1;
   &:hover {
-    color: #e11d48;
+    color: $danger; // #e11d48
   }
 }
 .title {
   font-size: 1.6rem;
   font-weight: 800;
   margin-bottom: 1.3rem;
-  color: #e11d48;
+  color: $danger; // #e11d48
 }
 .empty {
   margin-top: 2.4rem;
-  color: #6b7280;
+  color: $gray; // #6b7280
   font-size: 1.6rem;
   text-align: center;
   display: flex;
@@ -63,7 +64,7 @@
   display: flex;
   gap: 1.2rem;
   align-items: center;
-  background: #f7f9fb;
+  background: $gray-50; // #f7f9fb
   border-radius: 1rem;
   padding: 0.8rem 1rem;
   margin-bottom: 1.15rem;
@@ -73,7 +74,7 @@
   flex: 0 0 54px;
   border-radius: 12px;
   overflow: hidden;
-  background: #f2f4f7;
+  background: $gray-100; // #f2f4f7
 }
 .itemInfo {
   flex: 1 1 auto;
@@ -81,11 +82,11 @@
 .itemName {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #222;
+  color: $dark; // #222
   margin-bottom: 0.11rem;
 }
 .itemPrice {
-  color: #e11d48;
+  color: $danger; // #e11d48
   font-size: 1.6rem;
   font-weight: 600;
   margin-bottom: 0.15rem;
@@ -96,17 +97,13 @@
   gap: 12px;
 }
 .qtyBtn {
-  width: 1.7rem;
-  height: 1.7rem;
-  border: 1px solid #e4e4e7;
-  background: #fff;
+  background: $white;
   border-radius: 50%;
-  font-size: 2rem;
-  color: #666;
+  color: $gray; // #666
   cursor: pointer;
   transition: background 0.13s;
   &:hover:not(:disabled) {
-    background: #f4f4f7;
+    background: $gray-100; // #f4f4f7
   }
   &:disabled {
     opacity: 0.5;
@@ -120,13 +117,13 @@
 .removeBtn {
   background: none;
   border: none;
-  color: #b91c1c;
+  color: $danger-600; // #b91c1c
   font-size: 1.6rem;
   cursor: pointer;
   margin-left: 12px;
   transition: color 0.12s;
   &:hover {
-    color: #e11d48;
+    color: $danger; // #e11d48
   }
 }
 .summary {
@@ -138,7 +135,7 @@
   margin-bottom: 0.65rem;
 }
 .totalPrice {
-  color: #e11d48;
+  color: $danger; // #e11d48
 }
 .actions {
   display: flex;
@@ -149,21 +146,21 @@
 .clearBtn {
   flex: 1 1 100px;
   background: none;
-  border: 1px solid #e11d48;
-  color: #e11d48;
+  border: 1px solid $danger; // #e11d48
+  color: $danger; // #e11d48
   border-radius: 12px;
   font-weight: 700;
   padding: 0.8rem 1.2rem;
   cursor: pointer;
   transition: background 0.13s, color 0.13s;
   &:hover {
-    background: #e11d4815;
+    background: rgba($danger, 0.08); // #e11d4815
   }
 }
 .checkoutBtn {
   flex: 2 1 180px;
-  background: #e11d48;
-  color: #fff;
+  background: $danger; // #e11d48
+  color: $white;
   border: none;
   border-radius: 12px;
   font-weight: 700;
@@ -171,6 +168,6 @@
   cursor: pointer;
   transition: background 0.13s;
   &:hover {
-    background: #be123c;
+    background: $danger-600; // #be123c
   }
 }

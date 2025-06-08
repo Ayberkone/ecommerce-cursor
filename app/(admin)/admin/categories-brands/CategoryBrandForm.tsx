@@ -3,14 +3,15 @@ import { useFormik } from "formik"
 
 type FormValues = {
 	name: string
-	description: string
 	order: number
+	description: string
+	proDescription?: string
 	imageUrl: string
 }
 
 type Props = {
 	type: 'category' | 'brand' | 'collection'
-	initialValues?: { _id?: string, name?: string, description?: string, order?: number, imageUrl?: string }
+	initialValues?: { _id?: string, name?: string, description?: string, proDescription?: string, order?: number, imageUrl?: string }
 	onSubmitAction: (values: FormValues, id?: string) => void
 	onCancelAction: () => void
 }
@@ -20,6 +21,7 @@ export default function CategoryBrandForm({ type, initialValues, onSubmitAction,
 		initialValues: {
 			name: initialValues?.name || "",
 			description: initialValues?.description || "",
+			proDescription: initialValues?.proDescription || "",
 			order: initialValues?.order ?? 0,
 			imageUrl: initialValues?.imageUrl || ""
 		},
@@ -47,6 +49,13 @@ export default function CategoryBrandForm({ type, initialValues, onSubmitAction,
 				name="description"
 				placeholder="Açıklama"
 				value={formik.values.description}
+				onChange={formik.handleChange}
+				style={{ marginBottom: 4 }}
+			/>
+			<input
+				name="proDescription"
+				placeholder="Pro Açıklama"
+				value={formik.values.proDescription}
 				onChange={formik.handleChange}
 				style={{ marginBottom: 4 }}
 			/>

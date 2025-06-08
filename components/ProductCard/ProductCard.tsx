@@ -16,20 +16,6 @@ const ProductCard = ({ product }: Props) => {
   const { addToCart } = useCart()
   const { user } = useAuth()
 
-  // Determine price variant
-  // If user is pharmacy/doctor, show "pro" price if available; else show regular price.
-  let displayPrice = product.price?.regular
-  let specialPriceLabel = null
-  if (user && ['pharmacy', 'doctor'].includes(user.type)) {
-    if (product.price?.pro) {
-      displayPrice = product.price.pro
-      specialPriceLabel = 'Eczane/Doktor Fiyatı'
-    } else if (product.price?.storage) {
-      displayPrice = product.price.storage
-      specialPriceLabel = 'Depo Fiyatı'
-    }
-  }
-
   // Use first photo as image
   const imageUrl = product.photoUrls?.[0] || '/placeholder.png'
 
@@ -41,7 +27,7 @@ const ProductCard = ({ product }: Props) => {
     addToCart({
       ...product,
       id: product._id ?? '',
-      price: displayPrice,
+      price: product.calculatedPrice || product.price.regular || 0,
       image: imageUrl
     }, 1)
     toast.success('Sepete eklendi!')
@@ -62,10 +48,7 @@ const ProductCard = ({ product }: Props) => {
         </div>
         <div className={styles.title}>{product?.name || '-'}</div>
         <div className={styles.price}>
-          ₺{displayPrice !== undefined ? displayPrice.toFixed(2) : '-'}
-          {specialPriceLabel && (
-            <span className={styles.specialLabel}>{specialPriceLabel}</span>
-          )}
+          ₺{product.calculatedPrice !== undefined ? product.calculatedPrice.toFixed(2) : '-'}
         </div>
         <button
           className={styles.button}

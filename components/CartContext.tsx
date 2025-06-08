@@ -83,6 +83,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   function updateQuantity(id: string | number, quantity: number) {
+    if (quantity < 1) {
+      removeFromCart(id)
+      return
+    }
     setCart(prev => ({
       items: prev.items.map(i =>
         i.id === id

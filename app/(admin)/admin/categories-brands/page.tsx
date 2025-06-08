@@ -6,19 +6,22 @@ export default function CategoriesBrandsPage() {
 	// Define the fields you want for each entity:
 	const categoryFields: FieldDef[] = [
 		{ key: "name", label: "Ad", required: true, maxLength: 50 },
-		{ key: "description", label: "Açıklama", maxLength: 255 },
+		{ key: "description", label: "Açıklama", type: 'Editor' },
+		{ key: "proDescription", label: "Pro Açıklama", type: 'Editor' },
 		{ key: "order", label: "Sıra", type: "number" },
 		{ key: "imageUrl", label: "Görsel", type: "image" }
 	]
 	const brandFields: FieldDef[] = [
 		{ key: "name", label: "Ad", required: true, maxLength: 50 },
-		{ key: "description", label: "Açıklama", maxLength: 255 },
+		{ key: "description", label: "Açıklama", type: 'Editor' },
+		{ key: "proDescription", label: "Pro Açıklama", type: 'Editor' },
 		{ key: "order", label: "Sıra", type: "number" },
 		{ key: "imageUrl", label: "Görsel", type: "image" }
 	]
 	const collectionFields: FieldDef[] = [
 		{ key: "name", label: "Ad", required: true, maxLength: 50 },
-		{ key: "description", label: "Açıklama", maxLength: 255 },
+		{ key: "description", label: "Açıklama", type: 'Editor' },
+		{ key: "proDescription", label: "Pro Açıklama", type: 'Editor' },
 		{ key: "order", label: "Sıra", type: "number" },
 		{ key: "imageUrl", label: "Görsel", type: "image" }
 	]

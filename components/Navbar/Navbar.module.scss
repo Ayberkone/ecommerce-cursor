@@ -83,12 +83,9 @@
   position: relative;
   cursor: pointer;
   padding: 0;
+  margin-right: 1rem;
   display: flex;
   align-items: center;
-
-  &:focus {
-    outline: 2px solid var(--primary-300);
-  }
 }
 
 .cartBadge {
