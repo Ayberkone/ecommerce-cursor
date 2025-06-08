@@ -25,18 +25,29 @@ export default function VerifyEmailPage() {
 			await api(`/api/auth/verify-email?token=${token}`, {
 				method: 'GET',
 				showLoader: true
-			}).then(async res => {
-				const data = await res.json()
-				if (res.ok) {
+			}).then(responseData => { // responseData is assumed to be the parsed JSON
+				// If responseData is already parsed, .json() is not needed and .ok refers to a field in the JSON body
+				if (responseData.ok) {
 					setStatus('success')
-					setMessage(data.message || 'E-posta başarıyla doğrulandı!')
+					setMessage(responseData.message || 'E-posta başarıyla doğrulandı!')
 				} else {
 					setStatus('error')
-					setMessage(data.message || 'Bir hata oluştu.')
+					setMessage(responseData.message || 'Bir hata oluştu.')
 				}
-			}).catch(() => {
+			}).catch((error: any) => {
 				setStatus('error')
-				setMessage('Sunucuya ulaşılamadı.')
+				let errorMessage = 'Sunucuya ulaşılamadı.' // Default message
+				if (error?.response?.data?.message) {
+					errorMessage = error.response.data.message // Use message from server error response if available
+				} else if (error?.message) {
+					// Avoid showing technical error messages like "responseData.json is not a function"
+					if (!error.message.toLowerCase().includes('.json is not a function')) {
+						errorMessage = error.message
+					} else {
+						errorMessage = 'İstemci tarafında bir işleme hatası oluştu.'
+					}
+				}
+				setMessage(errorMessage)
 			})
 		}
 		verifyEmail()

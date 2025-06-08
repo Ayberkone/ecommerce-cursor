@@ -43,7 +43,7 @@
   font-size: 1.6rem;
   font-weight: 800;
   margin-bottom: 1.3rem;
-  color: $danger; // #e11d48
+  color: $primary; // #e11d48
 }
 .empty {
   margin-top: 2.4rem;
@@ -78,6 +78,8 @@
 }
 .itemInfo {
   flex: 1 1 auto;
+  display: grid;
+  gap: 1rem;
 }
 .itemName {
   font-size: 1.6rem;
@@ -86,7 +88,7 @@
   margin-bottom: 0.11rem;
 }
 .itemPrice {
-  color: $danger; // #e11d48
+  color: $primary; // #e11d48
   font-size: 1.6rem;
   font-weight: 600;
   margin-bottom: 0.15rem;
@@ -135,7 +137,7 @@
   margin-bottom: 0.65rem;
 }
 .totalPrice {
-  color: $danger; // #e11d48
+  color: $primary; // #e11d48
 }
 .actions {
   display: flex;
@@ -159,7 +161,7 @@
 }
 .checkoutBtn {
   flex: 2 1 180px;
-  background: $danger; // #e11d48
+  background: $primary; // #e11d48
   color: $white;
   border: none;
   border-radius: 12px;
@@ -168,6 +170,6 @@
   cursor: pointer;
   transition: background 0.13s;
   &:hover {
-    background: $danger-600; // #be123c
+    background: $primary-400; // #be123c
   }
 }

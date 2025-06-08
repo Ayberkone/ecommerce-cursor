@@ -88,7 +88,7 @@ export const userColumns: Column<any>[] = [
           <Eye size={16} />
         </button>
         <button
-          onClick={() => triggerAction("delete", row)}
+          onClick={() => triggerAction("disable", row)}
           className="btn btn-danger"
           title="Sil"
         >

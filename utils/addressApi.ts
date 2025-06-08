@@ -1,3 +1,7 @@
+// utils/addressApi.ts
+// This module provides functions to interact with the address API.
+// It includes functions to get, add, update, and delete addresses.
+// It uses the `api` utility to make HTTP requests to the backend.
 import { api } from "./api"
 
 export type Address = {

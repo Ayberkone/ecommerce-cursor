@@ -6,8 +6,7 @@
   gap: 2rem;
   align-items: flex-start;
   padding: $navbar-height 2.2rem;
-  margin-top: $navbar-height;
-  min-height: calc(100vh - ($navbar-height * 4));
+  min-height: calc(100vh - $navbar-height);
 
   @include lt-md {
     flex-direction: column;

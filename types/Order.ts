@@ -12,3 +12,12 @@ export type Order = {
   address: string
   items: any[]
 }
+
+export interface OrderInfo {
+  items: any[]
+  total: number
+  address: string
+  phone: string
+  email: string
+  paymentMethod?: string
+}
