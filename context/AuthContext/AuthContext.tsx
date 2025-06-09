@@ -13,6 +13,7 @@ export type User = {
   id: string
   email: string
   phone: string
+  address: string
 }
 
 type LoginResponse = {
@@ -52,6 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           lastName: user.lastName,
           firstName: user.firstName,
           username: user.firstName + ' ' + user.lastName,
+          address: user.address || '',
           type: user.type,
           phone: user.phone,
         })
@@ -82,6 +84,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         username: data.user.firstName + ' ' + data.user.lastName,
         type: data.user.type,
         phone: data.user.phone,
+        address: data.user.address || '',
       })
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify({ username: data.user.email, type: data.user.type }))

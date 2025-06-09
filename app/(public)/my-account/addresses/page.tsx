@@ -7,10 +7,8 @@ import { toast } from "sonner"
 import { Plus, Edit2, Trash2, Star } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import AddressForm, { AddressFormValues } from "@/components/AddressForm/AddressForm"
-import { useAddressMap } from "@/context/AddressMapContext/AddressMapContext"
 
 export default function AddressesPage() {
-  const { getProvinceName, getDistrictName, getNeighbourhoodName, isMapsLoading } = useAddressMap()
   const [addresses, setAddresses] = useState<Address[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -151,10 +149,10 @@ export default function AddressesPage() {
               {addr.tc && <div><b>TC:</b> {addr.tc}</div>}
               {addr.taxNumber && <div><b>Vergi No:</b> {addr.taxNumber} / {addr.taxOffice}</div>}
               <div className={styles.addressActions}>
-                <button className={styles.editBtn} onClick={() => handleEdit(addr)} disabled={saving}><Edit2 size={18} /> Düzenle</button>
-                <button className={styles.deleteBtn} onClick={() => handleDelete(addr._id)} disabled={saving}><Trash2 size={18} /> Sil</button>
+                <button className="btn btn-primary" onClick={() => handleEdit(addr)} disabled={saving}><Edit2 size={18} /> Düzenle</button>
+                <button className="btn btn-danger" onClick={() => handleDelete(addr._id)} disabled={saving}><Trash2 size={18} /> Sil</button>
                 {!addr.isDefault && (
-                  <button className={styles.addBtn} onClick={() => handleSetDefault(addr._id)} disabled={saving}><Star size={17} /> Varsayılan Yap</button>
+                  <button className="btn btn-secondary" onClick={() => handleSetDefault(addr._id)} disabled={saving}><Star size={17} /> Varsayılan Yap</button>
                 )}
               </div>
             </motion.div>

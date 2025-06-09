@@ -3,6 +3,8 @@
 import { useAuth } from '@/context/AuthContext/AuthContext'
 import { useState } from 'react'
 import styles from './SamplePage.module.scss'
+import { api } from '@/utils/api'
+import Link from "next/link"
 
 export default function SamplePage() {
   const { user } = useAuth()
@@ -14,34 +16,45 @@ export default function SamplePage() {
     return <div>Bu sayfa sadece doktorlar için kullanılabilir.</div>
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
     if (!message.trim()) {
       setError('Lütfen talebinizi yazınız.')
       return
     }
-    // Store sample requests as an array in localStorage
-    const key = 'sample_requests'
-    const previous = JSON.parse(localStorage.getItem(key) || '[]')
-    const req = {
-      user: {
-        username: user.username,
-        type: user.type,
-        // If you store displayName: fetch from profile_{username}
-        displayName: JSON.parse(localStorage.getItem(`profile_${user.username}`) || '{}').displayName || user.username
-      },
-      message,
-      createdAt: new Date().toISOString()
+    try {
+      const payload = {
+        name: user.firstName + ' ' + user.lastName, // Assuming firstName and lastName are available
+        email: user.username, // Assuming username is the email
+        phone: user.phone || '', // Fetch from profile or leave empty if not available
+        message
+      }
+      // Ensure all required fields for the backend are present, even if empty strings
+      if (!payload.name) {
+        setError('Kullanıcı adı alınamadı.')
+        return
+      }
+      if (!payload.email) {
+        setError('E-posta adresi alınamadı.')
+        return
+      }
+      await api('/api/samples', { // Updated to use API endpoint
+        method: 'POST',
+        body: JSON.stringify(payload),
+        showLoader: true
+      })
+
+      setSent(true)
+      setMessage('')
+    } catch (err: any) {
+      setError(err.message || 'Talep gönderilirken bir hata oluştu.')
+      setSent(false) // Ensure sent is false on error
     }
-    localStorage.setItem(key, JSON.stringify([req, ...previous]))
-    setSent(true)
-    setMessage('')
-    setTimeout(() => setSent(false), 3000)
   }
 
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <h1 className={styles.title}>Numune Talebi</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label}>
@@ -55,10 +68,15 @@ export default function SamplePage() {
             placeholder="İhtiyacınız olan ürün veya notunuzu buraya yazınız..."
           />
         </label>
-        {error && <div className={styles.error}>{error}</div>}
+        {error && (
+          <>
+            <div className={styles.error}>{error}</div>
+            <Link href="/my-account/addresses">Adres bilgisi eklemek için tıklayın.</Link>
+          </>
+        )}
         <button className={styles.submitBtn} type="submit">Talep Gönder</button>
         {sent && <div className={styles.sent}>Talebiniz iletildi. Teşekkürler!</div>}
       </form>
-    </main>
+    </div>
   )
 }

@@ -19,11 +19,13 @@ const LoginPage = () => {
     e.preventDefault()
     setError('')
     const { flag, userType, errorMsg } = await login(username, password)
+    console.log('🚀 ~ page.tsx:22 ~ handleSubmit ~ flag:', flag)
+    console.log('🚀 ~ page.tsx:23 ~ handleSubmit ~ userType:', userType)
     if (flag) {
       setError('')
       if (userType === "admin") {
         router.push("/admin")
-      } else if (userType === "regular") {
+      } else if (userType === "regular" || userType === "pharmacy" || userType === "doctor") {
         router.push("/my-account")
       }
     } else {

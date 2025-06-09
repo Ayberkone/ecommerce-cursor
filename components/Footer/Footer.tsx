@@ -11,6 +11,23 @@ import 'swiper/css/autoplay'
 import styles from './Footer.module.scss'
 import { Autoplay } from "swiper/modules"
 
+const paymentLogos = [
+  { src: "/img/payment/dikdortgen-logo-paytr.jpg", alt: "paytr" },
+  { src: "/img/payment/dikdortgen-logo-masterpass.jpg", alt: "masterpass" },
+  { src: "/img/payment/dikdortgen-logo-troy.jpg", alt: "troy" },
+  { src: "/img/payment/dikdortgen-logo-visa.jpg", alt: "visa" },
+  { src: "/img/payment/dikdortgen-logo-bkm.jpg", alt: "bkm" },
+  { src: "/img/payment/dikdortgen-logo-ptt.jpg", alt: "ptt" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-advantage.jpg", alt: "advantage" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-axess.jpg", alt: "axess" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-bonus.jpg", alt: "bonus" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-cardfinans.jpg", alt: "cardfinans" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-mastercard.jpg", alt: "mastercard" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-maximum.jpg", alt: "maximum" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-paraf.jpg", alt: "paraf" },
+  { src: "/img/payment/bankalar/dikdortgen-logo-ziraat.jpg", alt: "ziraat" },
+];
+
 export default function Footer() {
   return (
     <footer className={styles.footer}>
@@ -141,48 +158,11 @@ export default function Footer() {
               modules={[Autoplay]}
               className={styles.paymentSwiper}
             >
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/dikdortgen-logo-paytr.jpg" alt="paytr" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/dikdortgen-logo-masterpass.jpg" alt="masterpass" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/dikdortgen-logo-troy.jpg" alt="troy" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/dikdortgen-logo-visa.jpg" alt="visa" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/dikdortgen-logo-bkm.jpg" alt="bkm" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/dikdortgen-logo-ptt.jpg" alt="ptt" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-advantage.jpg" alt="advantage" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-axess.jpg" alt="axess" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-bonus.jpg" alt="bonus" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-cardfinans.jpg" alt="cardfinans" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-mastercard.jpg" alt="mastercard" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-maximum.jpg" alt="maximum" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-paraf.jpg" alt="paraf" objectFit="contain" fill />
-              </SwiperSlide>
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image src="/img/payment/bankalar/dikdortgen-logo-ziraat.jpg" alt="ziraat" objectFit="contain" fill />
-              </SwiperSlide>
+              {paymentLogos.map((logo, index) => (
+                <SwiperSlide key={index} className={styles.swiperSlide}>
+                  <Image src={logo.src} alt={logo.alt} objectFit="contain" fill sizes="(max-width: 600px) 100px, 50px" />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
           <div className={styles.logos}>
