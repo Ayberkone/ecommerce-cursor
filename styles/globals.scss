@@ -607,3 +607,11 @@ label {
     }
   }
 }
+
+.bg-colorful {
+  background: #7918f2;
+  background: -webkit-linear-gradient(-45deg, #ac32e4, #7918f2, #4801ff);
+  background: -o-linear-gradient(-45deg, #ac32e4, #7918f2, #4801ff);
+  background: -moz-linear-gradient(-45deg, #ac32e4, #7918f2, #4801ff);
+  background: linear-gradient(-65deg, #32d3e4, #108da2, #eb01ff);
+}
