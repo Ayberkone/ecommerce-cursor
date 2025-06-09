@@ -5,7 +5,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail, MapPin, ShieldPlus } from 'lucide-react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/autoplay'
 import styles from './Footer.module.scss'
+import { Autoplay } from "swiper/modules"
 
 export default function Footer() {
   return (
@@ -121,15 +125,69 @@ export default function Footer() {
             </Link>
           </div>
         </div>
+        <hr />
         <div className={styles.middle}>
+          <div className={styles.right}>
+            <Swiper
+              spaceBetween={10}
+              slidesPerView={5}
+              autoplay={{
+                delay: 1000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+                waitForTransition: true
+              }}
+              loop={true}
+              modules={[Autoplay]}
+              className={styles.paymentSwiper}
+            >
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/dikdortgen-logo-paytr.jpg" alt="paytr" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/dikdortgen-logo-masterpass.jpg" alt="masterpass" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/dikdortgen-logo-troy.jpg" alt="troy" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/dikdortgen-logo-visa.jpg" alt="visa" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/dikdortgen-logo-bkm.jpg" alt="bkm" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/dikdortgen-logo-ptt.jpg" alt="ptt" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-advantage.jpg" alt="advantage" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-axess.jpg" alt="axess" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-bonus.jpg" alt="bonus" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-cardfinans.jpg" alt="cardfinans" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-mastercard.jpg" alt="mastercard" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-maximum.jpg" alt="maximum" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-paraf.jpg" alt="paraf" objectFit="contain" fill />
+              </SwiperSlide>
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image src="/img/payment/bankalar/dikdortgen-logo-ziraat.jpg" alt="ziraat" objectFit="contain" fill />
+              </SwiperSlide>
+            </Swiper>
+          </div>
           <div className={styles.logos}>
-            <div className={styles.left}>
-              <Image src="/img/ricerfarma.png" alt="Ricerfarma" width={140} height={30} />
-              <Image src="/img/gengigel.png" alt="Gengigel" width={140} height={30} />
-            </div>
-            <div className={styles.right}>
-              {/* <Image src="https://farmalink.com.tr/app/Themes/default/assets/img/visamaster.svg" alt="Visa Master" width={84} height={30} /> */}
-            </div>
+            <Image src="/img/ricerfarma.png" alt="Ricerfarma" width={140} height={30} />
+            <Image src="/img/gengigel.png" alt="Gengigel" width={140} height={30} />
           </div>
           <div className={styles.notice}>
             GENGIGEL®, Ricerfarma s.r.l.&apos;ye ait tescilli bir ticari markadır. Farmalik Sağlık Ürünleri San. ve Tic. Ltd. Şti, Gengigel&apos;in Türkiye&apos;deki tek yetkili dağıtımcısıdır.
