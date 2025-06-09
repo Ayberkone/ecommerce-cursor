@@ -33,8 +33,8 @@ export default function BrandGallery() {
           fetchCategories(),
           fetchProducts({})
         ])
-        setCategories(cats)
-        setSelectedType(cats.length > 0 ? cats[0]._id : 'all')
+        setCategories([{ _id: 'all', name: 'Tüm Ürünler' }, ...cats])
+        setSelectedType('all')
         setProducts(products)
       } finally {
         setLoading(false)

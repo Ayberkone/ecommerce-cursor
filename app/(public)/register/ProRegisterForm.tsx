@@ -99,6 +99,7 @@ export default function ProRegisterForm() {
           }
         }
       })
+      reset()
     } catch (err: any) {
       toast.error(err.message || "Bir hata oluştu")
     }
@@ -206,10 +207,21 @@ export default function ProRegisterForm() {
         </div>
         <div className={styles.formGroup}>
           <input
-            {...register('phone')}
+            {...register('phone', {
+              onChange: (e) => {
+                let value = e.target.value;
+                const firstFiveIndex = value.indexOf('5')
+                if (firstFiveIndex !== -1) {
+                  value = value.substring(firstFiveIndex)
+                }
+                // Remove non-digits from the (potentially trimmed) value
+                value = value.replace(/\D/g, '')
+                e.target.value = value // Update the input element's value directly
+              }
+            })}
             className={styles.input}
             placeholder="5xx xxx xx xx"
-            maxLength={13}
+            maxLength={10}
             type="tel"
             autoComplete="tel"
           />
@@ -291,7 +303,7 @@ export default function ProRegisterForm() {
           className={styles.submitBtn}
           disabled={!!errors.acceptContract || isSubmitting}
         >
-          {isSubmitting ? 'Kaydediliyor...' : 'Kayıt Ol'}
+          {isSubmitting ? 'Başvuru Yapılıyor...' : 'Başvuruyu Gönder'}
         </button>
       </form>
     </div>

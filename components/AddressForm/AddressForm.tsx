@@ -83,6 +83,7 @@ export default function AddressForm({ defaultValues = {}, onSubmitAction, onCanc
 								message: "En fazla 11 hane olmalı"
 							}
 						})}
+						maxLength={11}
 						inputMode="numeric"
 						onInput={e => {
 							// Remove non-numeric chars live
