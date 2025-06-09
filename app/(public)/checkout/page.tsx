@@ -57,6 +57,19 @@ export default function CheckoutPage() {
 
       // 2. PayTR token'ı al
       const basket = items.map(i => [i.name, (i.price || 0).toFixed(2), i.quantity])
+      let userRealIp = "127.0.0.1" // Default fallback IP
+      try {
+        const ipResponse = await fetch('https://api.ipify.org?format=json')
+        if (ipResponse.ok) {
+          const ipData = await ipResponse.json()
+          userRealIp = ipData.ip
+        } else {
+          console.warn(`Failed to fetch user IP: ${ipResponse.status}. Using fallback IP.`)
+        }
+      } catch (error) {
+        console.error('Error fetching user IP:', error, 'Using fallback IP.')
+      }
+
       const paytr = await initPaytr({
         basket,
         email: info.email,
@@ -64,7 +77,7 @@ export default function CheckoutPage() {
         user_name: info.recipient,
         user_address: info.address,
         user_phone: info.phone,
-        user_ip: "127.0.0.1", // prod'da gerçek IP kullan!
+        user_ip: userRealIp, // Use the fetched or fallback IP
         merchant_oid: order.merchant_oid
       })
 
