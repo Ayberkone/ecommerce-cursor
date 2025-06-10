@@ -4,7 +4,7 @@ import styles from './AdminSidebar.module.scss'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Menu, LogOut, Box, User, ShoppingBag, Settings, SwatchBook } from 'lucide-react'
+import { Menu, LogOut, Box, User, FileStack, Ellipsis, ShoppingBag, Settings, SwatchBook } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext/AuthContext'
 
 const adminMenu = [
@@ -12,8 +12,9 @@ const adminMenu = [
 	{ key: 'orders', label: 'Siparişler', href: '/admin/orders', icon: Box },
 	{ key: 'products', label: 'Ürünler', href: '/admin/products', icon: ShoppingBag },
 	{ key: 'users', label: 'Kullanıcılar', href: '/admin/users', icon: User },
+	{ key: 'docs', label: 'Dökümanlar', href: '/admin/docs', icon: FileStack },
 	{ key: 'samples', label: 'N.Talepleri', href: '/admin/samples', icon: SwatchBook },
-	{ key: 'rest', label: 'Diğer', href: '/admin/categories-brands', icon: User },
+	{ key: 'rest', label: 'Diğer', href: '/admin/categories-brands', icon: Ellipsis },
 	{ key: 'settings', label: 'Ayarlar', href: '/admin/settings', icon: Settings }
 ]
 
