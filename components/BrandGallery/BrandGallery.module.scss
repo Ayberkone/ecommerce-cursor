@@ -14,7 +14,6 @@
 }
 
 .brandArea {
-  box-shadow: 12px 12px 8px 6px var(--gray-400);
   padding: 1rem;
   border-radius: 2rem;
   background-color: white;
@@ -26,6 +25,7 @@
   gap: 2rem;
   padding: 1rem 0;
   display: grid;
+  position: relative;
 
   button {
     background: none;
@@ -40,15 +40,23 @@
     justify-content: flex-end;
     transition: background 0.18s, box-shadow 0.18s;
 
-    .categoryIcon {
-      filter: drop-shadow(5px 5px 0px var(--gray-400));
-    }
-
     &:hover {
       background: var(--gray-100);
+      z-index: 2;
+      box-shadow: 0 0 10px var(--gray-400);
+
+      .categoryIcon {
+        filter: drop-shadow(5px 5px 0px var(--gray-400));
+      }
     }
     &.active {
-      background: var(--gray-200);
+      background: white;
+      z-index: 2;
+      box-shadow: 0 0 10px var(--gray-400);
+
+      .categoryIcon {
+        filter: drop-shadow(5px 5px 0px var(--gray-400));
+      }
 
       .turadi {
         color: var(--secondary);
@@ -59,6 +67,19 @@
       }
     }
   }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    border-radius: 2rem 0 0 2rem;
+    transition: background 0.18s;
+    pointer-events: none;
+    box-shadow: inset 0 0 20px 0 var(--gray-400);
+  }
 }
 
 .slideArea {
@@ -68,9 +89,11 @@
   align-items: center;
   justify-content: flex-start;
   padding: 2rem;
-  border: 10px solid var(--gray-200);
   border-radius: 0 2rem 2rem 0;
   position: relative;
+  background: var(--white);
+  // box-shadow: 12px 12px 8px 6px var(--gray-400);
+  z-index: 2;
 
   .swiper {
     width: 100%;
