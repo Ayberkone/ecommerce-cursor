@@ -4,7 +4,18 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { api } from '@/utils/api'
 import { toast } from 'sonner'
 
-export type UserType = 'pharmacy' | 'doctor' | 'regular' | 'admin'
+export type UserType = 'pharmacy' | 'doctor' | 'regular' | 'admin' | 'retailer'
+
+export const USER_TYPES: UserType[] = ['pharmacy', 'doctor', 'regular', 'admin', 'retailer']
+
+export const USER_TYPE_LABELS: Record<UserType, string> = {
+  pharmacy: 'Eczane',
+  doctor: 'Doktor',
+  regular: 'Bireysel',
+  admin: 'Yönetici',
+  retailer: 'Perakende'
+}
+
 export type User = {
   username: string
   firstName: string

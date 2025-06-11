@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BrushCleaning, MinusCircleIcon, PlusCircleIcon, Trash } from "lucide-react"
 import styles from './CartDrawer.module.scss'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { useEffect, useRef } from 'react'
 import { useRouter } from "next/navigation"
 

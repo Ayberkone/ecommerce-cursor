@@ -8,7 +8,7 @@ import ImageUploader from '@/components/ImageUploader/ImageUploader'
 import styles from './ProductForm.module.scss'
 import { api } from '@/utils/api'
 import { useRouter } from 'next/navigation'
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { fetchBrands, fetchCategories, fetchProduct, fetchCollections } from "@/utils/admin/adminApi"
 import Select from 'react-select'
 import Editor from 'react-simple-wysiwyg'

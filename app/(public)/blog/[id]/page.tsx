@@ -1,6 +1,6 @@
 'use client'
 
-import Image from "next/image"
+import Image from "next/legacy/image"
 import styles from './BlogDetail.module.scss'
 import { usePathname } from 'next/navigation'
 import blogs from '@/content/blogs'
@@ -33,7 +33,7 @@ export default function BlogDetailPage() {
             <Image
               src={image}
               alt={title}
-              fill
+              layout="fill"
               className={styles.blogImage}
               sizes="(max-width: 600px) 100vw, 50vw"
               priority

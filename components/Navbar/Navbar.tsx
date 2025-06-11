@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { usePathname } from 'next/navigation'
 import { ShoppingCart, Menu, X, UserSquare2, SquareMenu } from 'lucide-react'
 import styles from './Navbar.module.scss'
@@ -35,7 +35,7 @@ export default function Navbar() {
             <Image
               src={'/img/web-logo.svg'}
               alt="Farmalink Gengigel"
-              fill
+              layout="fill"
               style={{ objectFit: 'contain' }}
               priority
             />
@@ -156,7 +156,7 @@ export default function Navbar() {
           <X color="#23539B" size={24} />
         </button>
         <div className={styles.logoWrapper} style={{ marginBottom: '2rem' }}>
-          <Image src={'/img/web-logo.svg'} alt="Farmalink Gengigel" fill style={{ objectFit: 'contain' }} />
+          <Image src={'/img/web-logo.svg'} alt="Farmalink Gengigel" layout="fill" style={{ objectFit: 'contain' }} />
         </div>
         <nav className={styles.mobileMenuLinks}>
           <Link

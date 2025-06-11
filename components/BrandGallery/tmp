@@ -6,7 +6,7 @@
 // import 'swiper/css'
 // import 'swiper/css/navigation'
 // import styles from './BrandGallery.module.scss'
-// import Image from "next/image"
+// import Image from "next/legacy/image"
 // import Link from "next/link"
 // import { fetchCategories } from "@/utils/admin/adminApi"
 // import { fetchProducts } from "@/utils/products"

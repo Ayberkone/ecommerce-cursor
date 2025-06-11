@@ -1,5 +1,5 @@
 import React from "react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { Droplet, Shield, SprayCan, Syringe, Box, Bubbles } from "lucide-react"
 
 type CategoryIconProps = {

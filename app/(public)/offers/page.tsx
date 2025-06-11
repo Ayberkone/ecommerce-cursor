@@ -4,7 +4,7 @@ import styles from './Offers.module.scss'
 import { useCart } from '@/components/CartContext'
 import { motion } from 'framer-motion'
 import { useMemo } from "react"
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 
 export default function OffersPage() {

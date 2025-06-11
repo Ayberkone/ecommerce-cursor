@@ -4,7 +4,7 @@ import styles from './ProductCard.module.scss'
 import { useCart } from '@/components/CartContext'
 import { useAuth } from '@/context/AuthContext/AuthContext'
 import { toast } from 'sonner'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from "next/link"
 import { Product } from "@/types/Product"
 

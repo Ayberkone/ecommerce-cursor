@@ -6,7 +6,7 @@ import { EffectCards } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-cards'
 import styles from './BrandGallery.module.scss'
-import Image from "next/image"
+import Image from "next/legacy/image"
 import Link from "next/link"
 import { fetchCategories } from "@/utils/admin/adminApi"
 import { fetchProducts } from "@/utils/products"
@@ -116,7 +116,7 @@ export default function BrandGallery() {
                             <Image
                               src={prod.photoUrls?.[0] || '/img/placeholder.png'}
                               alt={prod.name}
-                              fill
+                              layout="fill"
                               objectFit="cover"
                               priority
                               className={styles.productImage}

@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import styles from './PhotoGallery.module.scss'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Thumbs, Keyboard } from 'swiper/modules'

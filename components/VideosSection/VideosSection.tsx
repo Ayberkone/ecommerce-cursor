@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import styles from './VideosSection.module.scss'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Link from 'next/link'
 import { Play } from 'lucide-react'
 import MediaModal, { MediaModalState } from "../MediaModal/MediaModal"

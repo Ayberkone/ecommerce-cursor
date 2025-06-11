@@ -23,6 +23,8 @@ const LoginPage = () => {
       setError('')
       if (userType === "admin") {
         router.push("/admin")
+      } else if (userType === "retailer") {
+        router.push("/retailer")
       } else if (userType === "regular" || userType === "pharmacy" || userType === "doctor") {
         router.push("/my-account")
       }

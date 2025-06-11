@@ -3,7 +3,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { Phone, Mail, MapPin, ShieldPlus } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -160,7 +160,7 @@ export default function Footer() {
             >
               {paymentLogos.map((logo, index) => (
                 <SwiperSlide key={index} className={styles.swiperSlide}>
-                  <Image src={logo.src} alt={logo.alt} objectFit="contain" fill sizes="(max-width: 600px) 100px, 50px" />
+                  <Image src={logo.src} alt={logo.alt} objectFit="contain" layout="fill" sizes="(max-width: 600px) 100px, 50px" />
                 </SwiperSlide>
               ))}
             </Swiper>

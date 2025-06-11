@@ -1,5 +1,5 @@
 @mixin generateFontSizes() {
-  $sizes:(12, 14, 16, 18, 20, 24, 32, 36, 40, 48, 54, 60, 64);
+  $sizes: (12, 14, 16, 18, 20, 24, 32, 36, 40, 48, 54, 60, 64);
   $spacing: 1px;
 
   @each $size in $sizes {
@@ -13,7 +13,7 @@
 @include generateFontSizes();
 
 @mixin generateFontWeights() {
-  $sizes:(100, 200, 300, 400, 500, 600, 700, 800, 900);
+  $sizes: (100, 200, 300, 400, 500, 600, 700, 800, 900);
 
   @each $size in $sizes {
     .font-weight-#{$size} {
@@ -25,44 +25,36 @@
 @include generateFontWeights();
 
 @font-face {
-  font-family: 'Patron';
-  src: url("/font/PatronWEB-Regular.woff") format("woff"), /* Modern Browsers */
-  url("/font/PatronWEB-Regular.woff2") format("woff2"), /* Super Modern Browsers */
-  url("/font/PatronWEB-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
-  url("/font/PatronWEB-Regular.otf") format("opentype");
+  font-family: "Patron";
+  src: url("/font/EudoxusSans-Regular.woff") format("woff"), /* Modern Browsers */ url("/font/EudoxusSans-Regular.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("/font/EudoxusSans-Regular.ttf") format("truetype"), /* Safari, Android, iOS */ url("/font/EudoxusSans-Regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Patron-Bold';
-  src: url("/font/PatronWEB-Bold.woff") format("woff"), /* Modern Browsers */
-  url("/font/PatronWEB-Bold.woff2") format("woff2"), /* Super Modern Browsers */
-  url("/font/PatronWEB-Bold.ttf") format("truetype"), /* Safari, Android, iOS */
-  url("/font/PatronWEB-Bold.otf") format("opentype");
+  font-family: "Patron-Bold";
+  src: url("/font/EudoxusSans-Bold.woff") format("woff"), /* Modern Browsers */ url("/font/EudoxusSans-Bold.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("/font/EudoxusSans-Bold.ttf") format("truetype"), /* Safari, Android, iOS */ url("/font/EudoxusSans-Bold.otf") format("opentype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Patron-Italic';
-  src: url("/font/PatronWEB-Italic.woff") format("woff"), /* Modern Browsers */
-  url("/font/PatronWEB-Italic.woff2") format("woff2"), /* Super Modern Browsers */
-  url("/font/PatronWEB-Italic.ttf") format("truetype"), /* Safari, Android, iOS */
-  url("/font/PatronWEB-Italic.otf") format("opentype");
+  font-family: "Patron-Italic";
+  src: url("/font/EudoxusSans-Italic.woff") format("woff"), /* Modern Browsers */ url("/font/EudoxusSans-Italic.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("/font/EudoxusSans-Italic.ttf") format("truetype"), /* Safari, Android, iOS */ url("/font/EudoxusSans-Italic.otf") format("opentype");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Patron-Bold-Italic';
-  src: url("/font/PatronWEB-BoldItalic.woff") format("woff"), /* Modern Browsers */
-  url("/font/PatronWEB-BoldItalic.woff2") format("woff2"), /* Super Modern Browsers */
-  url("/font/PatronWEB-BoldItalic.ttf") format("truetype"), /* Safari, Android, iOS */
-  url("/font/PatronWEB-BoldItalic.otf") format("opentype");
+  font-family: "Patron-Bold-Italic";
+  src: url("/font/EudoxusSans-BoldItalic.woff") format("woff"), /* Modern Browsers */ url("/font/EudoxusSans-BoldItalic.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("/font/EudoxusSans-BoldItalic.ttf") format("truetype"), /* Safari, Android, iOS */ url("/font/EudoxusSans-BoldItalic.otf") format("opentype");
   font-weight: normal;
   font-style: italic;
   font-display: swap;

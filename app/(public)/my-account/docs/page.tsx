@@ -5,7 +5,7 @@ import styles from './DocsPage.module.scss'
 import { FileText, Image as FileImage, Download, Eye } from 'lucide-react'
 import { useEffect, useState, useMemo } from 'react'
 import Modal from '@/components/Modal/Modal'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { api } from "@/utils/api"
 
 type Document = {
@@ -75,19 +75,21 @@ export default function DocsPage() {
 
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}>Dökümanlar</h1>
-      <div className={styles.filterRow}>
-        <span>Kategori:</span>
-        <select
-          value={category}
-          onChange={e => setCategory(e.target.value)}
-          className={styles.categorySelect}
-        >
-          <option value="">Tümü</option>
-          {CATEGORIES.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
+      <div className="d-flex justify-space w-100 align-center mb-16">
+        <h1 className="mb-0">Dökümanlar</h1>
+        <div className={styles.filterRow}>
+          <span>Kategori:</span>
+          <select
+            value={category}
+            onChange={e => setCategory(e.target.value)}
+            className={styles.categorySelect}
+          >
+            <option value="">Tümü</option>
+            {CATEGORIES.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
       </div>
       {Object.entries(groupedDocs).length === 0 && (
         <div className={styles.noData}>Henüz döküman yok.</div>
@@ -145,7 +147,7 @@ export default function DocsPage() {
                 <Image
                   src={selectedDoc.url}
                   alt={selectedDoc.title}
-                  fill
+                  layout="fill"
                   style={{ objectFit: 'contain' }}
                 />
               </div>

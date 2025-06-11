@@ -7,7 +7,7 @@ import styles from './ProductDetail.module.scss'
 import React, { useEffect, useState, use } from 'react';
 import ReviewList from "@/components/ReviewList/ReviewList"
 import PhotoGallery from "@/components/PhotoGallery/PhotoGallery"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import type { Product, Review } from '@/types/Product'
 import { useAuth } from "@/context/AuthContext/AuthContext"
 import { fetchProductById, fetchReviewsByProductId } from "@/utils/products"
