@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { verifyJWT } from "@/utils/jwtUtils"
+import { USER_TYPES } from "./types/User"
 
 export async function middleware(request: NextRequest) {
   // Only intercept public pages, not /admin/*
@@ -13,9 +14,13 @@ export async function middleware(request: NextRequest) {
   if (token) {
     try {
       const user = await verifyJWT(token)
-      if (user && user.type === "admin") {
+      if (user && user.type === USER_TYPES.ADMIN) {
         // Redirect admin to /admin no matter what they try to visit
         return NextResponse.redirect(new URL("/admin", request.url))
+      }
+      if (user && user.type === USER_TYPES.ORDER_ADMIN) {
+        // Redirect order admin to /order-admin no matter what they try to visit
+        return NextResponse.redirect(new URL("/order-admin", request.url))
       }
     } catch (err) {
       // Ignore errors, treat as guest

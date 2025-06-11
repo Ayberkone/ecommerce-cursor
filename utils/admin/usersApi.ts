@@ -19,7 +19,6 @@ export async function reactivateUser(id: string) {
 export async function approveUser(userId: string) {
   return api(`/api/admin/users/approve-user/${userId}`, {
     method: "POST",
-    body: JSON.stringify({ adminId: "admin" }), // replace with real session
     showLoader: true
   })
 }

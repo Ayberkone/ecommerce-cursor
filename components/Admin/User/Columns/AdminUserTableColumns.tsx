@@ -1,13 +1,9 @@
 // /components/Admin/AdminUserTableColumns.ts
 import { Column } from "@/components/Table/Table"
+import { USER_TYPE_LABELS, UserType } from "@/types/User" // Added UserType
 import { Trash, CheckCheck, X, Check, Eye } from 'lucide-react'
 
-const USER_TYPE_LABELS: Record<string, string> = {
-  regular: "Normal",
-  pharmacy: "Eczane",
-  doctor: "Doktor",
-  admin: "Admin"
-}
+
 
 export const userColumns: Column<any>[] = [
   { header: "Ad", accessor: "firstName", sortKey: "firstName" },
@@ -30,7 +26,7 @@ export const userColumns: Column<any>[] = [
   { header: "Telefon", accessor: "phone" },
   {
     header: "Tür",
-    accessor: (row: any) => USER_TYPE_LABELS[row.type] || row.type,
+    accessor: (row: { type: UserType }) => USER_TYPE_LABELS[row.type] || row.type,
     sortKey: "type"
   },
   {

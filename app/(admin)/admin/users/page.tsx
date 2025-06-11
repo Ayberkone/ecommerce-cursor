@@ -11,14 +11,7 @@ import { rejectedUserColumns } from "@/components/Admin/User/Columns/AdminReject
 import Tabs from "@/components/Tabs/Tabs"
 import Modal from "@/components/Modal/Modal"
 import RejectionModal from "@/components/Admin/RejectionModal/RejectionModal"
-
-const USER_TYPES = [
-	{ key: "", label: "Tümü" },
-	{ key: "regular", label: "Normal" },
-	{ key: "pharmacy", label: "Eczane" },
-	{ key: "doctor", label: "Doktor" },
-	{ key: "admin", label: "Admin" }
-]
+import { USER_TYPE_SELECT_OPTIONS } from "@/types/User"
 
 const TABS = [
 	{ key: 'pending', label: 'Onay Bekleyenler' },
@@ -164,7 +157,7 @@ export default function AdminUsersPage() {
 							<label>
 								Kullanıcı Tipi:
 								<select value={userTypeFilter} onChange={e => setUserTypeFilter(e.target.value)}>
-									{USER_TYPES.map(type => (
+									{USER_TYPE_SELECT_OPTIONS.map(type => (
 										<option key={type.key} value={type.key}>{type.label}</option>
 									))}
 								</select>

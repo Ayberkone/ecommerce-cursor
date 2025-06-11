@@ -3,29 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { api } from '@/utils/api'
 import { toast } from 'sonner'
-
-export type UserType = 'pharmacy' | 'doctor' | 'regular' | 'admin' | 'retailer'
-
-export const USER_TYPES: UserType[] = ['pharmacy', 'doctor', 'regular', 'admin', 'retailer']
-
-export const USER_TYPE_LABELS: Record<UserType, string> = {
-  pharmacy: 'Eczane',
-  doctor: 'Doktor',
-  regular: 'Bireysel',
-  admin: 'Yönetici',
-  retailer: 'Perakende'
-}
-
-export type User = {
-  username: string
-  firstName: string
-  lastName: string
-  type: UserType
-  id: string
-  email: string
-  phone: string
-  address: string
-}
+import { User, UserType } from "@/types/User"
 
 type LoginResponse = {
   flag: boolean

@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext/AuthContext'
 import styles from './LoginPage.module.scss'
 import Link from 'next/link'
 import { RenderIconHidePsw, RenderIconShowPsw } from "../register/RegularRegisterForm"
+import { USER_TYPES } from "@/types/User"
 
 const LoginPage = () => {
   const { login } = useAuth()
@@ -21,11 +22,11 @@ const LoginPage = () => {
     const { flag, userType, errorMsg } = await login(username, password)
     if (flag) {
       setError('')
-      if (userType === "admin") {
+      if (userType === USER_TYPES.ADMIN) {
         router.push("/admin")
-      } else if (userType === "retailer") {
-        router.push("/retailer")
-      } else if (userType === "regular" || userType === "pharmacy" || userType === "doctor") {
+      } else if (userType === USER_TYPES.ORDER_ADMIN) {
+        router.push("/order-admin")
+      } else if (userType === USER_TYPES.REGULAR || userType === USER_TYPES.PHARMACY || userType === USER_TYPES.DOCTOR) {
         router.push("/my-account")
       }
     } else {

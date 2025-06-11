@@ -7,11 +7,12 @@ import Providers from "@/components/Providers/Providers"
 import AdminNotificationBell from "@/components/Admin/AdminNotificationBell/AdminNotificationBell"
 import '@/styles/globals.scss'
 import styles from "./AdminLayout.module.scss"
+import { USER_TYPES } from "@/types/User"
 
 export default async function AdminRootLayout({ children }: { children: ReactNode }) {
 	const user = await getUserFromCookies()
 	if (!user) redirect(`/login?next=/admin`)
-	if (user.type !== "admin") redirect("/")
+	if (user.type !== USER_TYPES.ADMIN) redirect("/")
 	return (
 		<html lang="tr">
 			<body>
