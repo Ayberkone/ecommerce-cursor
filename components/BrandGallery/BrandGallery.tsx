@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCards } from 'swiper/modules'
+import { Navigation } from 'swiper/modules';
 import 'swiper/css'
-import 'swiper/css/effect-cards'
+import 'swiper/css/navigation';
 import styles from './BrandGallery.module.scss'
 import Image from "next/legacy/image"
 import Link from "next/link"
@@ -99,40 +99,47 @@ export default function BrandGallery() {
             </div>
             <div className={styles.slideArea}>
               {filtered?.length > 0 && (
-                <Swiper
-                  loop
-                  slidesPerView="auto"
-                  effect={'cards'}
-                  grabCursor={true}
-                  modules={[EffectCards]}
-                  spaceBetween={18}
-                  className={styles.swiper}
-                >
-                  {filtered.map((prod: Product) => (
-                    <SwiperSlide key={prod._id}>
-                      <div className={styles.productCard}>
-                        <Link href={`/products/${prod._id}`} className={styles.productLink}>
-                          <div className={styles.productImageWrapper}>
-                            <Image
-                              src={prod.photoUrls?.[0] || '/img/placeholder.png'}
-                              alt={prod.name}
-                              layout="fill"
-                              objectFit="cover"
-                              priority
-                              className={styles.productImage}
-                            />
-                          </div>
-                          <div className={styles.productInfo}>
-                            <div className={styles.productName}>{prod.name}</div>
-                            {prod.price && (
-                              <div className={styles.productPrice}>{prod.price.regular} ₺</div>
-                            )}
-                          </div>
-                        </Link>
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                <>
+                  <Swiper
+                    modules={[Navigation]}
+                    navigation={{
+                      nextEl: `.${styles.swiperButtonNext}`,
+                      prevEl: `.${styles.swiperButtonPrev}`,
+                    }}
+                    loop
+                    slidesPerView={1}
+                    grabCursor
+                    spaceBetween={18}
+                    className={styles.swiper}
+                  >
+                    {filtered.map((prod: Product) => (
+                      <SwiperSlide key={prod._id}>
+                        <div className={styles.productCard}>
+                          <Link href={`/products/${prod._id}`} className={styles.productLink}>
+                            <div className={styles.productImageWrapper}>
+                              <Image
+                                src={prod.photoUrls?.[0] || '/img/placeholder.png'}
+                                alt={prod.name}
+                                layout="fill"
+                                objectFit="contain"
+                                priority
+                                className={styles.productImage}
+                              />
+                            </div>
+                            <div className={styles.productInfo}>
+                              <div className={styles.productName}>{prod.name}</div>
+                              {prod.price && (
+                                <div className={styles.productPrice}>{prod.price.regular} ₺</div>
+                              )}
+                            </div>
+                          </Link>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  <div className={`${styles.swiperButtonPrev} swiper-button-prev`}></div>
+                  <div className={`${styles.swiperButtonNext} swiper-button-next`}></div>
+                </>
               )}
             </div>
           </div>

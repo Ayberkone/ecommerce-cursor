@@ -18,10 +18,6 @@ export async function middleware(request: NextRequest) {
         // Redirect admin to /admin no matter what they try to visit
         return NextResponse.redirect(new URL("/admin", request.url))
       }
-      if (user && user.type === USER_TYPES.ORDER_ADMIN) {
-        // Redirect order admin to /order-admin no matter what they try to visit
-        return NextResponse.redirect(new URL("/order-admin", request.url))
-      }
     } catch (err) {
       // Ignore errors, treat as guest
     }

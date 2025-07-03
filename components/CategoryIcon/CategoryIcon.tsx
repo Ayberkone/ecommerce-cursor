@@ -46,21 +46,18 @@ export function CategoryIcon({ name, selected = false, className = "", iconSize 
 		color: "#f4f4f7"
 	}
 
-	// Add border if selected
-	const border = selected ? "2px solid var(--primary-500)" : "2px solid transparent"
-
 	return (
 		<span
 			className={className}
 			style={{
 				background: map.color,
-				border,
 				borderRadius: 14,
 				width: iconSize + 24,
 				height: iconSize + 24,
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "center",
+				filter: selected ? 'drop-shadow(5px 5px 0px var(--gray-400))' : 'none',
 				boxShadow: selected ? "0 4px 16px rgba(67,191,163,0.08)" : "0 2px 8px rgba(67,191,163,0.06)",
 				transition: "border 0.2s"
 			}}

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react"
 import Image from "next/legacy/image"
-import { ChevronDown, ChevronRight, Plus, RefreshCcw, Trash, X } from 'lucide-react'
+import { ChevronDown, ChevronRight, Pencil, Plus, Trash, X } from 'lucide-react'
 import { api } from "@/utils/api"
 import styles from "./CRUDCard.module.scss"
 import { toast } from "sonner"
@@ -373,7 +373,7 @@ export default function CRUDCard({ title, endpoint, adminEndpoint, fields, rende
 													onClick={() => handleEdit(item)}
 													title="Düzenle"
 												>
-													<RefreshCcw size={16} />
+													<Pencil size={16} />
 												</button>
 												<button
 													type="button"

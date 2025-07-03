@@ -5,6 +5,7 @@ import Footer from "@/components/Footer/Footer"
 import '@/styles/globals.scss'
 import Navbar from '@/components/Navbar/Navbar'
 import Providers from "@/components/Providers/Providers"
+import AppExtras from "@/components/AppExtras"
 
 export default async function PublicRootLayout({ children }: { children: React.ReactNode }) {
   // SSR: This runs on every public page
@@ -18,6 +19,7 @@ export default async function PublicRootLayout({ children }: { children: React.R
     <html lang="tr">
       <body>
         <Providers>
+          <AppExtras />
           <Navbar />
           <div className="navbar-padding" />
           {children}

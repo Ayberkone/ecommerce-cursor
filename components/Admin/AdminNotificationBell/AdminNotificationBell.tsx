@@ -27,7 +27,9 @@ export default function AdminNotificationBell() {
 			setUnreadCount(count => count + 1)
 		})
 		sock.on("notificationRead", () => {
-			setUnreadCount(count => Math.max(count - 1, 0))
+			// Whenever a notification is marked read anywhere, refresh the count and list
+			fetchUnreadNotificationCount().then(setUnreadCount)
+			fetchNotifications({ limit: 5 }).then(data => setNotifications(data.notifications || []))
 		})
 		return () => {
 			sock.off("notification")

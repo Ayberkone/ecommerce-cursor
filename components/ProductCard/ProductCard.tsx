@@ -40,9 +40,9 @@ const ProductCard = ({ product }: Props) => {
           <Image
             src={imageUrl}
             alt={product?.name || '-'}
-            width={120}
-            height={120}
-            style={{ objectFit: 'cover', borderRadius: '0.75rem' }}
+            width={240}
+            height={240}
+            objectFit="contain"
             priority
           />
         </div>

@@ -49,6 +49,7 @@
   right: -20px;
   z-index: 3500;
   background: var(--primary-700);
+  border: 1px solid var(--primary-700);
   border-radius: 50%;
   transition: left 0.28s cubic-bezier(0.6, 0.22, 0.38, 0.89);
   box-shadow: 0 2px 8px rgba(36, 52, 85, 0.09);

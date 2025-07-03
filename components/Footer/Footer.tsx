@@ -40,6 +40,7 @@ export default function Footer() {
                 alt="Farmalink"
                 width={170}
                 height={60}
+                style={{ objectFit: 'contain' }}
                 priority
               />
             </Link>

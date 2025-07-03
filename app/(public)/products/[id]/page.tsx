@@ -3,6 +3,7 @@
 import { notFound, useRouter } from 'next/navigation'
 import { CartItem, useCart } from '@/components/CartContext'
 import { toast } from 'sonner'
+import ReactHtmlParser from 'react-html-parser'
 import styles from './ProductDetail.module.scss'
 import React, { useEffect, useState, use } from 'react';
 import ReviewList from "@/components/ReviewList/ReviewList"
@@ -12,7 +13,6 @@ import type { Product, Review } from '@/types/Product'
 import { useAuth } from "@/context/AuthContext/AuthContext"
 import { fetchProductById, fetchReviewsByProductId } from "@/utils/products"
 import { ArrowLeft } from "lucide-react"
-import DOMPurify from 'dompurify'
 import { CategoryIcon } from "@/components/CategoryIcon/CategoryIcon"
 import { ReviewForm } from "@/components/ReviewForm/ReviewForm"
 import { addReview, updateReview, deleteReview } from "@/utils/reviewsApi"
@@ -108,9 +108,9 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
   }
 
   // Example tab contents (customize as needed)
-  const description = <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product?.description?.normal) || "-" }} />
+  const description = <div>{product?.description?.normal ? ReactHtmlParser(product.description.normal) : "-"}</div>
   const usage = (
-    <div dangerouslySetInnerHTML={{ __html: product?.usage ? DOMPurify.sanitize(product?.usage) : "Kullanım talimatı yakında eklenecek." }} />
+    <div>{product?.usage ? ReactHtmlParser(product.usage) : "Kullanım talimatı yakında eklenecek."}</div>
   )
 
   return (

@@ -14,7 +14,7 @@ export const USER_TYPES = {
   DOCTOR: "doctor",
   REGULAR: "regular",
   ADMIN: "admin",
-  ORDER_ADMIN: "order_admin"
+  ORDER_ADMIN: "order_admin" // maybe to-do
 } as const
 
 export type UserType = (typeof USER_TYPES)[keyof typeof USER_TYPES]

@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import ReactHtmlParser from 'react-html-parser'
 import ProductCard from '@/components/ProductCard/ProductCard'
 import styles from './ProductsPage.module.scss'
 import type { Category, Collection, Product } from '@/types/Product'
 import { fetchProducts } from "@/utils/products"
 import { fetchCategories, fetchCollections } from "@/utils/admin/adminApi"
 import { ProductCardSkeletonList } from "@/components/ProductCard/ProductCardSkeleton"
-import DOMPurify from 'dompurify'
 import FilterButtonGroup from "./FilterButtonGroup"
 
 const DEBOUNCE_DELAY = 500
@@ -30,7 +30,7 @@ const ProductsPage = () => {
 
   const collectionDescription = useMemo(() => {
     const desc = collections.find(c => c._id === collection)?.description || ''
-    return desc ? <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(desc) }} /> : null
+    return desc ? <div>{ReactHtmlParser(desc)}</div> : null
   }, [collection, collections])
 
   useEffect(() => {

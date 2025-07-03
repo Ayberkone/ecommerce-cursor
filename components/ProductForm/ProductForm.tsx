@@ -12,6 +12,7 @@ import Image from "next/legacy/image"
 import { fetchBrands, fetchCategories, fetchProduct, fetchCollections } from "@/utils/admin/adminApi"
 import Select from 'react-select'
 import Editor from 'react-simple-wysiwyg'
+import ProductPhotoReorder from "../ProductPhotoReorder/ProductPhotoReorder"
 
 export default function ProductForm({ params }: { params: { id?: string } }) {
 	const router = useRouter()
@@ -177,6 +178,13 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 				{formik.touched.seoTitle && formik.errors.seoTitle && <div className={styles.err}>{formik.errors.seoTitle}</div>}
 			</div>
 			<div className={styles.sectionRow}>
+				<label>
+					Anahtar Kelimeler (virgül ile ayrılmış)*
+					<input name="keywords" value={formik.values.keywords} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+					{formik.touched.keywords && formik.errors.keywords && <div className={styles.err}>{formik.errors.keywords}</div>}
+				</label>
+			</div>
+			<div className={styles.sectionRow}>
 				<div>
 					<label>Kısa Açıklama*<input name="description.mini" value={formik.values.description.mini} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 					{formik.touched.description?.mini && formik.errors.description?.mini && <div className={styles.err}>{formik.errors.description.mini}</div>}
@@ -221,13 +229,6 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 					<label>Kullanım Şekli<input name="usage" value={formik.values.usage} onChange={formik.handleChange} onBlur={formik.handleBlur} /></label>
 					{formik.touched.usage && formik.errors.usage && <div className={styles.err}>{formik.errors.usage}</div>}
 				</div>
-			</div>
-			<div className={styles.sectionRow}>
-				<label>
-					Anahtar Kelimeler (virgül ile ayrılmış)*
-					<input name="keywords" value={formik.values.keywords} onChange={formik.handleChange} onBlur={formik.handleBlur} />
-					{formik.touched.keywords && formik.errors.keywords && <div className={styles.err}>{formik.errors.keywords}</div>}
-				</label>
 			</div>
 			<div className={styles.sectionRow}>
 				<label>
@@ -318,17 +319,11 @@ export default function ProductForm({ params }: { params: { id?: string } }) {
 				<strong>Fotoğraflar*</strong>
 				<ImageUploader onUploadAction={handleUploadPhoto} />
 				<div className={styles.imagePreviewGrid}>
-					{formik.values.photoUrls.map(url =>
-						<div key={url} className={styles.imagePreviewItem}>
-							<Image
-								src={url}
-								alt="Ürün fotoğrafı"
-								width={110}
-								height={110}
-							/>
-							<button type="button" onClick={() => removePhoto(url)} className={styles.removeImageBtn}>✕</button>
-						</div>
-					)}
+					<ProductPhotoReorder
+						photos={formik.values.photoUrls}
+						onChange={urls => formik.setFieldValue("photoUrls", urls)}
+						removePhoto={removePhoto}
+					/>
 				</div>
 				{formik.touched.photoUrls && typeof formik.errors.photoUrls === 'string' && <div className={styles.err}>{formik.errors.photoUrls}</div>}
 			</div>

@@ -66,6 +66,7 @@ export default function VideosSection() {
                     alt={v.title}
                     width={480}
                     height={270}
+                    priority
                     className={styles.thumb}
                   />
                   <span className={styles.playIcon}>

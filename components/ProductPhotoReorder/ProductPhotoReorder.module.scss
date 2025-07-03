@@ -1,0 +1,56 @@
+.photoList {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 8px 0;
+  overflow-x: auto;
+}
+.photoItem {
+  position: relative;
+  cursor: grab;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0002;
+  padding: 4px;
+  &.dragging {
+    box-shadow: 0 4px 16px #3267fa33;
+    background: #f4f8ff;
+  }
+}
+.orderBadge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: #3267fa;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.removeImageBtn {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  background-color: var(--danger);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm); // Make the 'x' smaller
+  width: 20px;
+  height: 20px;
+  line-height: 1; // Ensure 'x' is centered
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: var(--danger-600);
+    transform: scale(1.05);
+  }
+}

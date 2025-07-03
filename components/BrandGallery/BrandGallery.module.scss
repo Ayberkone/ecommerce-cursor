@@ -39,24 +39,17 @@
     display: flex;
     justify-content: flex-end;
     transition: background 0.18s, box-shadow 0.18s;
+    border: 2px solid transparent;
 
     &:hover {
       background: var(--gray-100);
       z-index: 2;
       box-shadow: 0 0 10px var(--gray-400);
-
-      .categoryIcon {
-        filter: drop-shadow(5px 5px 0px var(--gray-400));
-      }
     }
     &.active {
       background: white;
       z-index: 2;
       box-shadow: 0 0 10px var(--gray-400);
-
-      .categoryIcon {
-        filter: drop-shadow(5px 5px 0px var(--gray-400));
-      }
 
       .turadi {
         color: var(--secondary);
@@ -208,9 +201,10 @@
 }
 
 .productName {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  color: var(--primary-800);
+  color: var(--primary-600);
+  text-align: center;
 }
 .productPrice {
   font-size: 1.9rem;
